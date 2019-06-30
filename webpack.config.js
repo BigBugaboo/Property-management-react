@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/views/pages/index.js',
     output: {
         path: __dirname + '/public',
         publicPath: '/',
@@ -15,7 +15,7 @@ module.exports = {
                 use: ["babel-loader", "eslint-loader"]
             },
             {
-                test: /\.(css|sass)$/,
+                test: /\.(css|scss)$/,
                 use: ["style-loader", "css-loader", "sass-loader"]
             },
             {

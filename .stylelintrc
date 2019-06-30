@@ -1,0 +1,37 @@
+{
+    "rules": {
+        "block-no-empty": null,
+        "color-no-invalid-hex": true,
+        "comment-empty-line-before": [ "always", {
+            "ignore": ["stylelint-commands", "after-comment"]
+        } ],
+        "indentation": [4, {
+            "except": ["value"]
+        }],
+        "max-empty-lines": 2,
+        "unit-whitelist": ["em", "rem", "%", "px", "vh", "vw", "deg", "ms", "s"],
+        "at-rule-name-case": "lower",
+        "selector-type-case": "lower",
+        "selector-pseudo-element-case": "lower",
+        "at-rule-name-newline-after": "always-multi-line",
+        "at-rule-name-space-after": "always-single-line",
+        "at-rule-semicolon-space-before": "never",
+        "selector-attribute-brackets-space-inside": "never",
+        "no-extra-semicolons": true,
+        "declaration-colon-space-after": "always",
+        "declaration-colon-space-before": "never",
+        "selector-type-no-unknown": [true, {
+            "ignoreTypes": ["page", "view", "image"],
+        }],
+        "selector-pseudo-class-no-unknown": true,
+        "selector-pseudo-element-no-unknown": true,
+        "selector-pseudo-element-colon-notation": "double",
+        "selector-attribute-operator-space-before": "always",
+        "selector-attribute-operator-space-after": "always",
+        "block-closing-brace-empty-line-before": "never",
+        "block-opening-brace-newline-after": "always-multi-line",
+        "block-opening-brace-space-before": "always",
+        "selector-list-comma-space-after": "always",
+        "selector-list-comma-space-before": "never"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "stylelint.enable": true,
+    "stylelint.configOverrides": {
+        "ignoreFiles": [
+            "src/components/**",
+            "src/assets/**",
+            "src/pages/**",
+            "src/utils/**",
+            "src/layouts/**",
+            "src/router/**",
+            "src/storage/**",
+            "src/stores/**",
+        ],
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+    ]
+}

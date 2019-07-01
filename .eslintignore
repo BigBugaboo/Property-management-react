@@ -1,7 +1,6 @@
 dist
 build
 public
+config
 node_modules
 webpack.config.js
-
-global.d.ts

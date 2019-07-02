@@ -12,7 +12,7 @@ module.exports = {
         'main': './src/app.jsx',
     },
     output: {
-        path: __dirname + '/dist/js',
+        path: path.resolve(__dirname, '../') + '/dist',
         filename: 'bundle.js'
     },
     module: {
@@ -43,15 +43,11 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             favicon: '',
-            filename: './dist/html/index.html',
+            filename: './index.html',
             template: './src/index.html',
             inject: 'body',
             hash: true
         }),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'main', // 上面入口定义的节点组
-        //     filename: 'build.js' //最后生成的文件名
-        // }),
         new HappyPack({
             id: 'happyBabel',
             cache: true,
@@ -63,6 +59,6 @@ module.exports = {
         }),
     ],
     devServer: {
-        contentBase: './src'
+        contentBase: './dist'
     }
 };

@@ -12,7 +12,7 @@ module.exports = {
         'main': './src/app.jsx',
     },
     output: {
-        path: __dirname + '/dist/js',
+        path: path.resolve(__dirname, '../') + '/dist',
         filename: 'bundle.js'
     },
     module: {
@@ -43,7 +43,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             favicon: '',
-            filename: '../html/index.html',
+            filename: './index.html',
             template: './src/index.html',
             inject: 'body',
             hash: true

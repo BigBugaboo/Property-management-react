@@ -3,7 +3,7 @@
 
 ### developer
 - 何俊泽
-- 景微
+- 景薇
 
 ### technology/frame
 

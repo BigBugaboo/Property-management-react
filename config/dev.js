@@ -23,11 +23,18 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.(css|scss|less)$/,
+                test: /\.(css|scss)$/,
                 use: [
                     "style-loader",
                     "css-loader",
                     "sass-loader",
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
                     {
                         loader: 'less-loader',
                         options: { javascriptEnabled: true }

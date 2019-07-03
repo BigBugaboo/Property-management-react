@@ -19,8 +19,17 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                loader: 'happypack/loader?id=happyBabel',
                 exclude: /node_modules/,
+                use: [{
+                        loader: 'happypack/loader?id=happyBabel',
+                    },
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env', '@babel/preset-react'],
+                            plugins: ['@babel/plugin-proposal-class-properties']
+                        }
+                    }]
             },
             {
                 test: /\.(css|scss)$/,

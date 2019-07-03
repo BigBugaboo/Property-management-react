@@ -2,7 +2,9 @@ const path = require('path');
 const webpack = require('webpack'); //访问内置的插件
 const HappyPack = require('happypack'); // 加快构建速度
 const os = require('os');
-const happThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }); // 根据 CPU 设置线程数量
+const happThreadPool = HappyPack.ThreadPool({
+    size: os.cpus().length
+}); // 根据 CPU 设置线程数量
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //通过 npm 安装
 
 module.exports = {
@@ -16,11 +18,19 @@ module.exports = {
         filename: 'bundle.js'
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.(js|jsx)$/,
-                loader: 'happypack/loader?id=happyBabel',
                 exclude: /node_modules/,
+                use: [{
+                        loader: 'happypack/loader?id=happyBabel',
+                    },
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env', '@babel/preset-react'],
+                            plugins: ['@babel/plugin-proposal-class-properties']
+                        }
+                    }]
             },
             {
                 test: /\.(css|scss)$/,
@@ -37,7 +47,9 @@ module.exports = {
                     "css-loader",
                     {
                         loader: 'less-loader',
-                        options: { javascriptEnabled: true }
+                        options: {
+                            javascriptEnabled: true
+                        }
                     }
                 ]
             },

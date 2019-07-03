@@ -5,14 +5,16 @@
     "stylelint.enable": true,
     "stylelint.configOverrides": {
         "ignoreFiles": [
+            "node_modules/**",
             "src/components/**",
             "src/assets/**",
             "src/pages/**",
             "src/utils/**",
             "src/layouts/**",
-            "src/router/**",
+            "src/routes/**",
             "src/storage/**",
             "src/stores/**",
+            "package.json",
         ],
     },
     "eslint.validate": [

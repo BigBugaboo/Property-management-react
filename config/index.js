@@ -10,6 +10,7 @@ const config = {
             '@/utils': path.resolve(__dirname, '..', 'src/utils'),
             '@/styles': path.resolve(__dirname, '..', 'src/styles'),
             '@/assets': path.resolve(__dirname, '..', 'src/assets'),
+            '@/routes': path.resolve(__dirname, '..', 'src/routes'),
             '@/storage': path.resolve(__dirname, '..', 'src/storage'),
             '@/stores': path.resolve(__dirname, '..', 'src/stores'),
         },

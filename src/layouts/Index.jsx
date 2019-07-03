@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Layout, Breadcrumb } from 'antd';
 
 import Nav from '@/components/common/Nav';
-import '@/styles/layouts/index.scss';
 
 const { Header, Content, Footer, Sider } = Layout;
-/** 布局 */
+
+/** 侧边导航栏布局 */
 export default class SiderLayout extends Component {
 
     constructor(props) {

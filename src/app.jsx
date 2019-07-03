@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Main from '@/layouts/Index';
+import App from '@/layouts/SiderLayout';
 import '@/styles/app.scss';
 
-ReactDOM.render(<Main />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 
 // import React from 'react';

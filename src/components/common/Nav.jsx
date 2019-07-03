@@ -38,12 +38,12 @@ export default class Nav extends Component {
                                         <span>{item.title}</span>
                                     </span>
                                 }>
-                                {item.children.map((child, key) => (
-                                    <Item key={index + key}>{child.title}</Item>
+                                {item.children.map(child => (
+                                    <Item>{child.title}</Item>
                                 ))}
                             </SubMenu>
                             :
-                            <Item key={index}>
+                            <Item>
                                 <Icon type={item.icon} />
                                 <span>{item.title}</span>
                             </Item>

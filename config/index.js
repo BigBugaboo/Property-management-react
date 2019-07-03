@@ -6,6 +6,7 @@ const config = {
         extensions: ['*', '.js', '.jsx', '.css', '.sass'],
         alias: {
             '@/components': path.resolve(__dirname, '..', 'src/components'),
+            '@/pages': path.resolve(__dirname, '..', 'src/pages'),
             '@/layouts': path.resolve(__dirname, '..', 'src/layouts'),
             '@/utils': path.resolve(__dirname, '..', 'src/utils'),
             '@/styles': path.resolve(__dirname, '..', 'src/styles'),

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
 
 import Nav from '@/components/common/Nav';
 import TopBanner from '@/components/common/TopBanner';
+import Index from '@/pages/Index';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -126,11 +127,7 @@ export default class SiderLayout extends Component {
                         <TopBanner />
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>Bill is a cat.</div>
+                        <Index />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>电科大16级-计算机-软件/吴彦组制作</Footer>
                 </Layout>

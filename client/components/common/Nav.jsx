@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import '@/styles/components/common/nav.scss';
 
@@ -15,10 +16,6 @@ export default class Nav extends Component {
 
     static defaultProps = {
 
-    }
-
-    onClick = (e) => {
-        console.log(e);
     }
 
     render() {
@@ -39,17 +36,15 @@ export default class Nav extends Component {
                                     </span>
                                 }>
                                 {item.children.map((child, key) => (
-                                    <Item
-                                        key={index * 10 + key}
-                                        onClick={this.onClick.bind(this, child)}>
+                                    <Item key={index * 10 + key}>
+                                        { item.path && <Link to={item.path} /> }
                                         {child.title}
                                     </Item>
                                 ))}
                             </SubMenu>
                             :
-                            <Item
-                                key={index}
-                                onClick={this.onClick.bind(this, item)}>
+                            <Item key={index}>
+                                { item.path && <Link to={item.path} />}
                                 <Icon type={item.icon} />
                                 <span>{item.title}</span>
                             </Item>

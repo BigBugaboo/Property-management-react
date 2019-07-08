@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PageHeader } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 import * as actions from '../api/counter';
 

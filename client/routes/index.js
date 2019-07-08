@@ -1,20 +1,25 @@
-import Login from '@/layouts/login';
-import Main from '@/layouts/Index';
-import On from '@/pages/On';
+/* eslint-disable no-undef */
+import React, { Component } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
+import SiderLayout from '@/layouts/SiderLayout';
+import Login from '@/layouts/Login';
 
-export default [
-    {
-        path: '/login',
-        component: Login
-    },
-    {
-        path: '/',
-        component: Main,
-    },
-    {
-        path: '/on',
-        exact: true,
-        component: On
+const routes = require('./routes.js');
+
+class RouterIndex extends Component {
+    render() {
+        return (
+            <Switch>
+                <Route path='/' component={Login} />
+                <SiderLayout>
+                    {routes.map((item, index) => (
+                        <Route key={index} path={item.path} component={item.component} />
+                    ))}
+                </SiderLayout>
+            </Switch>
+        );
     }
-];
+}
+
+export default RouterIndex;

@@ -3,7 +3,6 @@ import { Layout } from 'antd';
 
 import Nav from '@/components/common/Nav';
 import TopBanner from '@/components/common/TopBanner';
-import Index from '@/pages/Index';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -18,21 +17,21 @@ class SiderLayout extends Component {
             menu: {
                 title: '物业管理系统',
                 icon: 'desktop',
-                path: '/index',
+                path: '/Index',
                 list: [
                     {
                         title: '首页管理',
-                        path: '',
+                        path: '/Index',
                         icon: 'snippets',
                     },
                     {
                         title: '基本设置',
-                        path: '',
+                        path: '/Index',
                         icon: 'user',
                         children: [
                             {
                                 title: '管理员密码修改',
-                                path: '',
+                                path: '/Index',
                             }
                         ],
                     },
@@ -42,11 +41,11 @@ class SiderLayout extends Component {
                         children: [
                             {
                                 title: '住户基本资料添加',
-                                path: '',
+                                path: '/Index',
                             },
                             {
                                 title: '管理',
-                                path: '',
+                                path: '/Index',
                             },
                         ],
                     },
@@ -56,11 +55,11 @@ class SiderLayout extends Component {
                         children: [
                             {
                                 title: '投诉添加',
-                                path: '',
+                                path: '/Index',
                             },
                             {
                                 title: '投诉管理',
-                                path: '',
+                                path: '/Index',
                             },
                         ],
                     },
@@ -129,7 +128,7 @@ class SiderLayout extends Component {
                         <TopBanner />
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
-                        <Index />
+                        {this.props.children}
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>电科大16级-计算机-软件/吴彦组制作</Footer>
                 </Layout>

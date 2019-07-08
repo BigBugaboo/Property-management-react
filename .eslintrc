@@ -36,6 +36,7 @@
         "react/jsx-indent-props": ["error", 4],
         "react/no-unused-state": "warn",
 
+        "no-unused-vars": "warn",
         "no-console": "off",
         "getter-return": "error",
         "no-debugger": "error",
@@ -89,6 +90,7 @@
         "no-shadow": "off",
 
         "jsx-a11y/anchor-is-valid": "off",
+        "react/prop-types": "warn",
         "react/no-find-dom-node": "error",
         "react/no-typos": "error",
         "react/no-this-in-sfc": "error",

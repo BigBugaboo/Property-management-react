@@ -22,14 +22,17 @@ redux | 前端数据状态管理框架。
 开发需要 nodejs 环境。
 
 ```bash
-# 安装依赖
+## 安装依赖
 npm install
 ## 或者
 yarn
 
-# 开发模式
-npm start
+## 开发模式
+npm run start
 
-# 编译
+## 编译
 npm run build
+
+## 启动服务器
+npm run server
 ```

@@ -5,10 +5,11 @@ import Nav from '@/components/common/Nav';
 import TopBanner from '@/components/common/TopBanner';
 import Index from '@/pages/Index';
 
+
 const { Header, Content, Footer, Sider } = Layout;
 
 /** 侧边导航栏布局 */
-export default class SiderLayout extends Component {
+class SiderLayout extends Component {
 
     constructor(props) {
         super(props);
@@ -17,6 +18,7 @@ export default class SiderLayout extends Component {
             menu: {
                 title: '物业管理系统',
                 icon: 'desktop',
+                path: '/index',
                 list: [
                     {
                         title: '首页管理',
@@ -135,3 +137,5 @@ export default class SiderLayout extends Component {
         );
     }
 }
+
+export default SiderLayout;

@@ -38,12 +38,18 @@ export default class Nav extends Component {
                                         <span>{item.title}</span>
                                     </span>
                                 }>
-                                {item.children.map(child => (
-                                    <Item>{child.title}</Item>
+                                {item.children.map((child, key) => (
+                                    <Item
+                                        key={index * 10 + key}
+                                        onClick={this.onClick.bind(this, child)}>
+                                        {child.title}
+                                    </Item>
                                 ))}
                             </SubMenu>
                             :
-                            <Item>
+                            <Item
+                                key={index}
+                                onClick={this.onClick.bind(this, item)}>
                                 <Icon type={item.icon} />
                                 <span>{item.title}</span>
                             </Item>

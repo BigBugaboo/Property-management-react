@@ -90,7 +90,7 @@
         "no-shadow": "off",
 
         "jsx-a11y/anchor-is-valid": "off",
-        "react/prop-types": "warn",
+        "react/prop-types": "off",
         "react/no-find-dom-node": "error",
         "react/no-typos": "error",
         "react/no-this-in-sfc": "error",

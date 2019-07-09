@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Icon, Button, Form } from 'antd';
 
+import { _login } from '@/api/login.js';
 import '@/styles/layouts/login.scss';
 import LoginForm from '@/components/common/LoginForm';
 
@@ -17,11 +18,14 @@ export default class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
+        let history = this.props.history;
+        console.log(history);
+        // this.props.form.validateFields((err, values) => {
+        //     if (!err) {
+        //         console.log('Received values of form: ', values);
+        //         // history.push('/View');
+        //     }
+        // });
     };
 
     render() {
@@ -37,7 +41,7 @@ export default class Login extends Component {
                     <div className='form-group'>
                         <div className='input-list'>
                             <h2>物业管理系统 | 登录</h2>
-                            <LoginForm />
+                            <LoginForm handleSubmit={this.handleSubmit} />
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import * as actions from '../api/counter';
+import * as actions from '../actions/counter';
 
 
 const mapStateToProps = (state, ownProps) => {

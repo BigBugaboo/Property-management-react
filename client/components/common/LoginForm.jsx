@@ -13,22 +13,16 @@ export default class Login extends Component {
         };
     }
 
-    handleSubmit = e => {
-        e.preventDefault();
-        history.push('/Index');
-        // let history = this.props.history;
-        // this.props.form.validateFields((err, values) => {
-        //     if (!err) {
-        //         console.log('Received values of form: ', values);
-        //         // history.push('/View');
-        //     }
-        // });
-    };
+    handleSubmit = () => {
+
+    }
 
     render() {
+        const { handleSubmit } = this.props;
+
         return (
             <Form
-                onSubmit={this.handleSubmit}
+                onSubmit={handleSubmit}
                 className='login-form'>
                 <Form.Item>
                     <Input

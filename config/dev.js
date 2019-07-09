@@ -134,6 +134,7 @@ module.exports = {
             '@/routes': path.resolve(__dirname, '..', 'client/routes'),
             '@/storage': path.resolve(__dirname, '..', 'client/storage'),
             '@/stores': path.resolve(__dirname, '..', 'client/stores'),
+            '@/api': path.resolve(__dirname, '..', 'client/api'),
         },
     }
 };

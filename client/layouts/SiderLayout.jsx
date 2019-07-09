@@ -25,13 +25,18 @@ class SiderLayout extends Component {
                         icon: 'snippets',
                     },
                     {
+                        title: '测试',
+                        path: '/Resident',
+                        icon: 'snippets',
+                    },
+                    {
                         title: '基本设置',
                         path: '/Index',
                         icon: 'user',
                         children: [
                             {
-                                title: '管理员密码修改',
-                                path: '/Index',
+                                title: '账号管理',
+                                path: '/Account',
                             }
                         ],
                     },
@@ -94,16 +99,7 @@ class SiderLayout extends Component {
                     {
                         title: '停车场车位管理',
                         icon: 'car',
-                        children: [
-                            {
-                                title: '停车位添加',
-                                path: '',
-                            },
-                            {
-                                title: '信息管理',
-                                path: '',
-                            }
-                        ],
+                        path: '/Park'
                     }
                 ]
             }
@@ -127,7 +123,7 @@ class SiderLayout extends Component {
                     <Header style={{ background: '#fff', padding: 0 }}>
                         <TopBanner />
                     </Header>
-                    <Content style={{ margin: '0 16px' }}>
+                    <Content style={{ margin: '16px 16px' }}>
                         {this.props.children}
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>电科大16级-计算机-软件/吴彦组制作</Footer>

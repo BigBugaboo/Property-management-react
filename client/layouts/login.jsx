@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Input, Icon, Button, Form } from 'antd';
 
 import '@/styles/layouts/login.scss';
-import LoginForm from '@/component/common/LoginForm';
+import LoginForm from '@/components/common/LoginForm';
 
 import ad from '@/assets/bg.png';
 

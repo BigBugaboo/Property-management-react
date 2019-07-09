@@ -16,7 +16,7 @@ export default class TopBanner extends Component {
         const { isLogin } = this.state;
 
         return (
-            <div className='root'>
+            <div id='top-banner'>
                 {isLogin ?
                     <div>
                         欢迎XXX，进入物业管理系统。

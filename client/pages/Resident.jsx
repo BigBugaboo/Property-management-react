@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import * as actions from '../action/counter';
+import * as actions from '../api/counter';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -29,11 +29,7 @@ class Index extends Component {
             <>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                     <div>
-                        <h1>{this.props.count}</h1>
-                        <button onClick={this.props.actions.increase}>增加</button>
-                        <button onClick={this.props.actions.decrease}>减少</button>
-                        <button onClick={this.props.actions.asyncIncrease}>异步增加</button>
-                        <button onClick={this.props.actions.asyncDecrease}>异步增加</button>
+                        住户
                     </div>
                 </div>
             </>

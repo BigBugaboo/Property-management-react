@@ -34,7 +34,7 @@ router.get('/favicon.ico', (ctx, next) => {
 })
 
 // 渲染页面
-router.get('/', async (ctx, next) => {
+router.get('*', async (ctx, next) => {
     const htmlFile = await new Promise((resolve, reject) => {
         fs.readFile(
             path.resolve(__dirname, '../client/index.html'),

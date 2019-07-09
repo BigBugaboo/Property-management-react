@@ -38,8 +38,8 @@ module.exports = {
             test: /\.scss$/,
             use: [
                 "style-loader",
-                "css-loader?modules&localIdentName=[local]_[hash:base64:5]",
-                "sass-loader",
+                "css-loader",
+                "sass-loader?localIdentName=[local]_[hash:base64:5]",
             ]
         },
         {

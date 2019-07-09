@@ -7,7 +7,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import App from '@/layouts/SiderLayout';
 import '@/styles/app.scss';
 import configureStore from './store/index';
-import RouterIndex from './routes/index.js'; //引入路由管理js
+import RouterIndex from './router/index.js'; //引入路由管理js
 
 const store = configureStore();
 

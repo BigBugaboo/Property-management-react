@@ -37,7 +37,7 @@ export default class Nav extends Component {
                                 }>
                                 {item.children.map((child, key) => (
                                     <Item key={index * 10 + key}>
-                                        { item.path && <Link to={child.path} /> }
+                                        { child.path && <Link to={child.path} /> }
                                         {child.title}
                                     </Item>
                                 ))}

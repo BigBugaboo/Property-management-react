@@ -111,7 +111,7 @@
         }],
         "react/jsx-tag-spacing": "error",
         "react/jsx-closing-tag-location": "error",
-        "react/jsx-boolean-value": ["error", "always"],
+        "react/jsx-boolean-value": ["off", "always"],
         "react/jsx-equals-spacing": ["error", "never"],
         "react/jsx-key": "warn",
         "react/forbid-elements": ["warn", {

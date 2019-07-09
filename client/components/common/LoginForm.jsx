@@ -46,7 +46,7 @@ export default class Login extends Component {
                         className='login-form-button'>
                         登录
                     </Button>
-                    <Link to='/Index'>跳转</Link>
+                    <Link to='/Main'>跳转</Link>
                 </Form.Item>
             </Form>
         );

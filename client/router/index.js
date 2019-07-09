@@ -11,21 +11,32 @@ class RouterIndex extends Component {
     render() {
         return (
             <div>
-                <Switch>
-                    <Route exact={true} path='/' component={Login} />
-                    <SiderLayout>
-                        {routes.map((item, index) => (
-                            <Route key={index} path={item.path} component={item.component} />
-                        ))}
-                        {/* <PrivateRoute path='/protected' component={Protected} /> */}
-                    </SiderLayout>
-                </Switch>
+                <Router>
+                    <div>
+                        <Route exact path='/' component={Login} />
+                        <Route path='/Main' component={Mod} />
+                    </div>
+                </Router>
             </div>
         );
     }
 }
 
 export default RouterIndex;
+
+const Mod = ({ match }) => (
+    <Switch>
+        <SiderLayout>
+            {routes.map((item, index) => {
+                const path = match.url + item.path;
+                return (
+                    <Route exact key={index} path={path} component={item.component} />
+                );
+            })}
+            {/* <PrivateRoute path='/protected' component={Protected} /> */}
+        </SiderLayout>
+    </Switch>
+);
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (

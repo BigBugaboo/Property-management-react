@@ -7,7 +7,7 @@ const Visualizer = require('webpack-visualizer-plugin')
 
 module.exports = {
     entry: {
-        main: path.join(__dirname, '../client/index.js'), //入口文件
+        main: path.join(__dirname, '../client/app.js'), //入口文件
         vendor: [
             'react',
             'react-dom',
@@ -31,9 +31,11 @@ module.exports = {
 
     module: {
         rules: [{
-            test: /\.js$/,
-            use: 'babel-loader', //编译js文件的loader,
-            exclude: /node_modules/
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: [
+                'babel-loader?cacheDirectory',
+            ],
         },
         {
             test: /\.css$/,
@@ -53,19 +55,11 @@ module.exports = {
         },
         {
             test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [
-                    'css-loader?minimize=true&modules&localIdentName=[local]-[hash:base64:5]',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: [autoprefixer]
-                        }
-                    },
-                    'sass-loader'
-                ]
-            }),
+            use: [
+                "style-loader",
+                "css-loader",
+                "sass-loader?localIdentName=[local]_[hash:base64:5]",
+            ],
             exclude: /node_modules/
         },
         {
@@ -75,20 +69,49 @@ module.exports = {
         },
         {
             test: /\.less$/,
-            exclude: /node_modules/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [
-                    'css-loader?minimize=true&modules&localIdentName=[local]-[hash:base64:5]',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: [autoprefixer]
-                        }
-                    },
-                    'less-loader'
-                ]
-            })
+            exclude: [/node_modules/], //非antd目录开启css modules
+            use: [
+                "style-loader",
+                {
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 2,
+                        modules: true,
+                        sourceMap: true,
+                        localIdentName: '[local]_[hash:base64:5]'
+                    }
+                },
+                {
+                    loader: 'less-loader',
+                    options: {
+                        javascriptEnabled: true,
+                        modules: true,
+                        sourceMap: true,
+                        localIdentName: '[local]_[hash:base64:5]'
+                    }
+                }
+            ]
+        },
+        {
+            test: /\.less$/,
+            include: [/node_modules/], //antd目录
+            use: [
+                {
+                    loader: 'style-loader'
+                },
+                {
+                    loader: 'css-loader'
+                },
+                {
+                    loader: 'less-loader',
+                    options: {
+                        javascriptEnabled: true,
+                        modules: true,
+                        sourceMap: true,
+                        localIdentName: '[local]___[hash:base64:5]'
+                    }
+                }
+            ]
         },
         {
             test: /\.(jpe?g|png|gif|mp4|webm|otf|webp)$/,
@@ -110,16 +133,6 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"' //用于区分开发和生产环境
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false, //最紧凑的输出
-            comments: false, //删除注释
-            compress: {
-                warnings: false, //在UglifyJs删除没有用到的代码时不输出警告
-                drop_console: true, //删除所有console语句
-                collapse_vars: true, //内嵌定义了但是只用到一次的变量
-                reduce_vars: true, // 提取出出现多次但是没有定义成变量去引用的静态值
-            }
-        }),
         new HtmlWebpackPlugin({ //自动生成html
             template: path.join(__dirname, '../client/index.html'),
             chunksSortMode: 'dependency'
@@ -130,9 +143,6 @@ module.exports = {
             },
             allChunks: true
         }), //提取css文件
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest'] // 指定公共 bundle 的名字,加manifest防止vendor的hash值改变。
-        }),
         new Visualizer() //打包后可生成一个html文件,直接打开可看到打包文件的具体信息(包含各个模块的比重)
     ],
     resolve: {
@@ -148,6 +158,7 @@ module.exports = {
             '@/routes': path.resolve(__dirname, '..', 'client/routes'),
             '@/storage': path.resolve(__dirname, '..', 'client/storage'),
             '@/stores': path.resolve(__dirname, '..', 'client/stores'),
+            '@/api': path.resolve(__dirname, '..', 'client/api'),
         },
     }
 };

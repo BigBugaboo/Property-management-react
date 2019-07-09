@@ -17,26 +17,25 @@ class SiderLayout extends Component {
             menu: {
                 title: '物业管理系统',
                 icon: 'desktop',
-                path: '/Index',
+                path: '/Main',
                 list: [
                     {
                         title: '首页管理',
-                        path: '/Index',
+                        path: '/Main/Index',
                         icon: 'snippets',
                     },
                     {
                         title: '测试',
-                        path: '/Resident',
+                        path: '/Main/Resident',
                         icon: 'snippets',
                     },
                     {
                         title: '基本设置',
-                        path: '/Index',
                         icon: 'user',
                         children: [
                             {
                                 title: '账号管理',
-                                path: '/Account',
+                                path: '/Main/Account',
                             }
                         ],
                     },

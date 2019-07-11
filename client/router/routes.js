@@ -4,6 +4,10 @@ import Resident from '@/pages/Resident';
 import Test from '@/pages/Test';
 import Account from '@/pages/Account';
 import Park from '@/pages/Park';
+import UserInfo from '@/pages/UserInfo';
+import UserTrouble from '@/pages/UserRepair';
+import UserPayment from '@/pages/UserPayment';
+import UserComplaint from '@/pages/UserComplaint';
 
 module.exports = [
     {
@@ -25,5 +29,21 @@ module.exports = [
     {
         path: '/Park',
         component: Park,
+    },
+    {
+        path: '/UserInfo',
+        component: UserInfo,
+    },
+    {
+        path: '/UserRepair',
+        component: UserTrouble,
+    },
+    {
+        path: '/UserPayment',
+        component: UserPayment,
+    },
+    {
+        path: '/UserComplaint',
+        component: UserComplaint,
     },
 ];

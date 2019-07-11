@@ -1,12 +1,12 @@
 #login {
-    background-color: #ddd;
+    background-color: #eee;
 
     .header {
         width: 100%;
-        height: 8vh;
+        height: 15vh;
         background-color: white;
         box-shadow: 10px 0px 10px #aaa;
-        font-size: 25px;
+        font-size: 32px;
         display: flex;
 
         p {
@@ -27,16 +27,17 @@
 
     .container {
         width: 100%;
-        height: 88vh;
+        height: 81vh;
         display: flex;
         justify-content: space-around;
         align-items: center;
 
         .form-group {
-            width: 20%;
+            width: 22%;
             height: 500px;
             background-color: white;
             overflow: hidden;
+            margin-right: 60px;
             display: flex;
             box-shadow: 10px 10px 10px #aaa;
 

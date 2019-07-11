@@ -5,7 +5,7 @@ import { _login } from '@/api/login.js';
 import '@/styles/layouts/login.scss';
 import LoginForm from '@/components/common/LoginForm';
 
-import ad from '@/assets/bg.png';
+import ad from '@/assets/bg1.png';
 
 
 export default class Login extends Component {

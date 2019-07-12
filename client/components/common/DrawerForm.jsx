@@ -30,7 +30,7 @@ class DrawerForm extends Component {
         const { visible } = this.state;
 
         return (
-            <div>
+            <>
                 <Button
                     type='primary'
                     onClick={this.showDrawer}
@@ -73,7 +73,7 @@ class DrawerForm extends Component {
                         </Button>
                     </div>
                 </Drawer>
-            </div>
+            </>
         );
     }
 }

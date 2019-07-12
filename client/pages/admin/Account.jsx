@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, Icon, Input, Button, Collapse } from 'antd';
 
 import DrawerForm from '@/components/common/DrawerForm';
+import Search from '@/components/common/Search';
 import '@/styles/pages/admin/account.scss';
 
 const data = [
@@ -61,37 +62,12 @@ export class Account extends Component {
                     placeholder: '请输入房屋地址'
                 },
             ],
-            columns: [
+            search: [
                 {
                     title: '账号编号',
-                    dataIndex: 'username',
-                    key: 'username',
-                },
-                {
-                    title: '密码',
-                    dataIndex: 'password',
-                    key: 'password',
-                },
-                {
-                    title: '住户姓名',
-                    dataIndex: 'name',
-                    key: 'name',
-                },
-                {
-                    title: '地址',
-                    dataIndex: 'address',
-                    key: 'address',
-                },
-                {
-                    title: '权限',
-                    dataIndex: 'level',
-                    key: 'level',
-                },
-                {
-                    title: '操作',
-                    key: '操作',
-
-                },
+                    placeholder: '请输入业主编号',
+                    name: 'username'
+                }
             ]
         };
     }
@@ -100,21 +76,18 @@ export class Account extends Component {
 
     }
 
+    onSearch = (e) => {
+        console.log(e);
+    }
+
     render() {
-        const { columns, form } = this.state;
+        const { search, form } = this.state;
 
         return (
             <div id='account'>
-                <Collapse className='search' defaultActiveKey={['1']}>
-                    <Collapse.Panel header='筛选条件' key='1'>
-                        <div className='search-group'>
-                            <Input className='group-item' addonBefore='账号编号' defaultValue='' placeholder='请输入业主编号' />
-                            <Button type='primary' >
-                                搜索
-                            </Button>
-                        </div>
-                    </Collapse.Panel>
-                </Collapse>
+                <div className='search'>
+                    <Search data={search} onSearch={this.onSearch} />
+                </div>
                 <div className='container'>
                     <DrawerForm title='添加' form={form} />
                     <Table dataSource={data} bordered={true} size='default'>

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../actions/loginStatus';
+import * as actions from '../actions/counter';
 
 
 const mapStateToProps = (state, ownProps) => {
-    return state.loginStatus;
+    return state.count;
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -27,7 +27,7 @@ class Index extends Component {
             <>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                     <div>
-                        <h1>{this.props.loginStatus}</h1>
+                        <h1>{this.props.count}</h1>
                         <button onClick={this.props.actions.admin}>管理员</button>
                         <button onClick={this.props.actions.user}>用户</button>
                         <button onClick={this.props.actions.increase}>增加</button>

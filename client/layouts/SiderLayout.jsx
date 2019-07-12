@@ -23,89 +23,37 @@ class SiderLayout extends Component {
             adminMenu: {
                 title: '物业管理系统',
                 icon: 'desktop',
-                path: '/Main',
                 list: [
                     {
-                        title: '首页管理',
-                        path: '/Main/Index',
+                        title: '基本设置',
+                        path: '/Main/Account',
                         icon: 'snippets',
                     },
                     {
-                        title: '测试',
+                        title: '住户资料管理',
                         path: '/Main/Resident',
                         icon: 'snippets',
                     },
                     {
-                        title: '基本设置',
-                        icon: 'user',
-                        children: [
-                            {
-                                title: '账号管理',
-                                path: '/Main/Account',
-                            }
-                        ],
-                    },
-                    {
-                        title: '住户资料管理',
-                        icon: 'home',
-                        children: [
-                            {
-                                title: '住户基本资料添加',
-                                path: '/Index',
-                            },
-                            {
-                                title: '管理',
-                                path: '/Index',
-                            },
-                        ],
-                    },
-                    {
                         title: '投诉管理',
-                        icon: 'message',
-                        children: [
-                            {
-                                title: '投诉添加',
-                                path: '/Index',
-                            },
-                            {
-                                title: '投诉管理',
-                                path: '/Index',
-                            },
-                        ],
+                        path: '/Main/Compaints',
+                        icon: 'snippets',
                     },
                     {
                         title: '报修管理',
-                        icon: 'tool',
-                        children: [
-                            {
-                                title: '报修添加',
-                                path: '',
-                            },
-                            {
-                                title: '报修管理',
-                                path: '',
-                            },
-                        ],
+                        path: '/Main/Repair',
+                        icon: 'snippets',
                     },
                     {
                         title: '缴费管理',
-                        icon: 'money-collect',
-                        children: [
-                            {
-                                title: '缴费添加',
-                                path: '',
-                            },
-                            {
-                                title: '缴费管理',
-                                path: '',
-                            }
-                        ],
+                        path: '/Main/Bills',
+                        icon: 'snippets',
                     },
                     {
-                        title: '停车场车位管理',
-                        icon: 'car',
-                        path: '/Park'
-                    }
+                        title: '停车车位管理',
+                        path: '/Main/Park',
+                        icon: 'snippets',
+                    },
                 ]
             },
             userMenu: {

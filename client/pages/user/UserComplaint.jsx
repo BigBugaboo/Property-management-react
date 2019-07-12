@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Table, Button, form } from 'antd';
 
-import '@/styles/pages/UserComplaint.scss';
+import '@/styles/pages/user/UserComplaint.scss';
 import UserAdd from '@/components/common/UserAdd';
 
 const data = {

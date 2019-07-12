@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Table, Button } from 'antd';
 
-import '@/styles/pages/UserInfo.scss';
+import '@/styles/pages/user/UserInfo.scss';
 
 const data = {
     'userid': 'user',
@@ -66,10 +66,7 @@ export class UserInfo extends Component{
                 </div>
 
                 <div className='blo'>
-                    <div className='title'>
-                        <p>车位信息</p>
-                        <Button type='primary'>租车位</Button>
-                    </div>
+                    <p>车位信息</p>
                     <div className='line'></div>
                     <div className='info'>
                         <p>车位编号：{carid}</p>

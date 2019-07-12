@@ -4,10 +4,10 @@ import Resident from '@/pages/admin/Resident';
 import Test from '@/pages/Test';
 import Account from '@/pages/admin/Account';
 import Park from '@/pages/admin/Park';
-import UserInfo from '@/pages/UserInfo';
-import UserTrouble from '@/pages/UserRepair';
-import UserPayment from '@/pages/UserPayment';
-import UserComplaint from '@/pages/UserComplaint';
+import UserInfo from '@/pages/user/UserInfo';
+import UserTrouble from '@/pages/user/UserRepair';
+import UserPayment from '@/pages/user/UserPayment';
+import UserComplaint from '@/pages/user/UserComplaint';
 
 module.exports = [
     {

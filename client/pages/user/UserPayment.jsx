@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Table, Button } from 'antd';
 
-import '@/styles/pages/UserPayment.scss';
+import '@/styles/pages/user/UserPayment.scss';
 
 const data = [
     {

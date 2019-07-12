@@ -68,7 +68,8 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
+    "redux-persist": "^5.10.0",
+    "redux-saga": "^1.0.5",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0"
   }

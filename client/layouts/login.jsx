@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
-import { Carousel } from 'antd';
+import { Carousel, message } from 'antd';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as actions from '../actions/loginStatus';
 
 import { _login } from '@/api/login.js';
 import '@/styles/layouts/login.scss';
 import LoginForm from '@/components/common/LoginForm';
+import { isEmpty } from '@/utils/index.js';
 
 import ad from '@/assets/bg1.png';
 
+const mapStateToProps = (state, ownProps) => {
+    return state.loginStatus;
+};
 
-export default class Login extends Component {
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    actions: bindActionCreators({ ...actions }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,8 +29,19 @@ export default class Login extends Component {
         };
     }
 
-    handleSubmit = e => {
-        // e.preventDefault();
+    onSubmit = (username, password, status) => {
+        // if (isEmpty()) {
+        //     message.info('This is a normal message');
+        //     return;
+        // }
+
+        const date = {
+            username: username,
+            password: password
+        };
+        console.log(date);
+
+        // const result = _login('', date);
         let history = this.props.history;
         history.push('/Main/Index');
         // this.props.form.validateFields((err, values) => {
@@ -27,6 +51,18 @@ export default class Login extends Component {
         //     }
         // });
     };
+
+    onClick = (status) => {
+        console.log(status);
+        if (status === 0) {
+            this.props.actions.admin();
+        }
+        else {
+            this.props.actions.user();
+        }
+        let history = this.props.history;
+        history.push('/Main/Index');
+    }
 
     render() {
         return (
@@ -46,7 +82,9 @@ export default class Login extends Component {
                     <div className='form-group'>
                         <div className='input-list'>
                             <h2>物业管理系统 | 登录</h2>
-                            <LoginForm handleSubmit={this.handleSubmit} />
+                            <LoginForm onSubmit={this.onSubmit} />
+                            <button onClick={this.onClick.bind(this, 0)}>管理员</button>
+                            <button onClick={this.onClick.bind(this, 1)}>住户</button>
                         </div>
                     </div>
                 </div>
@@ -57,3 +95,5 @@ export default class Login extends Component {
         );
     }
 }
+
+export default Login;

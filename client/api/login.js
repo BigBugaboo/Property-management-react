@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function _login(data) {
-    // return axios.post('', data);
+export function _login(url, data) {
+    // return axios.post(url, data);
     return { result: true };
 }

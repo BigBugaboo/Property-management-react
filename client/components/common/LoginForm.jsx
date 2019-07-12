@@ -14,7 +14,6 @@ export default class Login extends Component {
     }
 
     changeUsername = e => {
-        console.log(e);
         this.setState({
             username: e.target.value
         });
@@ -26,15 +25,14 @@ export default class Login extends Component {
     }
 
     onSubmit = e => {
-        console.log(1111);
-        this.props.handleSubmit();
+        this.props.onSubmit(this.state.username, this.state.password);
     }
 
     render() {
-        const { username, password } = this.state;
+        const { username, password, isSubmit } = this.state;
 
         return (
-            <Form onSubmit={this.onSubmit}>
+            <div>
                 <Form.Item>
                     <Input
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -57,12 +55,12 @@ export default class Login extends Component {
                         type='primary'
                         block={true}
                         shape='round'
-                        htmlType='submit'
+                        onClick={this.onSubmit}
                         className='login-form-button'>
                         登录
                     </Button>
                 </Form.Item>
-            </Form>
+            </div>
         );
     }
 }

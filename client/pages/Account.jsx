@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Input, Button, Popconfirm, Divider, Tag, Form } from 'antd';
+import { Table, Input, Button, PageHeader, Divider, Tag, Form } from 'antd';
 
 import DrawerForm from '@/components/common/DrawerForm';
 
@@ -82,7 +82,7 @@ export class Account extends Component {
     }
 
     render() {
-        const { columns,form } = this.state;
+        const { columns, form } = this.state;
 
         return (
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>

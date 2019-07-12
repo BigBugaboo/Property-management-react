@@ -21,6 +21,7 @@ export default class TopBanner extends Component {
                     <div>
                         欢迎XXX，进入物业管理系统。
                         <Button
+                            size='small'
                             icon='logout'
                             shape='round'
                             type='danger'>

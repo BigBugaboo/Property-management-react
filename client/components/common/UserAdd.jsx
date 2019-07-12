@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon, TextArea } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon,  } from 'antd';
 
 const { Option } = Select;
+const { TextArea } = Input;
 
 class UserAdd extends Component {
 
@@ -32,6 +33,7 @@ class UserAdd extends Component {
         return (
             <div>
                 <Button
+                    id='userAdd'
                     type='primary'
                     onClick={this.showDrawer}
                     style={{ marginBottom: 16 }}>
@@ -43,16 +45,14 @@ class UserAdd extends Component {
                     width={400}
                     onClose={this.onClose}
                     visible={visible}>
-                    <Form layout='vertical' hideRequiredMark={true}>
-                        <Row gutter={16}>
-                            <Col span={12}>
+                    <Form layout='vertical' hideRequiredMark={true} >
+                        <Row gutter={28}>
+                            <Col span={26}>
                                 {form.map((item, index) => (
-                                    <Form.Item label={item.name} key={index}>
-                                        <Input placeholder={item.placeholder} />
-                                        {/* <TextArea rows={6} placeholder={item.placeholder} /> */}
+                                    <Form.Item label={item.name} key={index} >
+                                        <TextArea rows={22} placeholder={item.placeholder} />
                                     </Form.Item>
                                 ))}
-
                             </Col>
                         </Row>
                     </Form>

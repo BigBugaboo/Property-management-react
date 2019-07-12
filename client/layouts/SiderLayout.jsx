@@ -35,72 +35,6 @@ class SiderLayout extends Component {
                         icon: 'snippets',
                     },
                     {
-<<<<<<< HEAD
-                        title: '基本设置',
-                        icon: 'user',
-                        children: [
-                            {
-                                title: '账号信息管理',
-                                path: '/Main/Account',
-                            }
-                        ],
-                    },
-                    {
-                        title: '住户管理',
-                        icon: 'home',
-                        children: [
-                            {
-                                title: '住户信息添加',
-                                path: '/Index',
-                            },
-                            {
-                                title: '住户信息管理',
-                                path: '/Index',
-                            },
-                        ],
-                    },
-                    {
-                        title: '投诉管理',
-                        icon: 'message',
-                        children: [
-                            {
-                                title: '投诉信息添加',
-                                path: '/Index',
-                            },
-                            {
-                                title: '投诉信息管理',
-                                path: '/Index',
-                            },
-                        ],
-                    },
-                    {
-                        title: '报修管理',
-                        icon: 'tool',
-                        children: [
-                            {
-                                title: '报修信息添加',
-                                path: '',
-                            },
-                            {
-                                title: '报修信息管理',
-                                path: '',
-                            },
-                        ],
-                    },
-                    {
-                        title: '缴费管理',
-                        icon: 'money-collect',
-                        children: [
-                            {
-                                title: '缴费信息添加',
-                                path: '',
-                            },
-                            {
-                                title: '缴费信息管理',
-                                path: '',
-                            }
-                        ],
-=======
                         title: '投诉管理',
                         path: '/Main/Compaints',
                         icon: 'snippets',
@@ -114,7 +48,6 @@ class SiderLayout extends Component {
                         title: '缴费管理',
                         path: '/Main/Bills',
                         icon: 'snippets',
->>>>>>> 445091b9e4d644db19040117d67a27fa6e55f661
                     },
                     {
                         title: '停车车位管理',

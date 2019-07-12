@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Button } from 'antd';
+import { Table, Button, form } from 'antd';
 
 import '@/styles/pages/UserRepair.scss';
+import UserAdd from '@/components/common/UserAdd';
 
 const data = {
     repair: [
@@ -119,6 +120,12 @@ export class UserRepair extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            form: [
+                {
+                    name: '报修内容',
+                    placeholder: '请输入你想要报修的信息'
+                },
+            ],
             repair: [
                 {
                     title: '报修编号',
@@ -159,18 +166,17 @@ export class UserRepair extends Component{
     }
 
     render() {
-        const {  repair } = this.state;
+        const {  repair, form } = this.state;
         return (
             <div id='repair'>
                 <p>报修信息</p>
                 <div className='line'></div>
-                <div>
-                    <Table
-                        bordered={true}
-                        columns={repair}
-                        dataSource={data.repair}
-                    />
-                </div>
+                <UserAdd title='添加' form={form} />
+                <Table
+                    bordered={true}
+                    columns={repair}
+                    dataSource={data.repair}
+                />
             </div>
         );
     }

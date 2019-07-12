@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Button } from 'antd';
+import { Table, Button, form } from 'antd';
 
 import '@/styles/pages/UserComplaint.scss';
+import UserAdd from '@/components/common/UserAdd';
 
 const data = {
     complaint: [
@@ -49,6 +50,12 @@ export class UserComplaint extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            form: [
+                {
+                    name: '投诉内容',
+                    placeholder: '请输入你想要投诉的信息'
+                },
+            ],
             complaint: [
                 {
                     title: '投诉编号',
@@ -89,11 +96,12 @@ export class UserComplaint extends Component{
     }
 
     render() {
-        const { complaint } = this.state;
+        const { complaint, form } = this.state;
         return (
             <div id='complaint'>
                 <p>投诉信息</p>
                 <div className='line'></div>
+                <UserAdd title='添加' form={form} />
                 <Table
                     bordered={true}
                     columns={complaint}

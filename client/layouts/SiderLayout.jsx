@@ -23,19 +23,19 @@ class SiderLayout extends Component {
             adminMenu: {
                 title: '物业管理系统',
                 icon: 'desktop',
-                path: '/Main',
                 list: [
                     {
-                        title: '首页管理',
-                        path: '/Main/Index',
+                        title: '基本设置',
+                        path: '/Main/Account',
                         icon: 'snippets',
                     },
                     {
-                        title: '测试',
+                        title: '住户资料管理',
                         path: '/Main/Resident',
                         icon: 'snippets',
                     },
                     {
+<<<<<<< HEAD
                         title: '基本设置',
                         icon: 'user',
                         children: [
@@ -100,12 +100,27 @@ class SiderLayout extends Component {
                                 path: '',
                             }
                         ],
+=======
+                        title: '投诉管理',
+                        path: '/Main/Compaints',
+                        icon: 'snippets',
                     },
                     {
-                        title: '停车场车位管理',
-                        icon: 'car',
-                        path: '/Park'
-                    }
+                        title: '报修管理',
+                        path: '/Main/Repair',
+                        icon: 'snippets',
+                    },
+                    {
+                        title: '缴费管理',
+                        path: '/Main/Bills',
+                        icon: 'snippets',
+>>>>>>> 445091b9e4d644db19040117d67a27fa6e55f661
+                    },
+                    {
+                        title: '停车车位管理',
+                        path: '/Main/Park',
+                        icon: 'snippets',
+                    },
                 ]
             },
             userMenu: {

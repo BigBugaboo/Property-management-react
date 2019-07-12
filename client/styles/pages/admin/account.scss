@@ -1,0 +1,19 @@
+#account {
+    .search {
+        margin: 12px 0;
+        background-color: #fff;
+
+        &-group {
+            display: flex;
+            justify-content: start;
+            .group-item {
+                width: 25%;
+            }
+        }
+    }
+
+    .container {
+        padding: 24px;
+        background-color: #fff;
+    }
+}

@@ -23,8 +23,8 @@ export default class Nav extends Component {
 
         return (
             <>
-                <div className='logo' />
-                <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline'>
+                <Menu id='nav' theme='dark' defaultSelectedKeys={['1']} mode='inline'>
+                    <div className='logo' />
                     {menu.list.map((item, index) => (
                         item.children ?
                             <SubMenu
@@ -37,14 +37,14 @@ export default class Nav extends Component {
                                 }>
                                 {item.children.map((child, key) => (
                                     <Item key={index * 10 + key}>
-                                        { child.path && <Link to={child.path} /> }
+                                        {child.path && <Link to={child.path} />}
                                         {child.title}
                                     </Item>
                                 ))}
                             </SubMenu>
                             :
                             <Item key={index}>
-                                { item.path && <Link to={item.path} />}
+                                {item.path && <Link to={item.path} />}
                                 <Icon type={item.icon} />
                                 <span>{item.title}</span>
                             </Item>

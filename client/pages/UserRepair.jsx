@@ -7,39 +7,109 @@ import '@/styles/pages/UserRepair.scss';
 const data = {
     repair: [
         {
-            keyr: '1',
+            key: '1',
             date: '2019-6-12',
-            contentr: 'xxxxxxx',
+            content: 'xxxxxxx',
             people: '',
-            statusr: '未处理'
+            status: '未处理'
         },
         {
-            keyr: '2',
+            key: '2',
             date: '2019-6-12',
-            contentr: 'xxxxxxx',
+            content: 'xxxxxxx',
             people: '小王',
-            statusr: '已处理'
+            status: '已处理'
         },
         {
-            keyr: '3',
+            key: '3',
             date: '2019-6-12',
-            contentr: 'xxxxxxx',
+            content: 'xxxxxxx',
             people: '小王',
-            statusr: '已处理'
+            status: '已处理'
         },
         {
-            keyr: '4',
+            key: '4',
             date: '2019-6-12',
-            contentr: 'xxxxxxx',
+            content: 'xxxxxxx',
             people: '小王',
-            statusr: '已处理'
+            status: '已处理'
         },
         {
-            keyr: '5',
+            key: '5',
             date: '2019-6-12',
-            contentr: 'xxxxxxx',
+            content: 'xxxxxxx',
             people: '小王',
-            statusr: '已处理'
+            status: '已处理'
+        },
+        {
+            key: '6',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '7',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '8',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '9',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '10',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '11',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '12',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '13',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '14',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
+        },
+        {
+            key: '15',
+            date: '2019-6-12',
+            content: 'xxxxxxx',
+            people: '小王',
+            status: '已处理'
         },
     ]
 };
@@ -52,8 +122,8 @@ export class UserRepair extends Component{
             repair: [
                 {
                     title: '报修编号',
-                    dataIndex: 'keyr',
-                    key: 'keyr',
+                    dataIndex: 'key',
+                    key: 'key',
                 },
                 {
                     title: '报修日期',
@@ -62,8 +132,8 @@ export class UserRepair extends Component{
                 },
                 {
                     title: '报修内容',
-                    dataIndex: 'contentr',
-                    key: 'contentr',
+                    dataIndex: 'content',
+                    key: 'content',
                 },
                 {
                     title: '维修人员',
@@ -72,8 +142,8 @@ export class UserRepair extends Component{
                 },
                 {
                     title: '状态',
-                    dataIndex: 'statusr',
-                    key: 'statusr',
+                    dataIndex: 'status',
+                    key: 'status',
                 },
                 {
                     title: '操作',

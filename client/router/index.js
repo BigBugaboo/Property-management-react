@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
-import { HashRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 
 import SiderLayout from '@/layouts/SiderLayout';
 import Login from '@/layouts/Login';
@@ -25,7 +25,7 @@ class RouterIndex extends Component {
 export default RouterIndex;
 
 const Mod = ({ match }) => (
-    <Switch>
+    <Router>
         <SiderLayout>
             {routes.map((item, index) => {
                 const path = match.url + item.path;
@@ -33,24 +33,6 @@ const Mod = ({ match }) => (
                     <Route exact key={index} path={path} component={item.component} />
                 );
             })}
-            {/* <PrivateRoute path='/protected' component={Protected} /> */}
         </SiderLayout>
-    </Switch>
-);
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
-        fakeAuth.isAuthenticated ?
-            (
-                <Component {...props} />
-            )
-            : (
-                <Redirect to={{
-                    pathname: '/login',
-                    state: { from: props.location }
-                }}
-                />
-            )
-    )}
-    />
+    </Router>
 );

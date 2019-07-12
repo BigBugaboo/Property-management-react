@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Icon, Button, Form } from 'antd';
+import { Carousel } from 'antd';
 
 import { _login } from '@/api/login.js';
 import '@/styles/layouts/login.scss';
@@ -17,9 +17,9 @@ export default class Login extends Component {
     }
 
     handleSubmit = e => {
-        e.preventDefault();
+        // e.preventDefault();
         let history = this.props.history;
-        console.log(history);
+        history.push('/Main/Index');
         // this.props.form.validateFields((err, values) => {
         //     if (!err) {
         //         console.log('Received values of form: ', values);
@@ -36,7 +36,12 @@ export default class Login extends Component {
                 </div>
                 <div className='container'>
                     <div className='ad'>
-                        <img src={ad} />
+                        <Carousel autoplay>
+                            <img className='item' src={ad} />
+                            <img className='item' src={ad} />
+                            <img className='item' src={ad} />
+                            <img className='item' src={ad} />
+                        </Carousel>
                     </div>
                     <div className='form-group'>
                         <div className='input-list'>

@@ -131,7 +131,7 @@ module.exports = {
             '@/utils': path.resolve(__dirname, '..', 'client/utils'),
             '@/styles': path.resolve(__dirname, '..', 'client/styles'),
             '@/assets': path.resolve(__dirname, '..', 'client/assets'),
-            '@/routes': path.resolve(__dirname, '..', 'client/routes'),
+            '@/router': path.resolve(__dirname, '..', 'client/router'),
             '@/storage': path.resolve(__dirname, '..', 'client/storage'),
             '@/stores': path.resolve(__dirname, '..', 'client/stores'),
             '@/api': path.resolve(__dirname, '..', 'client/api'),

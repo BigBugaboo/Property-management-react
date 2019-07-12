@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Collapse } from 'antd';
+import { Table, Icon, Button, Modal } from 'antd';
 
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
@@ -80,6 +80,23 @@ export class Account extends Component {
         console.log(e);
     }
 
+    onDelete = (record, e) => {
+        console.log(record);
+        Modal.confirm({
+            title: '是否删除该条信息?',
+            content: '删除后，无法恢复！',
+            okText: '删除',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
+
     render() {
         const { search, form } = this.state;
 
@@ -105,7 +122,7 @@ export class Account extends Component {
                                         <Icon type='edit' />
                                         修改
                                     </Button>
-                                    <Button type='danger'>
+                                    <Button type='danger' onClick={this.onDelete.bind(this, record)}>
                                         删除
                                         <Icon type='delete' />
                                     </Button>

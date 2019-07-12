@@ -40,21 +40,21 @@ class SiderLayout extends Component {
                         icon: 'user',
                         children: [
                             {
-                                title: '账号管理',
+                                title: '账号信息管理',
                                 path: '/Main/Account',
                             }
                         ],
                     },
                     {
-                        title: '住户资料管理',
+                        title: '住户管理',
                         icon: 'home',
                         children: [
                             {
-                                title: '住户基本资料添加',
+                                title: '住户信息添加',
                                 path: '/Index',
                             },
                             {
-                                title: '管理',
+                                title: '住户信息管理',
                                 path: '/Index',
                             },
                         ],
@@ -64,11 +64,11 @@ class SiderLayout extends Component {
                         icon: 'message',
                         children: [
                             {
-                                title: '投诉添加',
+                                title: '投诉信息添加',
                                 path: '/Index',
                             },
                             {
-                                title: '投诉管理',
+                                title: '投诉信息管理',
                                 path: '/Index',
                             },
                         ],
@@ -78,11 +78,11 @@ class SiderLayout extends Component {
                         icon: 'tool',
                         children: [
                             {
-                                title: '报修添加',
+                                title: '报修信息添加',
                                 path: '',
                             },
                             {
-                                title: '报修管理',
+                                title: '报修信息管理',
                                 path: '',
                             },
                         ],
@@ -92,11 +92,11 @@ class SiderLayout extends Component {
                         icon: 'money-collect',
                         children: [
                             {
-                                title: '缴费添加',
+                                title: '缴费信息添加',
                                 path: '',
                             },
                             {
-                                title: '缴费管理',
+                                title: '缴费信息管理',
                                 path: '',
                             }
                         ],
@@ -115,17 +115,42 @@ class SiderLayout extends Component {
                 list: [
                     {
                         title: '首页管理',
-                        path: '/Main/Index',
-                        icon: 'snippets',
-                    },
-                    {
-                        title: '缴费',
                         icon: 'user',
                         children: [
                             {
-                                title: '账号管理',
-                                path: '/Main/Account',
-                            }
+                                title: '个人基本信息',
+                                path: '/Main/UserInfo',
+                            },
+                        ],
+                    },
+                    {
+                        title: '缴费管理',
+                        icon: 'money-collect',
+                        children: [
+                            {
+                                title: '个人缴费信息',
+                                path: '/Main/UserPayment',
+                            },
+                        ],
+                    },
+                    {
+                        title: '报修管理',
+                        icon: 'tool',
+                        children: [
+                            {
+                                title: '个人报修信息',
+                                path: '/Main/UserRepair',
+                            },
+                        ],
+                    },
+                    {
+                        title: '投诉管理',
+                        icon: 'message',
+                        children: [
+                            {
+                                title: '个人投诉信息',
+                                path: '/Main/UserComplaint',
+                            },
                         ],
                     },
                 ]

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Button, form } from 'antd';
+import { Table, Icon, Input, Button, Collapse } from 'antd';
 
 import '@/styles/pages/user/UserComplaint.scss';
 import UserAdd from '@/components/common/UserAdd';
@@ -99,14 +99,26 @@ export class UserComplaint extends Component{
         const { complaint, form } = this.state;
         return (
             <div id='complaint'>
-                <p>投诉信息</p>
-                <div className='line'></div>
-                <UserAdd title='添加' form={form} />
-                <Table
-                    bordered={true}
-                    columns={complaint}
-                    dataSource={data.complaint}
-                />
+                <Collapse className='search' defaultActiveKey={['1']}>
+                    <Collapse.Panel header='筛选条件' key='1'>
+                        <div className='search-group'>
+                            <Input className='group-item' addonBefore='投诉状态' defaultValue='' placeholder='请输入投诉状态' />
+                            <Button type='primary' >
+                                搜索
+                            </Button>
+                        </div>
+                    </Collapse.Panel>
+                </Collapse>
+                <div className='blo'>
+                    <p>投诉信息</p>
+                    <div className='line'></div>
+                    <UserAdd title='添加' form={form} />
+                    <Table
+                        bordered={true}
+                        columns={complaint}
+                        dataSource={data.complaint}
+                    />
+                </div>
             </div>
         );
     }

@@ -59,7 +59,6 @@ class SiderLayout extends Component {
             userMenu: {
                 title: '物业管理系统',
                 icon: 'desktop',
-                path: '/Main',
                 list: [
                     {
                         title: '首页管理',

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import '@/styles/components/common/nav.scss';
+import logo from '@/assets/logo.png';
 
 const { SubMenu, Item } = Menu;
 
@@ -24,7 +25,10 @@ export default class Nav extends Component {
         return (
             <>
                 <Menu id='nav' theme='dark' defaultSelectedKeys={['0']} mode='inline'>
-                    <div className='logo' />
+                    <div className='header'>
+                        <img className='logo' src={logo} />
+                        <p className='logo-title'>物业管理</p>
+                    </div>
                     {menu.list.map((item, index) => (
                         item.children ?
                             <SubMenu

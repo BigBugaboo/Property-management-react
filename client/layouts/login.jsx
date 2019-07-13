@@ -53,15 +53,15 @@ class Login extends Component {
     };
 
     onClick = (status) => {
-        console.log(status);
+        let history = this.props.history;
         if (status === 0) {
             this.props.actions.admin();
+            history.push('/Main/Account');
         }
         else {
             this.props.actions.user();
+            history.push('/Main/UserInfo');
         }
-        let history = this.props.history;
-        history.push('/Main/Index');
     }
 
     render() {

@@ -3,7 +3,10 @@ import Index from '@/pages/Index';
 import Resident from '@/pages/admin/Resident';
 import Test from '@/pages/Test';
 import Account from '@/pages/admin/Account';
+import Complaints from '@/pages/admin/Complaints';
+import Repair from '@/pages/admin/Repair';
 import Park from '@/pages/admin/Park';
+
 import UserInfo from '@/pages/user/UserInfo';
 import UserTrouble from '@/pages/user/UserRepair';
 import UserPayment from '@/pages/user/UserPayment';
@@ -17,6 +20,14 @@ module.exports = [
     {
         path: '/Account',
         component: Account,
+    },
+    {
+        path: '/Complaints',
+        component: Complaints,
+    },
+    {
+        path: '/Repair',
+        component: Repair,
     },
     {
         path: '/Test',

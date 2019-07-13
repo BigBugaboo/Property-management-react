@@ -36,7 +36,7 @@ class SiderLayout extends Component {
                     },
                     {
                         title: '投诉管理',
-                        path: '/Main/Compaints',
+                        path: '/Main/Complaints',
                         icon: 'message',
                     },
                     {

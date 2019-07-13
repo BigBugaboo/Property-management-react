@@ -150,8 +150,7 @@ export class Account extends Component {
                         <Table.Column title='地址' dataIndex='address' key='address' />
                         <Table.Column title='权限' dataIndex='level' key='level' />
                         <Table.Column
-                            title='Action'
-                            key='action'
+                            title='操作'
                             render={(text, record) => (
                                 <Button.Group>
                                     <DrawerForm

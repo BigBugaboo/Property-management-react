@@ -1,94 +1,100 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table, Icon, Button, Modal } from 'antd';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 
-import * as actions from '../../actions/counter';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
 
 const data = [
     {
         key: '1',
-        name: 'John Brown',
-        phone: '123',
+        residentKey: '2016030403104',
+        context: '123',
+        startDate: 'John Brown',
+        endDate: '业主',
         address: 'New York No. 1 Lake Park',
-        number: '16-121',
+        state: '未处理',
     },
     {
         key: '2',
-        name: 'Jim Green',
-        phone: '123',
+        residentKey: '2016030403104',
+        context: '123',
+        startDate: 'Jim Green',
+        endDate: '业主',
         address: 'London No. 1 Lake Park',
-        number: '16-121',
-        state: 'wait',
+        state: '未处理',
     },
     {
         key: '3',
-        name: 'Joe Black',
-        phone: '123',
+        residentKey: '2016030403104',
+        context: '123',
+        startDate: 'Joe Black',
+        endDate: '业主',
         address: 'Sidney No. 1 Lake Park',
-        number: '16-121',
+        state: '未处理',
     },
     {
         key: '4',
-        name: 'Joe Black',
-        phone: '123',
+        residentKey: '2016030403104',
+        startDate: 'Joe Black',
+        context: '123',
+        endDate: '业主',
         address: 'Sidney No. 1 Lake Park',
-        number: '16-121',
+        state: '未处理',
     },
 ];
 
-const mapStateToProps = (state, ownProps) => {
-    return state.count;
-};
+/** 投诉管理 */
+export class Repair extends Component {
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    actions: bindActionCreators({ ...actions }, dispatch),
-});
-
-/** 住户管理 */
-@connect(mapStateToProps, mapDispatchToProps)
-class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             form: [
                 {
-                    type: 'input',
-                    text: '住户姓名',
-                    name: 'name',
-                    placeholder: '请输入住户姓名',
+                    type: 'textArea',
+                    text: '维修内容',
+                    name: 'context',
+                    placeholder: '请输入维修内容',
                     value: '',
                 },
                 {
                     type: 'input',
-                    text: '联系电话',
-                    name: 'phone',
-                    placeholder: '请输入联系电话',
+                    text: '报修日期',
+                    name: 'startDate',
+                    placeholder: '请选择投诉日期',
                     value: '',
                 },
                 {
                     type: 'input',
-                    text: '联系地址',
-                    name: 'address',
-                    placeholder: '请输入房屋地址',
+                    text: '维修人员',
+                    name: 'endDate',
+                    placeholder: '请输入维修人员',
                     value: '',
                 },
                 {
-                    type: 'input',
-                    text: '房屋编号',
-                    placeholder: '请输入房屋编号',
-                    name: 'number',
+                    type: 'select',
+                    text: '状态',
+                    name: 'state',
+                    placeholder: '请选择状态',
                     value: '',
+                    option: [
+                        {
+                            value: '已处理',
+                            text: '已处理',
+                        },
+                        {
+                            value: '未处理',
+                            text: '未处理',
+                        },
+                    ]
                 },
             ],
             search: [
                 {
                     title: '账号编号',
-                    placeholder: '请输入账号编号',
-                    name: 'residentKey'
+                    placeholder: '请输入业主编号',
+                    name: 'complaintsKey'
                 }
             ]
         };
@@ -132,7 +138,7 @@ class Index extends Component {
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='container'>
-                    <h2>住户管理</h2>
+                    <h2>报修管理</h2>
                     <DrawerForm
                         btnText='添加'
                         btnIcon='plus'
@@ -140,11 +146,12 @@ class Index extends Component {
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default'>
-                        <Table.Column title='住户编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户姓名' dataIndex='name' key='name' />
-                        <Table.Column title='联系电话' dataIndex='phone' key='phone' />
-                        <Table.Column title='联系地址' dataIndex='address' key='address' />
-                        <Table.Column title='房屋编号' dataIndex='number' key='number' />
+                        <Table.Column title='报销编号' dataIndex='key' key='key' />
+                        <Table.Column title='住户编号' dataIndex='residentKey' key='residentKey' />
+                        <Table.Column title='报修日期' dataIndex='startDate' key='startDate' />
+                        <Table.Column title='维修内容' dataIndex='context' key='context' />
+                        <Table.Column title='维修人员' dataIndex='endDate' key='endDate' />
+                        <Table.Column title='状态' dataIndex='state' key='state' />
                         <Table.Column
                             title='操作'
                             render={(text, record) => (
@@ -157,6 +164,13 @@ class Index extends Component {
                                         form={[
                                             {
                                                 type: 'input',
+                                                text: '密码',
+                                                name: 'password',
+                                                placeholder: '请输入密码',
+                                                value: record.password,
+                                            },
+                                            {
+                                                type: 'input',
                                                 text: '住户姓名',
                                                 name: 'name',
                                                 placeholder: '请输入住户姓名',
@@ -164,24 +178,27 @@ class Index extends Component {
                                             },
                                             {
                                                 type: 'input',
-                                                text: '联系电话',
-                                                name: 'phone',
-                                                placeholder: '请输入联系电话',
-                                                value: record.phone,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '联系地址',
+                                                text: '地址',
                                                 name: 'address',
                                                 placeholder: '请输入房屋地址',
                                                 value: record.address,
                                             },
                                             {
-                                                type: 'input',
-                                                text: '房屋编号',
-                                                placeholder: '请输入房屋编号',
-                                                name: 'number',
-                                                value: record.number,
+                                                type: 'select',
+                                                text: '权限',
+                                                name: 'level',
+                                                placeholder: '请输入选择权限',
+                                                value: record.level,
+                                                option: [
+                                                    {
+                                                        value: '业主',
+                                                        text: '业主',
+                                                    },
+                                                    {
+                                                        value: '管理员',
+                                                        text: '管理员',
+                                                    },
+                                                ]
                                             },
                                         ]}
                                     />
@@ -199,4 +216,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default Repair;

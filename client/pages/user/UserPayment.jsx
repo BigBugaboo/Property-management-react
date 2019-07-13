@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Button } from 'antd';
+import { Table, Button, Input, Collapse, Icon } from 'antd';
 
 import '@/styles/pages/user/UserPayment.scss';
 
@@ -89,6 +89,16 @@ export class UserPayment extends Component{
         const { columns } = this.state;
         return (
             <div id='Payment'>
+                <Collapse className='search' defaultActiveKey={['1']}>
+                    <Collapse.Panel header='筛选条件' key='1'>
+                        <div className='search-group'>
+                            <Input className='group-item' addonBefore='缴费日期' defaultValue='' placeholder='请输入缴费日期' />
+                            <Button type='primary' >
+                                搜索
+                            </Button>
+                        </div>
+                    </Collapse.Panel>
+                </Collapse>
                 <div className='blo'>
                     <p>缴费信息</p>
                     <div className='line'></div>

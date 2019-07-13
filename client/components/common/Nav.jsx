@@ -23,7 +23,7 @@ export default class Nav extends Component {
 
         return (
             <>
-                <Menu id='nav' theme='dark' defaultSelectedKeys={['1']} mode='inline'>
+                <Menu id='nav' theme='dark' defaultSelectedKeys={['0']} mode='inline'>
                     <div className='logo' />
                     {menu.list.map((item, index) => (
                         item.children ?

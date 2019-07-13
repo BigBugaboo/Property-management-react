@@ -72,7 +72,7 @@ class Login extends Component {
                 </div>
                 <div className='container'>
                     <div className='ad'>
-                        <Carousel autoplay>
+                        <Carousel autoplay={true}>
                             <img className='item' src={ad} />
                             <img className='item' src={ad} />
                             <img className='item' src={ad} />

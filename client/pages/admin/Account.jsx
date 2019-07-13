@@ -50,16 +50,42 @@ export class Account extends Component {
         this.state = {
             form: [
                 {
-                    name: '姓名',
-                    placeholder: '请输入房屋拥有者姓名'
+                    type: 'input',
+                    text: '密码',
+                    name: 'password',
+                    placeholder: '请输入密码',
+                    value: '',
                 },
                 {
-                    name: '现居人数',
-                    placeholder: '请输入房屋现居人数'
+                    type: 'input',
+                    text: '住户姓名',
+                    name: 'name',
+                    placeholder: '请输入住户姓名',
+                    value: '',
                 },
                 {
-                    name: '地址',
-                    placeholder: '请输入房屋地址'
+                    type: 'input',
+                    text: '地址',
+                    name: 'address',
+                    placeholder: '请输入房屋地址',
+                    value: '',
+                },
+                {
+                    type: 'select',
+                    text: '权限',
+                    name: 'level',
+                    placeholder: '请输入选择权限',
+                    value: '',
+                    option: [
+                        {
+                            value: '业主',
+                            text: '业主',
+                        },
+                        {
+                            value: '管理员',
+                            text: '管理员',
+                        },
+                    ]
                 },
             ],
             search: [
@@ -106,7 +132,12 @@ export class Account extends Component {
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='container'>
-                    <DrawerForm title='添加' form={form} />
+                    <DrawerForm
+                        btnText='添加'
+                        btnIcon='plus'
+                        btnType='primary'
+                        form={form}
+                    />
                     <Table dataSource={data} bordered={true} size='default'>
                         <Table.Column title='账号编号' dataIndex='username' key='username' />
                         <Table.Column title='密码' dataIndex='password' key='password' />
@@ -118,10 +149,51 @@ export class Account extends Component {
                             key='action'
                             render={(text, record) => (
                                 <Button.Group>
-                                    <Button type='primary'>
-                                        <Icon type='edit' />
-                                        修改
-                                    </Button>
+                                    <DrawerForm
+                                        btnText='修改'
+                                        btnIcon='edit'
+                                        btnType='primary'
+                                        form={[
+                                            {
+                                                type: 'input',
+                                                text: '密码',
+                                                name: 'password',
+                                                placeholder: '请输入密码',
+                                                value: record.password,
+                                            },
+                                            {
+                                                type: 'input',
+                                                text: '住户姓名',
+                                                name: 'name',
+                                                placeholder: '请输入住户姓名',
+                                                value: record.name,
+                                            },
+                                            {
+                                                type: 'input',
+                                                text: '地址',
+                                                name: 'address',
+                                                placeholder: '请输入房屋地址',
+                                                value: record.address,
+                                            },
+                                            {
+                                                type: 'select',
+                                                text: '权限',
+                                                name: 'level',
+                                                placeholder: '请输入选择权限',
+                                                value: record.level,
+                                                option: [
+                                                    {
+                                                        value: '业主',
+                                                        text: '业主',
+                                                    },
+                                                    {
+                                                        value: '管理员',
+                                                        text: '管理员',
+                                                    },
+                                                ]
+                                            },
+                                        ]}
+                                    />
                                     <Button type='danger' onClick={this.onDelete.bind(this, record)}>
                                         删除
                                         <Icon type='delete' />

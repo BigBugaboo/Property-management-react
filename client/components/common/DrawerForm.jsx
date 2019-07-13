@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Icon } from 'antd';
-
-const { Option } = Select;
+import {
+    Drawer,
+    Form,
+    Button,
+    Col,
+    Row,
+    Input,
+    Select,
+    Icon
+} from 'antd';
 
 class DrawerForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            data: []
         };
+        this.onChange = this.onChange.bind(this);
     }
 
     showDrawer = () => {
@@ -25,35 +34,87 @@ class DrawerForm extends Component {
         });
     };
 
+    onChange = (name, key, e) => {
+        const value = e.target === undefined ? e : e.target.value;
+        let arr = this.state.data;
+        arr[key] = {
+            name: name,
+            value: value.toString(),
+        };
+        this.setState({
+            data: arr
+        });
+    };
+
     render() {
-        const { form, title } = this.props;
+        const { form, btnText, btnType, btnIcon } = this.props;
         const { visible } = this.state;
+
+        const FormSelect = (key, type, item) => {
+            const actions = {
+                input: () => {
+                    return (
+                        <Input
+                            placeholder={item.placeholder}
+                            defaultValue={item.value}
+                            onChange={this.onChange.bind(this, item.name, key)}
+                        />
+                    );
+                },
+                textArea: () => {
+                    return (
+                        <Input.TextArea
+                            rows={4}
+                            autosize={false}
+                            defaultValue={item.value}
+                            onChange={this.onChange.bind(this, item.name, key)}
+                        />
+                    );
+                },
+                select: () => {
+                    return (
+                        <Select
+                            style={{ width: 200 }}
+                            value={item.value}
+                            onChange={this.onChange.bind(this, item.name, key)}>
+                            {item.option.map((child, index) => (
+                                <Select.Option key={index} value={child.value}>{child.text}</Select.Option>
+                            ))}
+                        </Select>
+                    );
+                }
+            };
+
+            if (typeof actions[type] !== 'function') return null;
+
+            return actions[type]();
+        };
 
         return (
             <>
                 <Button
-                    type='primary'
+                    type={btnType}
                     onClick={this.showDrawer}
                     style={{ marginBottom: 16 }}>
-                    <Icon type='plus' />
-                    {title}
+                    <Icon type={btnIcon} />
+                    {btnText}
                 </Button>
                 <Drawer
-                    title={title}
+                    title={btnText}
                     width={400}
                     onClose={this.onClose}
                     visible={visible}>
-                    <Form layout='vertical' hideRequiredMark={true}>
+                    <div>
                         <Row gutter={16}>
-                            <Col span={12}>
+                            <Col span={24}>
                                 {form.map((item, index) => (
-                                    <Form.Item label={item.name} key={index}>
-                                        <Input placeholder={item.placeholder} />
+                                    <Form.Item label={item.text} key={index}>
+                                        {FormSelect(index, item.type, item)}
                                     </Form.Item>
                                 ))}
                             </Col>
                         </Row>
-                    </Form>
+                    </div>
                     <div
                         style={{
                             position: 'absolute',
@@ -78,10 +139,4 @@ class DrawerForm extends Component {
     }
 }
 
-DrawerForm.propTypes = {
-
-};
-
-const App = Form.create()(DrawerForm);
-
-export default App;
+export default DrawerForm;

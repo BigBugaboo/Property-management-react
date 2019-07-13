@@ -98,6 +98,7 @@
             "selfClosing": "line-aligned",
             "nonEmpty": "after-props"
         }],
+        "react/display-name": "off",
         "react/jsx-max-props-per-line": ["error", { "maximum": 6, "when": "always" }],
         "react/jsx-props-no-multi-spaces": "error",
         "react/jsx-wrap-multilines": ["error", {

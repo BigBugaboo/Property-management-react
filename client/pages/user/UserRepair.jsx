@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Button, form } from 'antd';
+import { Table, Icon, Input, Button, Collapse } from 'antd';
 
 import '@/styles/pages/user/UserRepair.scss';
 import UserAdd from '@/components/common/UserAdd';
@@ -169,14 +169,26 @@ export class UserRepair extends Component{
         const {  repair, form } = this.state;
         return (
             <div id='repair'>
-                <p>报修信息</p>
-                <div className='line'></div>
-                <UserAdd title='添加' form={form} />
-                <Table
-                    bordered={true}
-                    columns={repair}
-                    dataSource={data.repair}
-                />
+                <Collapse className='search' defaultActiveKey={['1']}>
+                    <Collapse.Panel header='筛选条件' key='1'>
+                        <div className='search-group'>
+                            <Input className='group-item' addonBefore='报修内容' defaultValue='' placeholder='请输入报修内容' />
+                            <Button type='primary' >
+                                搜索
+                            </Button>
+                        </div>
+                    </Collapse.Panel>
+                </Collapse>
+                <div className='blo'>
+                    <p>报修信息</p>
+                    <div className='line'></div>
+                    <UserAdd title='添加' form={form} />
+                    <Table
+                        bordered={true}
+                        columns={repair}
+                        dataSource={data.repair}
+                    />
+                </div>
             </div>
         );
     }

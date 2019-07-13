@@ -64,7 +64,7 @@ class DrawerForm extends Component {
                 textArea: () => {
                     return (
                         <Input.TextArea
-                            rows={4}
+                            rows={16}
                             autosize={false}
                             defaultValue={item.value}
                             onChange={this.onChange.bind(this, item.name, key)}

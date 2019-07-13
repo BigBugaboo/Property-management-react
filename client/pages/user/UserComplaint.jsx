@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Icon, Input, Button, Collapse } from 'antd';
+import { Table, Icon, Input, Button, Collapse, Modal } from 'antd';
 
 import '@/styles/pages/user/UserComplaint.scss';
-import UserAdd from '@/components/common/UserAdd';
+import Search from '@/components/common/Search';
+import DrawerForm from '@/components/common/DrawerForm';
+
 
 const data = {
     complaint: [
@@ -52,9 +54,19 @@ export class UserComplaint extends Component{
         this.state = {
             form: [
                 {
-                    name: '投诉内容',
-                    placeholder: '请输入你想要投诉的信息'
+                    type: 'textArea',
+                    text: '投诉内容',
+                    name: 'content',
+                    placeholder: '请输入你想要投诉的信息',
+                    value: '',
                 },
+            ],
+            search: [
+                {
+                    title: '投诉日期',
+                    placeholder: '请输入投诉日期',
+                    name: 'startdate'
+                }
             ],
             complaint: [
                 {
@@ -95,24 +107,26 @@ export class UserComplaint extends Component{
         };
     }
 
+    onSearch = (e) => {
+        console.log(e);
+    }
+
     render() {
-        const { complaint, form } = this.state;
+        const { search, complaint, form } = this.state;
         return (
             <div id='complaint'>
-                <Collapse className='search' defaultActiveKey={['1']}>
-                    <Collapse.Panel header='筛选条件' key='1'>
-                        <div className='search-group'>
-                            <Input className='group-item' addonBefore='投诉状态' defaultValue='' placeholder='请输入投诉状态' />
-                            <Button type='primary' >
-                                搜索
-                            </Button>
-                        </div>
-                    </Collapse.Panel>
-                </Collapse>
+                <div className='search'>
+                    <Search data={search} onSearch={this.onSearch} />
+                </div>
                 <div className='blo'>
                     <p>投诉信息</p>
                     <div className='line'></div>
-                    <UserAdd title='添加' form={form} />
+                    <DrawerForm
+                        btnText='添加'
+                        btnIcon='plus'
+                        btnType='primary'
+                        form={form}
+                    />
                     <Table
                         bordered={true}
                         columns={complaint}

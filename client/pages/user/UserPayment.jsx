@@ -3,6 +3,7 @@ import PropType from 'prop-types';
 import { Table, Button, Input, Collapse, Icon } from 'antd';
 
 import '@/styles/pages/user/UserPayment.scss';
+import Search from '@/components/common/Search';
 
 const data = [
     {
@@ -46,6 +47,13 @@ export class UserPayment extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            search: [
+                {
+                    title: '缴费日期',
+                    placeholder: '请输入缴费日期',
+                    name: 'date'
+                }
+            ],
             columns: [
                 {
                     title: '缴费编号',
@@ -85,20 +93,17 @@ export class UserPayment extends Component{
         };
     }
 
+    onSearch = (e) => {
+        console.log(e);
+    }
+
     render() {
-        const { columns } = this.state;
+        const { columns, search } = this.state;
         return (
             <div id='Payment'>
-                <Collapse className='search' defaultActiveKey={['1']}>
-                    <Collapse.Panel header='筛选条件' key='1'>
-                        <div className='search-group'>
-                            <Input className='group-item' addonBefore='缴费日期' defaultValue='' placeholder='请输入缴费日期' />
-                            <Button type='primary' >
-                                搜索
-                            </Button>
-                        </div>
-                    </Collapse.Panel>
-                </Collapse>
+                <div className='search'>
+                    <Search data={search} onSearch={this.onSearch} />
+                </div>
                 <div className='blo'>
                     <p>缴费信息</p>
                     <div className='line'></div>

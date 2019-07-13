@@ -3,7 +3,8 @@ import PropType from 'prop-types';
 import { Table, Icon, Input, Button, Collapse } from 'antd';
 
 import '@/styles/pages/user/UserRepair.scss';
-import UserAdd from '@/components/common/UserAdd';
+import Search from '@/components/common/Search';
+import DrawerForm from '@/components/common/DrawerForm';
 
 const data = {
     repair: [
@@ -122,9 +123,19 @@ export class UserRepair extends Component{
         this.state = {
             form: [
                 {
-                    name: '报修内容',
-                    placeholder: '请输入你想要报修的信息'
+                    type: 'textArea',
+                    text: '报修内容',
+                    name: 'content',
+                    placeholder: '请输入你想要报修的信息',
+                    value: '',
                 },
+            ],
+            search: [
+                {
+                    title: '报修内容',
+                    placeholder: '请输入报修内容',
+                    name: 'startdate'
+                }
             ],
             repair: [
                 {
@@ -165,24 +176,26 @@ export class UserRepair extends Component{
         };
     }
 
+    onSearch = (e) => {
+        console.log(e);
+    }
+
     render() {
-        const {  repair, form } = this.state;
+        const { search, repair, form } = this.state;
         return (
             <div id='repair'>
-                <Collapse className='search' defaultActiveKey={['1']}>
-                    <Collapse.Panel header='筛选条件' key='1'>
-                        <div className='search-group'>
-                            <Input className='group-item' addonBefore='报修内容' defaultValue='' placeholder='请输入报修内容' />
-                            <Button type='primary' >
-                                搜索
-                            </Button>
-                        </div>
-                    </Collapse.Panel>
-                </Collapse>
+                <div className='search'>
+                    <Search data={search} onSearch={this.onSearch} />
+                </div>
                 <div className='blo'>
                     <p>报修信息</p>
                     <div className='line'></div>
-                    <UserAdd title='添加' form={form} />
+                    <DrawerForm
+                        btnText='添加'
+                        btnIcon='plus'
+                        btnType='primary'
+                        form={form}
+                    />
                     <Table
                         bordered={true}
                         columns={repair}

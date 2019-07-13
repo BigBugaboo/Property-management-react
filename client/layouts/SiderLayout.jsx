@@ -30,7 +30,7 @@ class SiderLayout extends Component {
                         icon: 'snippets',
                     },
                     {
-                        title: '住户资料管理',
+                        title: '住户管理',
                         path: '/Main/Resident',
                         icon: 'snippets',
                     },
@@ -50,7 +50,7 @@ class SiderLayout extends Component {
                         icon: 'snippets',
                     },
                     {
-                        title: '停车车位管理',
+                        title: '车位管理',
                         path: '/Main/Park',
                         icon: 'snippets',
                     },

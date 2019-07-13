@@ -35,7 +35,7 @@ export default class Login extends Component {
             <div>
                 <Form.Item>
                     <Input
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder='账号'
                         value={username}
                         onChange={this.changeUsername}
@@ -43,7 +43,7 @@ export default class Login extends Component {
                 </Form.Item>
                 <Form.Item>
                     <Input
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
                         type='password'
                         placeholder='密码'
                         value={password}

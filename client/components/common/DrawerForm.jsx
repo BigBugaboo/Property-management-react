@@ -17,7 +17,7 @@ class DrawerForm extends Component {
         super(props);
         this.state = {
             visible: false,
-            data: []
+            data: {}
         };
         this.onChange = this.onChange.bind(this);
     }
@@ -37,14 +37,16 @@ class DrawerForm extends Component {
     onChange = (name, key, e) => {
         const value = e.target === undefined ? e : e.target.value;
         let arr = this.state.data;
-        arr[key] = {
-            name: name,
-            value: value.toString(),
-        };
+        arr[name] = value.toString();
         this.setState({
             data: arr
         });
     };
+
+    onSubmit = () => {
+        this.props.onSubmit(this.state.data);
+        this.onClose();
+    }
 
     render() {
         const { form, btnText, btnType, btnIcon } = this.props;
@@ -75,7 +77,7 @@ class DrawerForm extends Component {
                     return (
                         <Select
                             style={{ width: 200 }}
-                            value={item.value}
+                            defaultValue={item.value}
                             onChange={this.onChange.bind(this, item.name, key)}>
                             {item.option.map((child, index) => (
                                 <Select.Option key={index} value={child.value}>{child.text}</Select.Option>
@@ -129,7 +131,7 @@ class DrawerForm extends Component {
                         <Button onClick={this.onClose} style={{ marginRight: 8 }}>
                             取消
                         </Button>
-                        <Button onClick={this.onClose} type='primary'>
+                        <Button onClick={this.onSubmit} type='primary'>
                             确认
                         </Button>
                     </div>

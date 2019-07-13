@@ -8,7 +8,7 @@ export class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSearch = this.onSearch.bind(this);
@@ -20,11 +20,7 @@ export class Search extends Component {
 
     onChange = (index, e) => {
         let arr = this.state.data;
-        const obj = {
-            name: e.target.name.toString(),
-            value: e.target.value.toString()
-        };
-        arr[index] = obj;
+        arr[e.target.name] = e.target.value.toString();
         this.setState({
             data: arr
         });

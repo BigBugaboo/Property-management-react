@@ -123,6 +123,10 @@ export class Account extends Component {
         });
     }
 
+    onChange = (e) => {
+        console.log(e);
+    };
+
     render() {
         const { search, form } = this.state;
 
@@ -132,6 +136,7 @@ export class Account extends Component {
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='container'>
+                    <h2>基本设置</h2>
                     <DrawerForm
                         btnText='添加'
                         btnIcon='plus'
@@ -153,6 +158,7 @@ export class Account extends Component {
                                         btnText='修改'
                                         btnIcon='edit'
                                         btnType='primary'
+                                        onSubmit={this.onChange}
                                         form={[
                                             {
                                                 type: 'input',

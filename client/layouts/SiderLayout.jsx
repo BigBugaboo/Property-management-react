@@ -27,32 +27,32 @@ class SiderLayout extends Component {
                     {
                         title: '基本设置',
                         path: '/Main/Account',
-                        icon: 'snippets',
+                        icon: 'setting',
                     },
                     {
                         title: '住户管理',
                         path: '/Main/Resident',
-                        icon: 'snippets',
+                        icon: 'home',
                     },
                     {
                         title: '投诉管理',
                         path: '/Main/Compaints',
-                        icon: 'snippets',
+                        icon: 'message',
                     },
                     {
                         title: '报修管理',
                         path: '/Main/Repair',
-                        icon: 'snippets',
+                        icon: 'tool',
                     },
                     {
                         title: '缴费管理',
                         path: '/Main/Bills',
-                        icon: 'snippets',
+                        icon: 'money-collect',
                     },
                     {
                         title: '车位管理',
                         path: '/Main/Park',
-                        icon: 'snippets',
+                        icon: 'car',
                     },
                 ]
             },

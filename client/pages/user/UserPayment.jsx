@@ -88,7 +88,7 @@ export class UserPayment extends Component{
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='blo'>
-                    <p>缴费信息</p>
+                    <h2>缴费信息</h2>
                     <div className='line'></div>
                     <Table dataSource={data} bordered={true} size='default'>
                         <Table.Column title='缴费编号' dataIndex='key' key='key' />

@@ -186,7 +186,7 @@ export class UserRepair extends Component{
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='blo'>
-                    <p>报修信息</p>
+                    <h2>报修信息</h2>
                     <div className='line'></div>
                     <DrawerForm
                         btnText='添加'

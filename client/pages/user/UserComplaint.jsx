@@ -85,7 +85,7 @@ export class UserComplaint extends Component{
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='blo'>
-                    <p>投诉信息</p>
+                    <h2>投诉信息</h2>
                     <div className='line'></div>
                     <DrawerForm
                         btnText='添加'

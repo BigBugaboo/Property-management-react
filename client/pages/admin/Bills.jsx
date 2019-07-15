@@ -52,40 +52,37 @@ export class Bills extends Component {
         this.state = {
             form: [
                 {
-                    type: 'textArea',
-                    text: '投诉内容',
-                    name: 'sort',
-                    placeholder: '请输入投诉内容',
+                    type: 'input',
+                    text: '住户编号',
+                    name: 'residentKey',
+                    placeholder: '请输入住户编号',
                     value: '',
                 },
                 {
                     type: 'input',
-                    text: '投诉日期',
-                    name: 'endDate',
-                    placeholder: '请选择投诉日期',
-                    value: '',
-                },
-                {
-                    type: 'input',
-                    text: '处理日期',
+                    text: '缴费总额',
                     name: 'cost',
-                    placeholder: '请选择处理日期',
+                    placeholder: '请输入缴费总额',
                     value: '',
                 },
                 {
                     type: 'select',
-                    text: '状态',
-                    name: 'state',
-                    placeholder: '请选择状态',
+                    text: '缴费项目',
+                    name: 'sort',
+                    placeholder: '请选择缴费项目',
                     value: '',
                     option: [
                         {
-                            value: '已处理',
-                            text: '已处理',
+                            value: '水电费',
+                            text: '水电费',
                         },
                         {
-                            value: '未处理',
-                            text: '未处理',
+                            value: '停车费',
+                            text: '停车费',
+                        },
+                        {
+                            value: '物业费',
+                            text: '物业费',
                         },
                     ]
                 },
@@ -169,7 +166,7 @@ export class Bills extends Component {
                                     <Button
                                         type='primary'>
                                         <Icon type='edit' />
-                                        缴费
+                                        审核
                                     </Button>
                                     <Button type='danger' onClick={this.onDelete.bind(this, record)}>
                                         删除

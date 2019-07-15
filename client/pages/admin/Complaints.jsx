@@ -50,46 +50,6 @@ export class Complaints extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            form: [
-                {
-                    type: 'textArea',
-                    text: '投诉内容',
-                    name: 'context',
-                    placeholder: '请输入投诉内容',
-                    value: '',
-                },
-                {
-                    type: 'input',
-                    text: '投诉日期',
-                    name: 'startDate',
-                    placeholder: '请选择投诉日期',
-                    value: '',
-                },
-                {
-                    type: 'input',
-                    text: '处理日期',
-                    name: 'endDate',
-                    placeholder: '请选择处理日期',
-                    value: '',
-                },
-                {
-                    type: 'select',
-                    text: '状态',
-                    name: 'state',
-                    placeholder: '请选择状态',
-                    value: '',
-                    option: [
-                        {
-                            value: '已处理',
-                            text: '已处理',
-                        },
-                        {
-                            value: '未处理',
-                            text: '未处理',
-                        },
-                    ]
-                },
-            ],
             search: [
                 {
                     title: '住户编号',
@@ -140,7 +100,7 @@ export class Complaints extends Component {
     };
 
     render() {
-        const { search, form } = this.state;
+        const { search } = this.state;
 
         return (
             <div id='account'>
@@ -149,12 +109,6 @@ export class Complaints extends Component {
                 </div>
                 <div className='container'>
                     <h2>投诉管理</h2>
-                    <DrawerForm
-                        btnText='添加'
-                        btnIcon='plus'
-                        btnType='primary'
-                        form={form}
-                    />
                     <Table dataSource={data} bordered={true} size='default'>
                         <Table.Column title='投诉编号' dataIndex='key' key='key' />
                         <Table.Column title='住户编号' dataIndex='residentKey' key='residentKey' />
@@ -175,20 +129,6 @@ export class Complaints extends Component {
                                         form={[
                                             {
                                                 type: 'input',
-                                                text: '密码',
-                                                name: 'password',
-                                                placeholder: '请输入密码',
-                                                value: record.password,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '住户姓名',
-                                                name: 'name',
-                                                placeholder: '请输入住户姓名',
-                                                value: record.name,
-                                            },
-                                            {
-                                                type: 'input',
                                                 text: '地址',
                                                 name: 'address',
                                                 placeholder: '请输入房屋地址',
@@ -196,18 +136,18 @@ export class Complaints extends Component {
                                             },
                                             {
                                                 type: 'select',
-                                                text: '权限',
-                                                name: 'level',
+                                                text: '状态',
+                                                name: 'state',
                                                 placeholder: '请输入选择权限',
-                                                value: record.level,
+                                                value: record.state,
                                                 option: [
                                                     {
-                                                        value: '业主',
-                                                        text: '业主',
+                                                        value: '已处理',
+                                                        text: '已处理',
                                                     },
                                                     {
-                                                        value: '管理员',
-                                                        text: '管理员',
+                                                        value: '未处理',
+                                                        text: '未处理',
                                                     },
                                                 ]
                                             },

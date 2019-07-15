@@ -13,6 +13,7 @@ const data = [
         startDate: 'John Brown',
         endDate: '业主',
         address: 'New York No. 1 Lake Park',
+        name: '张三',
         state: '未处理',
     },
     {
@@ -22,6 +23,7 @@ const data = [
         startDate: 'Jim Green',
         endDate: '业主',
         address: 'London No. 1 Lake Park',
+        name: '张三',
         state: '未处理',
     },
     {
@@ -31,6 +33,7 @@ const data = [
         startDate: 'Joe Black',
         endDate: '业主',
         address: 'Sidney No. 1 Lake Park',
+        name: '张三',
         state: '未处理',
     },
     {
@@ -40,6 +43,7 @@ const data = [
         context: '123',
         endDate: '业主',
         address: 'Sidney No. 1 Lake Park',
+        name: '张三',
         state: '未处理',
     },
 ];
@@ -50,46 +54,6 @@ export class Repair extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            form: [
-                {
-                    type: 'textArea',
-                    text: '维修内容',
-                    name: 'context',
-                    placeholder: '请输入维修内容',
-                    value: '',
-                },
-                {
-                    type: 'input',
-                    text: '报修日期',
-                    name: 'startDate',
-                    placeholder: '请选择投诉日期',
-                    value: '',
-                },
-                {
-                    type: 'input',
-                    text: '维修人员',
-                    name: 'endDate',
-                    placeholder: '请输入维修人员',
-                    value: '',
-                },
-                {
-                    type: 'select',
-                    text: '状态',
-                    name: 'state',
-                    placeholder: '请选择状态',
-                    value: '',
-                    option: [
-                        {
-                            value: '已处理',
-                            text: '已处理',
-                        },
-                        {
-                            value: '未处理',
-                            text: '未处理',
-                        },
-                    ]
-                },
-            ],
             search: [
                 {
                     title: '住户编号',
@@ -149,18 +113,14 @@ export class Repair extends Component {
                 </div>
                 <div className='container'>
                     <h2>报修管理</h2>
-                    <DrawerForm
-                        btnText='添加'
-                        btnIcon='plus'
-                        btnType='primary'
-                        form={form}
-                    />
                     <Table dataSource={data} bordered={true} size='default'>
                         <Table.Column title='报销编号' dataIndex='key' key='key' />
                         <Table.Column title='住户编号' dataIndex='residentKey' key='residentKey' />
                         <Table.Column title='报修日期' dataIndex='startDate' key='startDate' />
+                        <Table.Column title='地址' dataIndex='address' key='address' />
                         <Table.Column title='维修内容' dataIndex='context' key='context' />
-                        <Table.Column title='维修人员' dataIndex='endDate' key='endDate' />
+                        <Table.Column title='维修人员' dataIndex='name' key='name' />
+                        <Table.Column title='维修日期' dataIndex='endDate' key='endDate' />
                         <Table.Column title='状态' dataIndex='state' key='state' />
                         <Table.Column
                             title='操作'
@@ -173,17 +133,17 @@ export class Repair extends Component {
                                         onSubmit={this.onChange}
                                         form={[
                                             {
-                                                type: 'input',
-                                                text: '密码',
-                                                name: 'password',
-                                                placeholder: '请输入密码',
-                                                value: record.password,
+                                                type: 'textArea',
+                                                text: '内容',
+                                                name: 'context',
+                                                placeholder: '请输入内容',
+                                                value: record.context,
                                             },
                                             {
                                                 type: 'input',
-                                                text: '住户姓名',
+                                                text: '维修人员',
                                                 name: 'name',
-                                                placeholder: '请输入住户姓名',
+                                                placeholder: '请输入维修人员',
                                                 value: record.name,
                                             },
                                             {
@@ -195,18 +155,18 @@ export class Repair extends Component {
                                             },
                                             {
                                                 type: 'select',
-                                                text: '权限',
-                                                name: 'level',
-                                                placeholder: '请输入选择权限',
-                                                value: record.level,
+                                                text: '状态',
+                                                name: 'state',
+                                                placeholder: '请输入状态',
+                                                value: record.state,
                                                 option: [
                                                     {
-                                                        value: '业主',
-                                                        text: '业主',
+                                                        value: '已处理',
+                                                        text: '已处理',
                                                     },
                                                     {
-                                                        value: '管理员',
-                                                        text: '管理员',
+                                                        value: '未处理',
+                                                        text: '未处理',
                                                     },
                                                 ]
                                             },

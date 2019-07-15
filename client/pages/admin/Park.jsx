@@ -52,42 +52,22 @@ export class Park extends Component {
         this.state = {
             form: [
                 {
-                    type: 'textArea',
-                    text: '投诉内容',
-                    name: 'startDate',
-                    placeholder: '请输入投诉内容',
-                    value: '',
+                    type: 'input',
+                    text: '住户编号',
+                    name: 'residentKey',
+                    placeholder: '请输入住户编号',
                 },
                 {
                     type: 'input',
                     text: '车牌号',
                     name: 'license',
                     placeholder: '请选择车牌号',
-                    value: '',
                 },
                 {
                     type: 'input',
-                    text: '处理日期',
-                    name: 'endDate',
-                    placeholder: '请选择处理日期',
-                    value: '',
-                },
-                {
-                    type: 'select',
-                    text: '状态',
-                    name: 'state',
-                    placeholder: '请选择状态',
-                    value: '',
-                    option: [
-                        {
-                            value: '已处理',
-                            text: '已处理',
-                        },
-                        {
-                            value: '未处理',
-                            text: '未处理',
-                        },
-                    ]
+                    text: '租期天数(每天20元)',
+                    name: 'days',
+                    placeholder: '请选择租凭天数',
                 },
             ],
             search: [
@@ -174,40 +154,19 @@ export class Park extends Component {
                                         onSubmit={this.onChange}
                                         form={[
                                             {
-                                                type: 'input',
-                                                text: '密码',
-                                                name: 'password',
-                                                placeholder: '请输入密码',
-                                                value: record.password,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '住户姓名',
-                                                name: 'name',
-                                                placeholder: '请输入住户姓名',
-                                                value: record.name,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '地址',
-                                                name: 'cost',
-                                                placeholder: '请输入房屋地址',
-                                                value: record.cost,
-                                            },
-                                            {
                                                 type: 'select',
-                                                text: '权限',
-                                                name: 'level',
+                                                text: '状态',
+                                                name: 'state',
                                                 placeholder: '请输入选择权限',
-                                                value: record.level,
+                                                value: record.state,
                                                 option: [
                                                     {
-                                                        value: '业主',
-                                                        text: '业主',
+                                                        value: '停车中',
+                                                        text: '停车中',
                                                     },
                                                     {
-                                                        value: '管理员',
-                                                        text: '管理员',
+                                                        value: '空闲',
+                                                        text: '空闲',
                                                     },
                                                 ]
                                             },

@@ -14,7 +14,7 @@ const data = [
         cost: '业主',
         address: 'New York No. 1 Lake Park',
         number: '无',
-        state: '未处理',
+        state: '未缴费',
     },
     {
         key: '2',
@@ -24,7 +24,7 @@ const data = [
         cost: '业主',
         address: 'London No. 1 Lake Park',
         number: '无',
-        state: '未处理',
+        state: '未缴费',
     },
     {
         key: '3',
@@ -34,7 +34,7 @@ const data = [
         cost: '业主',
         address: 'Sidney No. 1 Lake Park',
         number: '无',
-        state: '未处理',
+        state: '未缴费',
     },
     {
         key: '4',
@@ -44,7 +44,7 @@ const data = [
         cost: '业主',
         address: 'Sidney No. 1 Lake Park',
         number: '无',
-        state: '未处理',
+        state: '已缴费',
     },
 ];
 
@@ -136,8 +136,20 @@ export class Bills extends Component {
         });
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = (record, e) => {
+        Modal.confirm({
+            title: '是否确认通过该缴费?',
+            content: '确认后，无法修改！',
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
     };
 
     render() {
@@ -168,11 +180,14 @@ export class Bills extends Component {
                             title='操作'
                             render={(text, record) => (
                                 <Button.Group>
-                                    <Button
-                                        type='primary'>
-                                        <Icon type='edit' />
-                                        审核
-                                    </Button>
+                                    {record.state !== '已缴费' &&
+                                        <Button
+                                            type='primary'
+                                            onClick={this.onChange.bind(this, record)}>
+                                            <Icon type='edit' />
+                                            审核
+                                        </Button>
+                                    }
                                     <Button type='danger' onClick={this.onDelete.bind(this, record)}>
                                         删除
                                         <Icon type='delete' />

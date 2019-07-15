@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Nav from '@/components/common/Nav';
 import TopBanner from '@/components/common/TopBanner';
@@ -110,6 +111,11 @@ class SiderLayout extends Component {
         this.setState({ collapsed });
     };
 
+    onLogout = () => {
+        let history = this.props.history;
+        history.push('/');
+    }
+
     render() {
         const { adminMenu, userMenu } = this.state;
         const { loginStatus, name } = this.props;
@@ -123,7 +129,7 @@ class SiderLayout extends Component {
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }}>
-                        <TopBanner name={name} />
+                        <TopBanner name={name} onLogout={this.onLogout} />
                     </Header>
                     <Content style={{ margin: '16px 16px' }}>
                         {this.props.children}
@@ -135,4 +141,4 @@ class SiderLayout extends Component {
     }
 }
 
-export default SiderLayout;
+export default withRouter(SiderLayout);

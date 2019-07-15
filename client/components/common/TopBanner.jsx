@@ -13,9 +13,15 @@ class TopBanner extends Component {
         };
     }
 
+    onLogout = () => {
+        let history = this.props.history;
+        console.log(history);
+        history.push('/Main');
+    }
+
     render() {
         const { isLogin } = this.state;
-        const { name } = this.props;
+        const { name, onLogout } = this.props;
 
         return (
             <div id='top-banner'>
@@ -26,7 +32,8 @@ class TopBanner extends Component {
                             size='small'
                             icon='logout'
                             shape='round'
-                            type='danger'>
+                            type='danger'
+                            onClick={onLogout}>
                             注销
                         </Button>
                     </div>

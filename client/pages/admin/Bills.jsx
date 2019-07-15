@@ -13,6 +13,7 @@ const data = [
         endDate: 'John Brown',
         cost: '业主',
         address: 'New York No. 1 Lake Park',
+        number: '无',
         state: '未处理',
     },
     {
@@ -22,6 +23,7 @@ const data = [
         endDate: 'Jim Green',
         cost: '业主',
         address: 'London No. 1 Lake Park',
+        number: '无',
         state: '未处理',
     },
     {
@@ -31,6 +33,7 @@ const data = [
         endDate: 'Joe Black',
         cost: '业主',
         address: 'Sidney No. 1 Lake Park',
+        number: '无',
         state: '未处理',
     },
     {
@@ -40,6 +43,7 @@ const data = [
         sort: '123',
         cost: '业主',
         address: 'Sidney No. 1 Lake Park',
+        number: '无',
         state: '未处理',
     },
 ];
@@ -158,6 +162,7 @@ export class Bills extends Component {
                         <Table.Column title='缴费日期' dataIndex='endDate' key='endDate' />
                         <Table.Column title='缴费项目' dataIndex='sort' key='sort' />
                         <Table.Column title='缴费总额' dataIndex='cost' key='cost' />
+                        <Table.Column title='单号' dataIndex='number' key='number' />
                         <Table.Column title='状态' dataIndex='state' key='state' />
                         <Table.Column
                             title='操作'

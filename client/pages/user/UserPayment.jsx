@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Table, Button, Input, Collapse, Icon } from 'antd';
+import { Table, Button, Icon, Modal } from 'antd';
 
 import '@/styles/pages/user/UserPayment.scss';
 import Search from '@/components/common/Search';
+import DrawerForm from '@/components/common/DrawerForm';
+
 
 const data = [
     {
@@ -54,42 +56,6 @@ export class UserPayment extends Component{
                     name: 'date'
                 }
             ],
-            columns: [
-                {
-                    title: '缴费编号',
-                    dataIndex: 'key',
-                    key: 'key',
-                },
-                {
-                    title: '缴费日期',
-                    dataIndex: 'date',
-                    key: 'date',
-                },
-                {
-                    title: '缴费项目',
-                    dataIndex: 'name',
-                    key: 'name',
-                },
-                {
-                    title: '缴费总额',
-                    dataIndex: 'money',
-                    key: 'money',
-                },
-                {
-                    title: '状态',
-                    dataIndex: 'status',
-                    key: 'status',
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    render: (text, record) => (
-                        <span>
-                            <Button type='primary' className='btn'>缴费</Button>
-                        </span>
-                    ),
-                },
-            ]
         };
     }
 
@@ -97,21 +63,52 @@ export class UserPayment extends Component{
         console.log(e);
     }
 
+    onPay = (record, e) => {
+        console.log(record);
+        Modal.confirm({
+            title: '是否确认缴费?',
+            content: '确认后，无法恢复！',
+            okText: '缴费',
+            okType: 'primary',
+            cancelText: '取消',
+            onOk() {
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
+
     render() {
-        const { columns, search } = this.state;
+        const { search } = this.state;
         return (
             <div id='Payment'>
                 <div className='search'>
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
                 <div className='blo'>
-                    <p>缴费信息</p>
+                    <h2>缴费信息</h2>
                     <div className='line'></div>
-                    <Table
-                        bordered={true}
-                        columns={columns}
-                        dataSource={data}
-                    />
+                    <Table dataSource={data} bordered={true} size='default'>
+                        <Table.Column title='缴费编号' dataIndex='key' key='key' />
+                        <Table.Column title='缴费日期' dataIndex='date' key='date' />
+                        <Table.Column title='缴费项目' dataIndex='name' key='name' />
+                        <Table.Column title='缴费总额' dataIndex='money' key='money' />
+                        <Table.Column title='状态' dataIndex='status' key='status' />
+                        <Table.Column
+                            title='操作'
+                            key='action'
+                            render={(text, record) => (
+                                <Button.Group>
+                                    { record.status == '未缴费' &&
+                                    <Button type='primary' onClick={this.onPay.bind(this, record)}>
+                                        缴费
+                                    </Button>}
+                                </Button.Group>
+                            )}
+                        />
+                    </Table>
                 </div>
             </div>
         );

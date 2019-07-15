@@ -135,42 +135,6 @@ export class UserRepair extends Component{
                     name: 'startdate'
                 }
             ],
-            repair: [
-                {
-                    title: '报修编号',
-                    dataIndex: 'key',
-                    key: 'key',
-                },
-                {
-                    title: '报修日期',
-                    dataIndex: 'date',
-                    key: 'date',
-                },
-                {
-                    title: '报修内容',
-                    dataIndex: 'content',
-                    key: 'content',
-                },
-                {
-                    title: '维修人员',
-                    dataIndex: 'people',
-                    key: 'people',
-                },
-                {
-                    title: '状态',
-                    dataIndex: 'status',
-                    key: 'status',
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    render: (text, record) => (
-                        <span>
-                            <Button type='primary' className='btn'>修改</Button>
-                        </span>
-                    ),
-                },
-            ]
         };
     }
 

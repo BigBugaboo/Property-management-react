@@ -3,7 +3,8 @@ import { Button } from 'antd';
 
 import '@/styles/components/common/top-banner.scss';
 
-export default class TopBanner extends Component {
+/** 顶部工具栏 */
+class TopBanner extends Component {
 
     constructor(props) {
         super(props);
@@ -14,12 +15,13 @@ export default class TopBanner extends Component {
 
     render() {
         const { isLogin } = this.state;
+        const { name } = this.props;
 
         return (
             <div id='top-banner'>
                 {isLogin ?
                     <div>
-                        欢迎XXX，进入物业管理系统。
+                        欢迎{name}，进入物业管理系统。
                         <Button
                             size='small'
                             icon='logout'
@@ -40,3 +42,5 @@ export default class TopBanner extends Component {
         );
     }
 }
+
+export default TopBanner;

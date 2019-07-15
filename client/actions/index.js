@@ -1,4 +1,10 @@
-import { INCREASE, DECREASE } from '../constants/index';
+import { INCREASE,
+    DECREASE,
+    ADMIN,
+    USER,
+    SETNAME,
+    REMOVENAME,
+} from '../constants/index';
 
 export const decrease = () => ({
     type: DECREASE,
@@ -8,6 +14,25 @@ export const decrease = () => ({
 export const increase = () => ({
     type: INCREASE,
     payload: {}
+});
+
+export const admin = () => ({
+    type: ADMIN,
+    payload: {}
+});
+
+export const user = () => ({
+    type: USER,
+    payload: {}
+});
+
+export const setName = (value) => ({
+    type: SETNAME,
+    value: value,
+});
+
+export const removeName = () => ({
+    type: REMOVENAME
 });
 
 export const asyncIncrease = () => async (dispatch, getState) => {

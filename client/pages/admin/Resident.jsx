@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Table, Icon, Button, Modal } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 
-import * as actions from '../../actions/counter';
+import * as actions from '../../actions/index';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
 
@@ -86,9 +85,9 @@ class Index extends Component {
             ],
             search: [
                 {
-                    title: '账号编号',
-                    placeholder: '请输入账号编号',
-                    name: 'residentKey'
+                    title: '住户姓名',
+                    placeholder: '请输入住户姓名',
+                    name: 'name'
                 }
             ]
         };

@@ -24,7 +24,7 @@ export default class Nav extends Component {
 
         return (
             <>
-                <Menu id='nav' theme='dark' defaultSelectedKeys={['0']} mode='inline'>
+                <Menu id='nav' theme='dark' mode='inline'>
                     <div className='header'>
                         <img className='logo' src={logo} />
                         <p className='logo-title'>物业管理</p>

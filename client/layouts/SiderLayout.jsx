@@ -9,7 +9,7 @@ import TopBanner from '@/components/common/TopBanner';
 const { Header, Content, Footer, Sider } = Layout;
 
 const mapStateToProps = (state, ownProps) => {
-    return state.loginStatus;
+    return state.stores;
 };
 
 /** 侧边导航栏布局 */
@@ -112,7 +112,7 @@ class SiderLayout extends Component {
 
     render() {
         const { adminMenu, userMenu } = this.state;
-        const { loginStatus } = this.props;
+        const { loginStatus, name } = this.props;
 
         const menu = loginStatus === 0 ? adminMenu : userMenu;
 
@@ -123,7 +123,7 @@ class SiderLayout extends Component {
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }}>
-                        <TopBanner />
+                        <TopBanner name={name} />
                     </Header>
                     <Content style={{ margin: '16px 16px' }}>
                         {this.props.children}

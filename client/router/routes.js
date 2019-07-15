@@ -5,6 +5,7 @@ import Test from '@/pages/Test';
 import Account from '@/pages/admin/Account';
 import Complaints from '@/pages/admin/Complaints';
 import Repair from '@/pages/admin/Repair';
+import Bills from '@/pages/admin/Bills';
 import Park from '@/pages/admin/Park';
 
 import UserInfo from '@/pages/user/UserInfo';
@@ -30,16 +31,20 @@ module.exports = [
         component: Repair,
     },
     {
+        path: '/Bills',
+        component: Bills,
+    },
+    {
+        path: '/Park',
+        component: Park,
+    },
+    {
         path: '/Test',
         component: Test,
     },
     {
         path: '/Resident',
         component: Resident,
-    },
-    {
-        path: '/Park',
-        component: Park,
     },
     {
         path: '/UserInfo',

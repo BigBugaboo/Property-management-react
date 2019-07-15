@@ -92,10 +92,20 @@ export class Complaints extends Component {
             ],
             search: [
                 {
-                    title: '账号编号',
-                    placeholder: '请输入业主编号',
-                    name: 'complaintsKey'
-                }
+                    title: '住户编号',
+                    placeholder: '请输入住户编号',
+                    name: 'residentKey'
+                },
+                {
+                    title: '投诉日期',
+                    placeholder: '请输入投诉日期',
+                    name: 'startDate'
+                },
+                {
+                    title: '状态',
+                    placeholder: '请输入状态',
+                    name: 'state'
+                },
             ]
         };
     }

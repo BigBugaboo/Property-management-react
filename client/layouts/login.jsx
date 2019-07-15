@@ -3,7 +3,7 @@ import { Carousel, message } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from '../actions/loginStatus';
+import * as actions from '../actions/index';
 
 import { _login } from '@/api/login.js';
 import '@/styles/layouts/login.scss';
@@ -13,7 +13,7 @@ import { isEmpty } from '@/utils/index.js';
 import ad from '@/assets/bg1.png';
 
 const mapStateToProps = (state, ownProps) => {
-    return state.loginStatus;
+    return state.stores;
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -54,6 +54,7 @@ class Login extends Component {
 
     onClick = (status) => {
         let history = this.props.history;
+        this.props.actions.setName('测试');
         if (status === 0) {
             this.props.actions.admin();
             history.push('/Main/Account');

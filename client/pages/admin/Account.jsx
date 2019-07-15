@@ -13,7 +13,6 @@ const data = [
         name: 'John Brown',
         password: '123',
         level: '业主',
-        address: 'New York No. 1 Lake Park',
     },
     {
         key: '2',
@@ -21,7 +20,6 @@ const data = [
         name: 'Jim Green',
         password: '123',
         level: '业主',
-        address: 'London No. 1 Lake Park',
         state: 'wait',
     },
     {
@@ -30,7 +28,6 @@ const data = [
         name: 'Joe Black',
         password: '123',
         level: '业主',
-        address: 'Sidney No. 1 Lake Park',
     },
     {
         key: '4',
@@ -38,7 +35,6 @@ const data = [
         name: 'Joe Black',
         password: '123',
         level: '业主',
-        address: 'Sidney No. 1 Lake Park',
     },
 ];
 
@@ -61,13 +57,6 @@ export class Account extends Component {
                     text: '住户姓名',
                     name: 'name',
                     placeholder: '请输入住户姓名',
-                    value: '',
-                },
-                {
-                    type: 'input',
-                    text: '地址',
-                    name: 'address',
-                    placeholder: '请输入房屋地址',
                     value: '',
                 },
                 {
@@ -147,7 +136,6 @@ export class Account extends Component {
                         <Table.Column title='账号编号' dataIndex='username' key='username' />
                         <Table.Column title='密码' dataIndex='password' key='password' />
                         <Table.Column title='住户姓名' dataIndex='name' key='name' />
-                        <Table.Column title='地址' dataIndex='address' key='address' />
                         <Table.Column title='权限' dataIndex='level' key='level' />
                         <Table.Column
                             title='操作'
@@ -172,13 +160,6 @@ export class Account extends Component {
                                                 name: 'name',
                                                 placeholder: '请输入住户姓名',
                                                 value: record.name,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '地址',
-                                                name: 'address',
-                                                placeholder: '请输入房屋地址',
-                                                value: record.address,
                                             },
                                             {
                                                 type: 'select',

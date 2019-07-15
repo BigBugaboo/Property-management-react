@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-import count from './counter';
-import loginStatus from './loginStatus';
+import stores from './variable';
 
-const rootReducer = combineReducers({ count, loginStatus });
+
+const rootReducer = combineReducers({
+    stores
+});
 
 export default rootReducer;

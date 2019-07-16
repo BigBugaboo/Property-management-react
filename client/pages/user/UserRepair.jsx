@@ -130,6 +130,7 @@ export class UserRepair extends Component{
             ],
             search: [
                 {
+                    type: 'input',
                     title: '报修内容',
                     placeholder: '请输入报修内容',
                     name: 'startdate'

@@ -51,6 +51,7 @@ export class UserPayment extends Component{
         this.state = {
             search: [
                 {
+                    type: 'date',
                     title: '缴费日期',
                     placeholder: '请输入缴费日期',
                     name: 'date'

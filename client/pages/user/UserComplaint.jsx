@@ -61,6 +61,7 @@ export class UserComplaint extends Component{
             ],
             search: [
                 {
+                    type: 'date',
                     title: '投诉日期',
                     placeholder: '请输入投诉日期',
                     name: 'startdate'

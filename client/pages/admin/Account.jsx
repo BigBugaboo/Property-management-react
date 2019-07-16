@@ -79,9 +79,10 @@ export class Account extends Component {
             ],
             search: [
                 {
-                    title: '账号编号',
-                    placeholder: '请输入业主编号',
-                    name: 'username'
+                    type: 'input',
+                    title: '住户姓名',
+                    placeholder: '请输入住户姓名',
+                    name: 'name'
                 }
             ]
         };

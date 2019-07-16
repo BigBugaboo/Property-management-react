@@ -2,20 +2,21 @@
 
 #nav {
     .header {
-        margin: 20px auto;
-        width: 80%;
-        height: 30px;
-        padding: 10px 0;
+        margin: 20px 0px 0px;
         display: flex;
         align-items: center;
+        justify-content: center;
+
 
         .logo-title {
-            text-align: start;
+            display: inline-block;
+            line-height: 20px;
             font-size: 18px;
         }
         .logo {
-            width: 32px;
-            height: 32px;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
             margin: 0 10px 10px;
         }
     }

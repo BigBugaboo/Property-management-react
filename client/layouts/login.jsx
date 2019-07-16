@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Carousel, message } from 'antd';
+import { Carousel } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as actions from '../actions/index';
 
-import { _login } from '@/api/login.js';
+import { login } from '@/api/common/log.js';
 import '@/styles/layouts/login.scss';
 import LoginForm from '@/components/common/LoginForm';
 import { isEmpty } from '@/utils/index.js';
 
 import ad from '@/assets/bg1.png';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return state.stores;
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators({ ...actions }, dispatch),
 });
 
@@ -29,7 +29,7 @@ class Login extends Component {
         };
     }
 
-    onSubmit = (username, password, status) => {
+    onSubmit = (username, password) => {
         // if (isEmpty()) {
         //     message.info('This is a normal message');
         //     return;
@@ -41,7 +41,6 @@ class Login extends Component {
         };
         console.log(date);
 
-        // const result = _login('', date);
         let history = this.props.history;
         history.push('/Main/Index');
         // this.props.form.validateFields((err, values) => {

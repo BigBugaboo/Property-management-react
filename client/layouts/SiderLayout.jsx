@@ -107,7 +107,6 @@ class SiderLayout extends Component {
     }
 
     onCollapse = (collapsed) => {
-        console.log(collapsed);
         this.setState({ collapsed });
     };
 
@@ -117,7 +116,7 @@ class SiderLayout extends Component {
     }
 
     render() {
-        const { adminMenu, userMenu } = this.state;
+        const { adminMenu, userMenu, collapsed } = this.state;
         const { loginStatus, name } = this.props;
 
         const menu = loginStatus === 0 ? adminMenu : userMenu;
@@ -125,7 +124,7 @@ class SiderLayout extends Component {
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sider collapsible={true} collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-                    <Nav menu={menu} />
+                    <Nav menu={menu} collapsed={collapsed} />
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }}>

@@ -72,16 +72,19 @@ export class Park extends Component {
             ],
             search: [
                 {
-                    title: '账号编号',
-                    placeholder: '请输入账号编号',
+                    type: 'input',
+                    title: '住户编号',
+                    placeholder: '请输入住户编号',
                     name: 'residentKey'
                 },
                 {
+                    type: 'input',
                     title: '车牌号',
                     placeholder: '请输入车牌号',
                     name: 'license'
                 },
                 {
+                    type: 'input',
                     title: '状态',
                     placeholder: '请输入状态',
                     name: 'state'

@@ -20,14 +20,14 @@ export default class Nav extends Component {
     }
 
     render() {
-        const { menu } = this.props;
+        const { menu, collapsed } = this.props;
 
         return (
             <>
                 <Menu id='nav' theme='dark' mode='inline'>
                     <div className='header'>
                         <img className='logo' src={logo} />
-                        <p className='logo-title'>物业管理</p>
+                        {collapsed || <p className='logo-title'>物业管理</p>}
                     </div>
                     {menu.list.map((item, index) => (
                         item.children ?

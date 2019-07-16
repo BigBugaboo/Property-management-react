@@ -85,6 +85,7 @@ class Index extends Component {
             ],
             search: [
                 {
+                    type: 'input',
                     title: '住户姓名',
                     placeholder: '请输入住户姓名',
                     name: 'name'

@@ -13,7 +13,7 @@ const data = [
         endDate: 'John Brown',
         cost: '业主',
         address: 'New York No. 1 Lake Park',
-        number: '无',
+        order: '无',
         state: '未缴费',
     },
     {
@@ -23,7 +23,7 @@ const data = [
         endDate: 'Jim Green',
         cost: '业主',
         address: 'London No. 1 Lake Park',
-        number: '无',
+        order: '无',
         state: '未缴费',
     },
     {
@@ -33,7 +33,7 @@ const data = [
         endDate: 'Joe Black',
         cost: '业主',
         address: 'Sidney No. 1 Lake Park',
-        number: '无',
+        order: '无',
         state: '未缴费',
     },
     {
@@ -43,7 +43,7 @@ const data = [
         sort: '123',
         cost: '业主',
         address: 'Sidney No. 1 Lake Park',
-        number: '无',
+        order: '无',
         state: '已缴费',
     },
 ];
@@ -93,16 +93,19 @@ export class Bills extends Component {
             ],
             search: [
                 {
+                    type: 'input',
                     title: '住户编号',
                     placeholder: '请输入住户编号',
                     name: 'residentKey'
                 },
                 {
+                    type: 'input',
                     title: '收费项目',
                     placeholder: '请输入收费项目',
                     name: 'sort'
                 },
                 {
+                    type: 'input',
                     title: '状态',
                     placeholder: '请输入状态',
                     name: 'state'
@@ -174,7 +177,7 @@ export class Bills extends Component {
                         <Table.Column title='缴费日期' dataIndex='endDate' key='endDate' />
                         <Table.Column title='缴费项目' dataIndex='sort' key='sort' />
                         <Table.Column title='缴费总额' dataIndex='cost' key='cost' />
-                        <Table.Column title='单号' dataIndex='number' key='number' />
+                        <Table.Column title='单号' dataIndex='order' key='order' />
                         <Table.Column title='状态' dataIndex='state' key='state' />
                         <Table.Column
                             title='操作'

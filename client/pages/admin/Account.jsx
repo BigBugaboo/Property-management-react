@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Table, Icon, Button, Modal } from 'antd';
 
 import DrawerForm from '@/components/common/DrawerForm';
@@ -88,16 +87,11 @@ export class Account extends Component {
         };
     }
 
-    static propTypes = {
-
-    }
-
     onSearch = (e) => {
         console.log(e);
     }
 
     onDelete = (record, e) => {
-        console.log(record);
         Modal.confirm({
             title: '是否删除该条信息?',
             content: '删除后，无法恢复！',

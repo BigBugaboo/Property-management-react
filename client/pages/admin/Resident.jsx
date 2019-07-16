@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Icon, Button, Modal } from 'antd';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import * as actions from '../../actions/index';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
 
@@ -39,16 +36,7 @@ const data = [
     },
 ];
 
-const mapStateToProps = (state, ownProps) => {
-    return state.count;
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    actions: bindActionCreators({ ...actions }, dispatch),
-});
-
 /** 住户管理 */
-@connect(mapStateToProps, mapDispatchToProps)
 class Index extends Component {
     constructor(props) {
         super(props);

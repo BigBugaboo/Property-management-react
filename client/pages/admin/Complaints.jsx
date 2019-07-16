@@ -98,7 +98,7 @@ export class Complaints extends Component {
         });
     }
 
-    onChange = (e) => {
+    onSubmit = (e) => {
         console.log(e);
     };
 
@@ -128,7 +128,7 @@ export class Complaints extends Component {
                                         btnText='修改'
                                         btnIcon='edit'
                                         btnType='primary'
-                                        onSubmit={this.onChange}
+                                        onSubmit={this.onSubmit}
                                         form={[
                                             {
                                                 type: 'input',

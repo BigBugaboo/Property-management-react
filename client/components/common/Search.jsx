@@ -18,9 +18,10 @@ export class Search extends Component {
 
     }
 
-    onChange = (index, e) => {
+    onChange = (name, e, str) => {
         let arr = this.state.data;
-        arr[e.target.name] = e.target.value.toString();
+        let value = e.target === undefined ? str : e.target.value;
+        arr[name] = value.toString();
         this.setState({
             data: arr
         });
@@ -41,7 +42,7 @@ export class Search extends Component {
                             key={key}
                             className='item'
                             placeholder={item.placeholder}
-                            onChange={this.onChange}
+                            onChange={this.onChange.bind(this, item.name)}
                         />
                     );
                 },
@@ -50,10 +51,9 @@ export class Search extends Component {
                         <Input
                             key={key}
                             className='item'
-                            name={item.name}
                             addonBefore={item.title}
                             placeholder={item.placeholder}
-                            onChange={this.onChange.bind(this, key)}
+                            onChange={this.onChange.bind(this, item.name)}
                         />
                     );
                 }

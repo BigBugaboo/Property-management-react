@@ -127,22 +127,11 @@ export class UserInfo extends Component{
                                                     />
                                                 </Form.Item>
                                                 <Form.Item label={'房屋编号'} >
-                                                    {/* <Input
+                                                    <Input
                                                         placeholder={'请填写房屋编号'}
                                                         defaultValue={house}
                                                         onChange={this.onChange.bind(this)}
-                                                    /> */}
-                                                    <Select
-                                                        style={{ width: 200 }}
-                                                        defaultValue={house}
-                                                        onChange={this.onChange.bind(this)}>
-                                                        <Select.Option key={house}
-                                                            value={house}>{house}
-                                                        </Select.Option>
-                                                        <Select.Option key={house}
-                                                            value={'08'}>{'08'}
-                                                        </Select.Option>
-                                                    </Select>
+                                                    />
                                                 </Form.Item>
                                                 <Form.Item label={'联系地址'} >
                                                     <Input

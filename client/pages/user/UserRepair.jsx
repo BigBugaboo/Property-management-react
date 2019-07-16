@@ -130,6 +130,7 @@ export class UserRepair extends Component{
             ],
             search: [
                 {
+                    type: 'input',
                     title: '报修内容',
                     placeholder: '请输入报修内容',
                     name: 'startdate'
@@ -141,6 +142,10 @@ export class UserRepair extends Component{
     onSearch = (e) => {
         console.log(e);
     }
+
+    onChange = (e) => {
+        console.log(e);
+    };
 
     render() {
         const { search, form } = this.state;

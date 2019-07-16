@@ -143,6 +143,10 @@ export class UserRepair extends Component{
         console.log(e);
     }
 
+    onChange = (e) => {
+        console.log(e);
+    };
+
     render() {
         const { search, form } = this.state;
         return (

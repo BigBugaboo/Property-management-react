@@ -22,13 +22,52 @@ const data = {
 export class UserInfo extends Component{
     constructor(props) {
         super(props);
-        this.state = data;
-        this.onChange = this.onChange.bind(this);
+        this.state = {
+            data,
+            form: [
+                {
+                    text: '联系电话',
+                    name: 'phone',
+                    placeholder: '请填写联系电话',
+                    value: data.phone,
+                },
+                {
+                    text: '住户姓名',
+                    name: 'name',
+                    placeholder: '请填写住户姓名',
+                    value: data.name,
+                },
+                {
+                    text: '房屋编号',
+                    name: 'house',
+                    placeholder: '请填写房屋编号',
+                    value: data.house,
+                },
+                {
+                    text: '联系地址',
+                    name: 'address',
+                    placeholder: '请填写联系地址',
+                    value: data.address,
+                },
+            ]
+        };
+        this.onChangeA = this.onChangeA.bind(this);
+        this.onChangeB = this.onChangeB.bind(this);
     }
 
-    onChange = (e) => {
+    onChangeA = (e) => {
+        let user = this.state.data;
+        user.password = e.target.value;
         this.setState({
-            data: this.state.data
+            data: user
+        });
+        console.log(data);
+    };
+    onChangeB = (name, key, e) => {
+        let userForm = this.state.data;
+        userForm[name] = e.target.value;
+        this.setState({
+            data: userForm
         });
         console.log(data);
     };
@@ -51,16 +90,12 @@ export class UserInfo extends Component{
     };
 
     onSubmit = () => {
-        // this.props.onSubmit(this.state.data);
         this.hide();
+        console.log(this.state.data);
     }
 
     render() {
-        const {
-            userid, password, name, purview,
-            nameid, phone, house, address,
-            carid, startTime, stopTime, status
-        } = this.state;
+        const { form, data } = this.state;
 
         return (
             <div id='base'>
@@ -73,28 +108,28 @@ export class UserInfo extends Component{
                                     <Icon type='edit' />
                                 </Button>
                                 <Modal
-                                    title="修改账号信息"
+                                    title='修改账号信息'
                                     visible={this.state.visibleA}
                                     onOk={this.onSubmit}
                                     onCancel={this.hide}
-                                    okText="确认"
-                                    cancelText="取消">
+                                    okText='确认'
+                                    cancelText='取消'>
 
                                     <p>账号密码：</p>
                                     <Input
                                         placeholder={'请设置密码'}
-                                        defaultValue={password}
-                                        onChange={this.onChange.bind(this)}
+                                        defaultValue={data.password}
+                                        onChange={this.onChangeA}
                                     />
                                 </Modal>
                             </div>
                         </div>
                         <div className='line'></div>
                         <div className='info'>
-                            <p>账号编号：{userid}</p>
-                            <p>账号密码：{password}</p>
-                            <p>住户姓名：{name}</p>
-                            <p>权限：{purview}</p>
+                            <p>账号编号：{data.userid}</p>
+                            <p>账号密码：{data.password}</p>
+                            <p>住户姓名：{data.name}</p>
+                            <p>权限：{data.purview}</p>
                         </div>
                     </div>
                     <div className='blo'>
@@ -112,34 +147,15 @@ export class UserInfo extends Component{
                                     <div>
                                         <Row gutter={16}>
                                             <Col span={24}>
-                                                <Form.Item label={'联系电话'} >
-                                                    <Input
-                                                        placeholder={'请填写联系电话'}
-                                                        defaultValue={phone}
-                                                        onChange={this.onChange.bind(this)}
-                                                    />
-                                                </Form.Item>
-                                                <Form.Item label={'住户姓名'} >
-                                                    <Input
-                                                        placeholder={'请填写住户姓名'}
-                                                        defaultValue={name}
-                                                        onChange={this.onChange.bind(this)}
-                                                    />
-                                                </Form.Item>
-                                                <Form.Item label={'房屋编号'} >
-                                                    <Input
-                                                        placeholder={'请填写房屋编号'}
-                                                        defaultValue={house}
-                                                        onChange={this.onChange.bind(this)}
-                                                    />
-                                                </Form.Item>
-                                                <Form.Item label={'联系地址'} >
-                                                    <Input
-                                                        placeholder={'请填写联系地址'}
-                                                        defaultValue={address}
-                                                        onChange={this.onChange.bind(this)}
-                                                    />
-                                                </Form.Item>
+                                                {form.map((item, index) => (
+                                                    <Form.Item label={item.text} key={index}>
+                                                        <Input
+                                                            placeholder={item.placeholder}
+                                                            defaultValue={item.value}
+                                                            onChange={this.onChangeB.bind(this, item.name, index)}
+                                                        />
+                                                    </Form.Item>
+                                                ))}
                                             </Col>
                                         </Row>
                                     </div>
@@ -166,12 +182,12 @@ export class UserInfo extends Component{
                         </div>
                         <div className='line'></div>
                         <div className='info'>
-                            <p>住户编号：{nameid}</p>
-                            <p>联系电话：{phone}</p>
-                            <p>住户姓名：{name}</p>
-                            <p>房屋编号：{house}</p>
+                            <p>住户编号：{data.nameid}</p>
+                            <p>联系电话：{data.phone}</p>
+                            <p>住户姓名：{data.name}</p>
+                            <p>房屋编号：{data.house}</p>
                             <div>
-                                <p>联系地址：{address}</p>
+                                <p>联系地址：{data.address}</p>
                             </div>
                         </div>
                     </div>
@@ -181,10 +197,10 @@ export class UserInfo extends Component{
                     <h2>车位信息</h2>
                     <div className='line'></div>
                     <div className='info'>
-                        <p>车位编号：{carid}</p>
-                        <p>使用时间：{startTime}</p>
-                        <p>停用时间：{stopTime}</p>
-                        <p>状态：{status}</p>
+                        <p>车位编号：{data.carid}</p>
+                        <p>使用时间：{data.startTime}</p>
+                        <p>停用时间：{data.stopTime}</p>
+                        <p>状态：{data.status}</p>
                     </div>
                 </div>
             </div>

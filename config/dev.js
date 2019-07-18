@@ -1,10 +1,5 @@
 const path = require('path');
 const webpack = require('webpack'); //访问内置的插件
-const HappyPack = require('happypack'); // 加快构建速度
-const os = require('os');
-const happThreadPool = HappyPack.ThreadPool({
-    size: os.cpus().length
-}); // 根据 CPU 设置线程数量
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //通过 npm 安装
 
 module.exports = {
@@ -28,10 +23,41 @@ module.exports = {
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
             use: [
-                'babel-loader?cacheDirectory',
                 {
-                    loader: 'happypack/loader?id=happyBabel',
-                }
+                    loader: 'babel-loader',
+                    options: {
+                        "babelrc": false,// 不采用.babelrc的配置
+                        presets: [
+                            "@babel/preset-env",
+                            "@babel/preset-react"
+                        ],
+                        plugins: [
+                            "@babel/plugin-syntax-dynamic-import",
+                            "transform-es2015-modules-commonjs",
+                            [
+                                "@babel/plugin-proposal-decorators",
+                                {
+                                    "legacy": true
+                                }
+                            ],
+                            [
+                                "@babel/plugin-proposal-class-properties",
+                                {
+                                    "loose": true
+                                }
+                            ],
+                            [
+                                "import",
+                                {
+                                    "libraryName": "antd",
+                                    "style": true // `style: true` 会加载 less 文件
+                                }
+                                ,
+                                "redux-persist"
+                            ]
+                        ]
+                    }
+                },
             ],
         },
         {
@@ -111,15 +137,6 @@ module.exports = {
             inject: 'body',
             hash: true
         }),
-        new HappyPack({
-            id: 'happyBabel',
-            cache: true,
-            loaders: [{
-                loader: 'babel-loader?cacheDirectory=true',
-            }],
-            threadPool: happThreadPool,
-            verbose: true,
-        })
     ],
     resolve: {
         modules: [path.resolve(__dirname, '../node_modules')],

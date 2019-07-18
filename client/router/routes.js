@@ -10,38 +10,18 @@ import Loading from '@/components/common/Loading';
 // import Repair from '@/pages/admin/Repair';
 // import Bills from '@/pages/admin/Bills';
 // import Park from '@/pages/admin/Park';
-const Resident = Loadable(() => import('@/pages/admin/Resident'), {
-    fallback: Loading,
-});
-const Account = Loadable(() => import('@/pages/admin/Account'), {
-    fallback: Loading,
-});
-const Complaints = Loadable(() => import('@/pages/admin/Complaints'), {
-    fallback: Loading,
-});
-const Repair = Loadable(() => import('@/pages/admin/Repair'), {
-    fallback: Loading,
-});
-const Bills = Loadable(() => import('@/pages/admin/Bills'), {
-    fallback: Loading,
-});
-const Park = Loadable(() => import('@/pages/admin/Park'), {
-    fallback: Loading,
-});
+const Resident = Loadable(() => import('@/pages/admin/Resident'));
+const Account = Loadable(() => import('@/pages/admin/Account'));
+const Complaints = Loadable(() => import('@/pages/admin/Complaints'));
+const Repair = Loadable(() => import('@/pages/admin/Repair'));
+const Bills = Loadable(() => import('@/pages/admin/Bills'));
+const Park = Loadable(() => import('@/pages/admin/Park'));
 
 
-const UserInfo = Loadable(() => import('@/pages/user/UserInfo'), {
-    fallback: Loading,
-});
-const UserTrouble = Loadable(() => import('@/pages/user/UserRepair'), {
-    fallback: Loading,
-});
-const UserPayment = Loadable(() => import('@/pages/user/UserPayment'), {
-    fallback: Loading,
-});
-const UserComplaint = Loadable(() => import('@/pages/user/UserComplaint'), {
-    fallback: Loading,
-});
+const UserInfo = Loadable(() => import('@/pages/user/UserInfo'));
+const UserTrouble = Loadable(() => import('@/pages/user/UserRepair'));
+const UserPayment = Loadable(() => import('@/pages/user/UserPayment'));
+const UserComplaint = Loadable(() => import('@/pages/user/UserComplaint'));
 // import UserInfo from '@/pages/user/UserInfo';
 // import UserTrouble from '@/pages/user/UserRepair';
 // import UserPayment from '@/pages/user/UserPayment';

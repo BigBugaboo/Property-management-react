@@ -7,9 +7,7 @@ import Loading from '@/components/common/Loading';
 import history from './history';
 import SiderLayout from '@/layouts/SiderLayout';
 // import Login from '@/layouts/Login';
-const Login = Loadable(() => import('@/layouts/Login'), {
-    fallback: Loading,
-});
+const Login = Loadable(() => import('@/layouts/Login'));
 // const SiderLayout = Loadable(() => import('@/layouts/SiderLayout'), {
 //     fallback: Loading,
 // });

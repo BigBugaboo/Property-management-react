@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Carousel } from 'antd';
+import { Carousel, message } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -29,26 +29,28 @@ class Login extends Component {
         };
     }
 
-    onSubmit = (username, password) => {
-        // if (isEmpty()) {
-        //     message.info('This is a normal message');
-        //     return;
-        // }
-
-        const date = {
+    onSubmit = async (username, password) => {
+        const data = {
             username: username,
             password: password
         };
-        console.log(date);
+        const result = await login(data);
+        if (result.data === null) {
+            message.error(result.msg);
+            return false;
+        }
+        let status = result.data.role;
+        window.sessionStorage.setItem('Token', result.data.Token);
 
         let history = this.props.history;
-        history.push('/Main/Index');
-        // this.props.form.validateFields((err, values) => {
-        //     if (!err) {
-        //         console.log('Received values of form: ', values);
-        //         // history.push('/View');
-        //     }
-        // });
+        if (status === '管理员') {
+            this.props.actions.admin();
+            history.push('/Main/Account');
+        }
+        else {
+            this.props.actions.user();
+            history.push('/Main/UserInfo');
+        }
     };
 
     onClick = (status) => {

@@ -13,6 +13,18 @@ export default class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        document.body.addEventListener('keyup', (e) => {
+            if (window.event) {
+                e = window.event;
+            }
+            let code = e.charCode || e.keyCode;
+            if (code === 13) {
+                this.onSubmit();
+            }
+        });
+    }
+
     changeUsername = e => {
         this.setState({
             username: e.target.value
@@ -29,7 +41,7 @@ export default class Login extends Component {
     }
 
     render() {
-        const { username, password, isSubmit } = this.state;
+        const { username, password } = this.state;
 
         return (
             <div>

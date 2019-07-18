@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const api = {
-    add: 'http://120.76.56.164:8080/register',
+    add: 'http://120.76.56.164:8080/administrator/park',
     list: 'http://120.76.56.164:8080/administrator/account',
-    edit: '',
+    edit: 'http://120.76.56.164:8080/administrator/park/:id',
     delete: 'http://120.76.56.164:8080/administrator/account',
     search: ''
 };
@@ -48,7 +48,18 @@ export const _list = () => {
 export const _delete = (data) => {
     addCeptor();
 
-    return axios.delete(api.delete, { data: data })
+    return axios.delete(api.delete, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _edit = (data) => {
+    addCeptor();
+
+    return axios.put(api.edit, { data: data })
         .then((response) => {
             return response.data;
         }).catch((error) => {

@@ -6,14 +6,10 @@ const MinCssExtractPlugin = require('mini-css-extract-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
-    entry: {
-        main: path.join(__dirname, '../client/app.js'), //入口文件
-        vendor: [
-            'react',
-            'react-dom',
-            'react-router-dom',
-        ] //分离第三方库
-    },
+    entry: [
+        path.resolve(__dirname, '../client/app.js'),
+        'babel-polyfill',
+    ],
     output: {
         filename: '[name].[chunkhash:5].js', //打包后的文件名
         chunkFilename: '[name].[chunkhash:5].js',

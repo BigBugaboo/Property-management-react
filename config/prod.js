@@ -85,16 +85,16 @@ module.exports = {
             ],
             exclude: /node_modules/
         },
-        {
-            test: /\.scss$/,
-            use: [
-                "style-loader",
-                MinCssExtractPlugin.loader,
-                "css-loader",
-                "sass-loader",
-            ],
-            exclude: /node_modules/
-        },
+        // {
+        //     test: /\.scss$/,
+        //     use: [
+        //         "style-loader",
+        //         MinCssExtractPlugin.loader,
+        //         "css-loader",
+        //         "sass-loader",
+        //     ],
+        //     exclude: /node_modules/
+        // },
         {
             test: /\.css$/,
             use: ['style-loader', 'css-loader'],
@@ -104,15 +104,9 @@ module.exports = {
             test: /\.less$/,
             exclude: [/node_modules/], //非antd目录开启css modules
             use: [
-                "style-loader",
+                MinCssExtractPlugin.loader,
                 {
                     loader: 'css-loader',
-                    options: {
-                        importLoaders: 2,
-                        modules: true,
-                        sourceMap: true,
-                        localIdentName: '[local]_[hash:base64:5]'
-                    }
                 },
                 {
                     loader: 'less-loader',

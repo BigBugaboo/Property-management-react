@@ -60,14 +60,14 @@ module.exports = {
                 },
             ],
         },
-        {
-            test: /\.scss$/,
-            use: [
-                "style-loader",
-                "css-loader",
-                "sass-loader?localIdentName=[local]_[hash:base64:5]",
-            ]
-        },
+        // {
+        //     test: /\.scss$/,
+        //     use: [
+        //         "style-loader",
+        //         "css-loader",
+        //         "sass-loader?localIdentName=[local]_[hash:base64:5]",
+        //     ]
+        // },
         {
             test: /\.css$/,
             loader: 'style-loader!css-loader'
@@ -79,12 +79,6 @@ module.exports = {
                 "style-loader",
                 {
                     loader: 'css-loader',
-                    options: {
-                        importLoaders: 2,
-                        modules: true,
-                        sourceMap: true,
-                        localIdentName: '[local]_[hash:base64:5]'
-                    }
                 },
                 {
                     loader: 'less-loader',

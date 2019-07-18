@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
-import '@/styles/app.scss';
+import '@/styles/app.less';
 import configureStore from './store/index';
 import RouterIndex from './router/index.js'; //引入路由管理js
 

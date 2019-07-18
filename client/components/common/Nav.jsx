@@ -3,7 +3,7 @@ import { Menu, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import '@/styles/components/common/nav.scss';
+import '@/styles/components/common/nav.less';
 import logo from '@/assets/logo.png';
 
 const { SubMenu, Item } = Menu;

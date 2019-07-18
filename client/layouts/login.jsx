@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/index';
 
 import { login } from '@/api/common/log.js';
-import '@/styles/layouts/login.scss';
+import '@/styles/layouts/login.less';
 import LoginForm from '@/components/common/LoginForm';
 import { isEmpty } from '@/utils/index.js';
 

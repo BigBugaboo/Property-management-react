@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Button, Input, DatePicker } from 'antd';
 import PropTypes from 'prop-types';
 
-import '@/styles/components/common/search.scss';
+import '@/styles/components/common/search.less';
 
 export class Search extends Component {
     constructor(props) {

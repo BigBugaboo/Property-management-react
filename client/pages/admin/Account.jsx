@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Table, Icon, Button, Modal } from 'antd';
 
+import { _add, _delete } from '@/api/admin/account.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
-import '@/styles/pages/admin/account.scss';
+import '@/styles/pages/admin/account.less';
 
 const data = [
     {
@@ -107,6 +108,17 @@ export class Account extends Component {
         });
     }
 
+    onAdd = async (e) => {
+        const data = {
+            password: e.password,
+            username: e.name,
+            permission: e.level
+        };
+
+        let result = await _add(data);
+        console.log(result);
+    }
+
     onChange = (e) => {
         console.log(e);
     };
@@ -125,6 +137,7 @@ export class Account extends Component {
                         btnText='添加'
                         btnIcon='plus'
                         btnType='primary'
+                        onSubmit={this.onAdd}
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default'>

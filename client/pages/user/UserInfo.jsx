@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, Select } from 'antd';
 
-import '@/styles/pages/user/UserInfo.scss';
+import '@/styles/pages/user/UserInfo.less';
 
 const data = {
     'userid': 'user',

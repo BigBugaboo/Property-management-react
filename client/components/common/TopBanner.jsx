@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 
-import '@/styles/components/common/top-banner.scss';
+import '@/styles/components/common/top-banner.less';
 
 /** 顶部工具栏 */
 class TopBanner extends Component {

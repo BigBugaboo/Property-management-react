@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Table, Icon, Button, } from 'antd';
 
-import '@/styles/pages/user/UserRepair.scss';
+import '@/styles/pages/user/UserRepair.less';
 import Search from '@/components/common/Search';
 import DrawerForm from '@/components/common/DrawerForm';
 

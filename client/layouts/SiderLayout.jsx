@@ -112,6 +112,7 @@ class SiderLayout extends Component {
 
     onLogout = () => {
         let history = this.props.history;
+        window.sessionStorage.removeItem('Token');
         history.push('/');
     }
 

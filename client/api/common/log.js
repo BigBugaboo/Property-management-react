@@ -8,7 +8,6 @@ const api = {
 export const login = (data) => {
     return axios.post(api.login, data)
         .then((response) => {
-            console.log(response);
             return response.data;
         })
         .catch((error) => {

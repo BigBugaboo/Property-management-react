@@ -13,12 +13,6 @@ class TopBanner extends Component {
         };
     }
 
-    onLogout = () => {
-        let history = this.props.history;
-        console.log(history);
-        history.push('/Main');
-    }
-
     render() {
         const { isLogin } = this.state;
         const { name, onLogout } = this.props;

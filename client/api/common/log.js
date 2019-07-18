@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const api = {
-    login: '',
+    login: '/login',
     logout: ''
 };
 
 export const login = (data) => {
-    let result = axios.post(api.login, data);
+    // let result = axios.post(api.login, data);
     return { result: true };
 };
 

@@ -44,6 +44,13 @@ class Index extends Component {
             form: [
                 {
                     type: 'input',
+                    text: '账号',
+                    name: 'userName',
+                    placeholder: '请输入对应的账号',
+                    value: '',
+                },
+                {
+                    type: 'input',
                     text: '住户姓名',
                     name: 'name',
                     placeholder: '请输入住户姓名',

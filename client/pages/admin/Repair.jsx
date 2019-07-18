@@ -44,7 +44,7 @@ const data = [
         endDate: '业主',
         address: 'Sidney No. 1 Lake Park',
         name: '张三',
-        state: '未处理',
+        state: '已处理',
     },
 ];
 
@@ -129,52 +129,54 @@ export class Repair extends Component {
                             title='操作'
                             render={(text, record) => (
                                 <Button.Group>
-                                    <DrawerForm
-                                        btnText='修改'
-                                        btnIcon='edit'
-                                        btnType='primary'
-                                        onSubmit={this.onChange}
-                                        form={[
-                                            {
-                                                type: 'textArea',
-                                                text: '内容',
-                                                name: 'context',
-                                                placeholder: '请输入内容',
-                                                value: record.context,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '维修人员',
-                                                name: 'name',
-                                                placeholder: '请输入维修人员',
-                                                value: record.name,
-                                            },
-                                            {
-                                                type: 'input',
-                                                text: '地址',
-                                                name: 'address',
-                                                placeholder: '请输入房屋地址',
-                                                value: record.address,
-                                            },
-                                            {
-                                                type: 'select',
-                                                text: '状态',
-                                                name: 'state',
-                                                placeholder: '请输入状态',
-                                                value: record.state,
-                                                option: [
-                                                    {
-                                                        value: '已处理',
-                                                        text: '已处理',
-                                                    },
-                                                    {
-                                                        value: '未处理',
-                                                        text: '未处理',
-                                                    },
-                                                ]
-                                            },
-                                        ]}
-                                    />
+                                    {record.state !== '已处理' &&
+                                        <DrawerForm
+                                            btnText='修改'
+                                            btnIcon='edit'
+                                            btnType='primary'
+                                            onSubmit={this.onChange}
+                                            form={[
+                                                {
+                                                    type: 'textArea',
+                                                    text: '内容',
+                                                    name: 'context',
+                                                    placeholder: '请输入内容',
+                                                    value: record.context,
+                                                },
+                                                {
+                                                    type: 'input',
+                                                    text: '维修人员',
+                                                    name: 'name',
+                                                    placeholder: '请输入维修人员',
+                                                    value: record.name,
+                                                },
+                                                {
+                                                    type: 'input',
+                                                    text: '地址',
+                                                    name: 'address',
+                                                    placeholder: '请输入房屋地址',
+                                                    value: record.address,
+                                                },
+                                                {
+                                                    type: 'select',
+                                                    text: '状态',
+                                                    name: 'state',
+                                                    placeholder: '请输入状态',
+                                                    value: record.state,
+                                                    option: [
+                                                        {
+                                                            value: '已处理',
+                                                            text: '已处理',
+                                                        },
+                                                        {
+                                                            value: '未处理',
+                                                            text: '未处理',
+                                                        },
+                                                    ]
+                                                },
+                                            ]}
+                                        />
+                                    }
                                     <Button type='danger' onClick={this.onDelete.bind(this, record)}>
                                         删除
                                         <Icon type='delete' />

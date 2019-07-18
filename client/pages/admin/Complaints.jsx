@@ -12,7 +12,6 @@ const data = [
         context: '123',
         startDate: 'John Brown',
         endDate: '业主',
-        address: 'New York No. 1 Lake Park',
         state: '未处理',
     },
     {
@@ -21,7 +20,6 @@ const data = [
         context: '123',
         startDate: 'Jim Green',
         endDate: '业主',
-        address: 'London No. 1 Lake Park',
         state: '未处理',
     },
     {
@@ -30,7 +28,6 @@ const data = [
         context: '123',
         startDate: 'Joe Black',
         endDate: '业主',
-        address: 'Sidney No. 1 Lake Park',
         state: '未处理',
     },
     {
@@ -39,8 +36,7 @@ const data = [
         startDate: 'Joe Black',
         context: '123',
         endDate: '业主',
-        address: 'Sidney No. 1 Lake Park',
-        state: '未处理',
+        state: '已处理',
     },
 ];
 
@@ -98,6 +94,22 @@ export class Complaints extends Component {
         });
     }
 
+    onChange = (record, e) => {
+        Modal.confirm({
+            title: '是否已经处理该投诉?',
+            content: '确认后，无法修改！',
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    };
+
     onSubmit = (e) => {
         console.log(e);
     };
@@ -118,44 +130,19 @@ export class Complaints extends Component {
                         <Table.Column title='投诉日期' dataIndex='startDate' key='startDate' />
                         <Table.Column title='投诉内容' dataIndex='context' key='context' />
                         <Table.Column title='处理日期' dataIndex='endDate' key='endDate' />
-                        <Table.Column title='地址' dataIndex='address' key='address' />
                         <Table.Column title='状态' dataIndex='state' key='state' />
                         <Table.Column
                             title='操作'
                             render={(text, record) => (
                                 <Button.Group>
-                                    <DrawerForm
-                                        btnText='修改'
-                                        btnIcon='edit'
-                                        btnType='primary'
-                                        onSubmit={this.onSubmit}
-                                        form={[
-                                            {
-                                                type: 'input',
-                                                text: '地址',
-                                                name: 'address',
-                                                placeholder: '请输入房屋地址',
-                                                value: record.address,
-                                            },
-                                            {
-                                                type: 'select',
-                                                text: '状态',
-                                                name: 'state',
-                                                placeholder: '请输入选择权限',
-                                                value: record.state,
-                                                option: [
-                                                    {
-                                                        value: '已处理',
-                                                        text: '已处理',
-                                                    },
-                                                    {
-                                                        value: '未处理',
-                                                        text: '未处理',
-                                                    },
-                                                ]
-                                            },
-                                        ]}
-                                    />
+                                    {record.state !== '已处理' &&
+                                        <Button
+                                            type='primary'
+                                            onClick={this.onChange.bind(this, record)}>
+                                            <Icon type='edit' />
+                                            审核
+                                        </Button>
+                                    }
                                     <Button type='danger' onClick={this.onDelete.bind(this, record)}>
                                         删除
                                         <Icon type='delete' />

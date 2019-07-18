@@ -10,7 +10,7 @@ import '@/styles/layouts/login.scss';
 import LoginForm from '@/components/common/LoginForm';
 import { isEmpty } from '@/utils/index.js';
 
-import ad from '@/assets/bg1.png';
+import ad from '@/assets/bg-1.png';
 
 const mapStateToProps = (state) => {
     return state.stores;
@@ -67,9 +67,6 @@ class Login extends Component {
     render() {
         return (
             <div id='login'>
-                <div className='header'>
-                    <p>物业管理系统</p>
-                </div>
                 <div className='container'>
                     <div className='ad'>
                         <Carousel autoplay={true}>
@@ -81,7 +78,7 @@ class Login extends Component {
                     </div>
                     <div className='form-group'>
                         <div className='input-list'>
-                            <h2>物业管理系统 | 登录</h2>
+                            <h2 className='form-title'>物业管理系统 | 登录</h2>
                             <LoginForm onSubmit={this.onSubmit} />
                             <button onClick={this.onClick.bind(this, 0)}>管理员</button>
                             <button onClick={this.onClick.bind(this, 1)}>住户</button>

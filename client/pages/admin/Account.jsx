@@ -128,7 +128,7 @@ export class Account extends Component {
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default'>
-                        <Table.Column title='账号编号' dataIndex='username' key='username' />
+                        <Table.Column title='住户编号' dataIndex='username' key='username' />
                         <Table.Column title='密码' dataIndex='password' key='password' />
                         <Table.Column title='住户姓名' dataIndex='name' key='name' />
                         <Table.Column title='权限' dataIndex='level' key='level' />

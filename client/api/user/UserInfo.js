@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const api = {
-    list: 'http://120.76.56.164:8080//proprietor',
+    list: 'http://120.76.56.164:8080/proprietor',
     search: '',
-    edit: ''
+    passwordedit: 'http://120.76.56.164:8080/proprietor/password',
+    edit: 'http://120.76.56.164:8080/proprietor'
 };
 
 const addCeptor = () => {
@@ -25,6 +26,28 @@ export const _list = () => {
     addCeptor();
 
     return axios.get(api.list)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _passwordedit = (data) => {
+    addCeptor();
+
+    return axios.put(api.passwordedit, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _edit = (data) => {
+    addCeptor();
+
+    return axios.put(api.edit, data)
         .then((response) => {
             return response.data;
         }).catch((error) => {

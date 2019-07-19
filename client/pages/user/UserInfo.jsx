@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, Select } from 'antd';
 
-import { _list, _edit } from '@/api/user/UserInfo.js';
+import { _list, _passwordedit, _edit } from '@/api/user/UserInfo.js';
 import '@/styles/pages/user/UserInfo.less';
 
 export class UserInfo extends Component {
@@ -19,6 +19,7 @@ export class UserInfo extends Component {
             startDate: '',
             endDate: '',
             status: '',
+            id: '',
             form: [
                 {
                     text: '联系电话',
@@ -28,13 +29,13 @@ export class UserInfo extends Component {
                 },
                 {
                     text: '住户姓名',
-                    name: 'name',
+                    name: 'realName',
                     placeholder: '请填写住户姓名',
                     value: '',
                 },
                 {
                     text: '房屋编号',
-                    name: 'house',
+                    name: 'houseNumber',
                     placeholder: '请填写房屋编号',
                     value: '',
                 },
@@ -54,33 +55,46 @@ export class UserInfo extends Component {
         });
     };
 
-    onChange = () => {
+    onSubmitPassword = () => {
         const state = this.state;
+        this.hide();
 
         let data = {
-            permission: state.permission,
-            realName: state.realName,
-            username: state.username,
-            phone: state.phone,
-            houseNumber: state.houseNumber,
-            address: state.address,
-            infoId: state.infoId,
-            startDate: state.startDate,
-            endDate: state.endDate,
-            status: state.status,
+            password: state.password,
         };
+        _passwordedit(data)
+            .then((result) => {
+                console.log('result',result);
+            });
+
+        console.log('123' + data.password);
+    }
+
+    onChangeInfo = (name, e) => {
+        let user = this.state;
+        user[name] = e.target.value;
+
+
+        console.log(e.target);
+    };
+
+    onSubmit = () => {
+        const state = this.state;
+        this.hide();
+
+        let data = {
+            name: state.realName,
+            phone: state.phone,
+            number: state.houseNumber,
+            address: state.address,
+        };
+        _edit(data)
+            .then((result) => {
+                console.log('result',result);
+            });
 
         console.log(data);
     }
-
-    onChangeInfo = (name, key, e) => {
-        let userForm = this.state.data;
-        userForm[name] = e.target.value;
-        this.setState({
-            data: userForm
-        });
-        console.log(userForm);
-    };
 
     show = () => {
         this.setState({
@@ -99,11 +113,6 @@ export class UserInfo extends Component {
         });
     };
 
-    onSubmit = () => {
-        this.hide();
-        this.onChange();
-    }
-
     componentDidMount() {
         this.reloadList();
     }
@@ -120,16 +129,44 @@ export class UserInfo extends Component {
             houseNumber: context.proprietor.houseNumber,
             address: context.proprietor.address,
             infoId: context.proprietor.id,
+            id: context.carport.id,
             startDate: context.carport.stopDate[0],
             endDate: context.carport.stopDate[1],
             status: context.carport.status,
+            form: [
+                {
+                    text: '联系电话',
+                    name: 'phone',
+                    placeholder: '请填写联系电话',
+                    value: context.proprietor.phone,
+                },
+                {
+                    text: '住户姓名',
+                    name: 'realName',
+                    placeholder: '请填写住户姓名',
+                    value: context.account.realName,
+                },
+                {
+                    text: '房屋编号',
+                    name: 'houseNumber',
+                    placeholder: '请填写房屋编号',
+                    value: context.proprietor.houseNumber,
+                },
+                {
+                    text: '联系地址',
+                    name: 'address',
+                    placeholder: '请填写联系地址',
+                    value: context.proprietor.address,
+                },
+            ]
+
         });
     }
 
     render() {
 
         const {
-            form, visibleAccount,permission, realName,
+            form, visibleAccount,permission, realName, id,
             username, phone, houseNumber, address, startDate,
             infoId, stopDate, status, endDate,
         } = this.state;
@@ -146,7 +183,7 @@ export class UserInfo extends Component {
                                 <Modal
                                     title='修改账号信息'
                                     visible={visibleAccount}
-                                    onOk={this.onSubmit}
+                                    onOk={this.onSubmitPassword}
                                     onCancel={this.hide}
                                     okText='确认'
                                     cancelText='取消'>
@@ -155,32 +192,6 @@ export class UserInfo extends Component {
                                     <Input
                                         placeholder={'请设置密码'}
                                         onChange={this.onChangePassword}
-                                        form={[
-                                            {
-                                                text: '联系电话',
-                                                name: 'phone',
-                                                placeholder: '请填写联系电话',
-                                                value: phone,
-                                            },
-                                            {
-                                                text: '住户姓名',
-                                                name: 'name',
-                                                placeholder: '请填写住户姓名',
-                                                value: realName,
-                                            },
-                                            {
-                                                text: '房屋编号',
-                                                name: 'house',
-                                                placeholder: '请填写房屋编号',
-                                                value: houseNumber,
-                                            },
-                                            {
-                                                text: '联系地址',
-                                                name: 'address',
-                                                placeholder: '请填写联系地址',
-                                                value: address,
-                                            },
-                                        ]}
                                     />
                                 </Modal>
                             </div>
@@ -208,11 +219,12 @@ export class UserInfo extends Component {
                                         <Row gutter={16}>
                                             <Col span={24}>
                                                 {form.map((item, index) => (
+
                                                     <Form.Item label={item.text} key={index}>
                                                         <Input
                                                             placeholder={item.placeholder}
                                                             defaultValue={item.value}
-                                                            onChange={this.onChangeInfo.bind(this, item.name, index)}
+                                                            onChange={this.onChangeInfo.bind(this, item.name)}
                                                         />
                                                     </Form.Item>
                                                 ))}
@@ -257,7 +269,7 @@ export class UserInfo extends Component {
                     <h2>车位信息</h2>
                     <div className='line'></div>
                     <div className='info'>
-                        {/* <p>车位编号：{accountId}</p> */}
+                        <p>车位编号：{id}</p>
                         <p>使用时间：{startDate}</p>
                         <p>停用时间：{endDate}</p>
                         <p>状态：{status}</p>

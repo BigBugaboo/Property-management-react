@@ -131,7 +131,7 @@ export class UserInfo extends Component {
         const {
             form, visibleAccount,permission, realName,
             username, phone, houseNumber, address, startDate,
-            infoId, stopDate, status, endDate,
+            infoId, status, endDate,
         } = this.state;
         return (
             <div id='base'>

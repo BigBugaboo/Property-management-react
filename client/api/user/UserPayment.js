@@ -3,7 +3,8 @@ import axios from 'axios';
 const api = {
     list: 'http://120.76.56.164:8080/proprietor/cost',
     search: '',
-    edit: ''
+    pay: 'http://120.76.56.164:8080/aliPay/preCreate',
+    queryPay: 'http://120.76.56.164:8080/aliPay/query'
 };
 
 const addCeptor = () => {
@@ -28,6 +29,34 @@ export const _list = () => {
         .then((response) => {
             return response.data;
         }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _pay = (data) => {
+    addCeptor();
+
+    return axios.post(api.pay + '/' + data.id)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _queryPay = (data) => {
+    addCeptor();
+
+    return axios.get(api.queryPay + '/' + data.id, {
+        params: {
+            serialNumber: data.serialNumber
+        }
+    })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
             console.log(error);
         });
 };

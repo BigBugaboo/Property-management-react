@@ -127,7 +127,6 @@ export class Bills extends Component {
     }
 
     onSearch = (e) => {
-        console.log(e);
         _search(e)
             .then((result) => {
                 this.reloadList(result.data.list);

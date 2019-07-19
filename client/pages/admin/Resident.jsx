@@ -85,7 +85,6 @@ class Index extends Component {
                 ...item
             };
         });
-        console.log(list);
         if (list.length > 0) {
             this.setState({
                 data: list
@@ -132,8 +131,18 @@ class Index extends Component {
         });
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = async (record, e) => {
+        let require = {
+            id: record.id,
+            realName: e.realName ? e.realName : record.realName,
+            phone: e.phone ? e.phone : record.phone,
+            address: e.address ? e.address : record.address,
+            houseNumber: e.houseNumber ? e.houseNumber : record.houseNumber,
+        };
+
+        await _edit(require);
+
+        this.reloadList();
     };
 
     onAdd = async (e) => {
@@ -199,9 +208,9 @@ class Index extends Component {
                                             {
                                                 type: 'input',
                                                 text: '住户姓名',
-                                                name: 'name',
+                                                name: 'realName',
                                                 placeholder: '请输入住户姓名',
-                                                value: record.name,
+                                                value: record.realName,
                                             },
                                             {
                                                 type: 'input',
@@ -221,8 +230,8 @@ class Index extends Component {
                                                 type: 'input',
                                                 text: '房屋编号',
                                                 placeholder: '请输入房屋编号',
-                                                name: 'number',
-                                                value: record.number,
+                                                name: 'houseNumber',
+                                                value: record.houseNumber,
                                             },
                                         ]}
                                     />

@@ -71,7 +71,6 @@ export class Park extends Component {
                 ...item
             };
         });
-        console.log(list);
         if (list.length > 0) {
             this.setState({
                 data: list
@@ -107,7 +106,6 @@ export class Park extends Component {
     }
 
     onSearch = (e) => {
-        console.log(e);
         _search(e)
             .then((result) => {
                 this.reloadList(result.data.list);
@@ -131,22 +129,18 @@ export class Park extends Component {
         });
     }
 
-    onChange = (e, data) => {
+    onChange = async (e, data) => {
         let result = {
             id: e.id,
             status: data.status ? data.status : e.status
         };
-        _edit(result)
-            .then((response) => {
-                console.log(response);
-            });
+        await _edit(result);
+
         this.reloadList();
     };
 
     onAdd = async (e) => {
-        console.log(e);
         let result = await _add(e);
-        console.log(result);
         if (result.code === -1) {
             message.error(result.msg);
         }

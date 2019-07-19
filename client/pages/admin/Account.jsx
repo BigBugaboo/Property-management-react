@@ -83,7 +83,6 @@ export class Account extends Component {
                 ...item
             };
         });
-        console.log(list);
         if (list.length > 0) {
             this.setState({
                 data: list
@@ -139,7 +138,6 @@ export class Account extends Component {
         };
 
         let result = await _add(data);
-        console.log(result);
         if (result.code === -1) {
             message.error(result.msg);
         }
@@ -161,7 +159,6 @@ export class Account extends Component {
             password: data.password,
             role: data.role ? data.role : e.roles
         };
-        console.log(require);
         _edit(require)
             .then((result) => {
                 console.log('result',result);

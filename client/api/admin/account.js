@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = {
     add: 'http://120.76.56.164:8080/register',
     list: 'http://120.76.56.164:8080/administrator/account',
-    edit: '',
+    edit: 'http://120.76.56.164:8080/administrator/account',
     delete: 'http://120.76.56.164:8080/administrator/account',
     search: 'http://120.76.56.164:8080/administrator/account'
 };
@@ -35,11 +35,20 @@ export const _add = (data) => {
         });
 };
 
+export const _edit = (data) => {
+    addCeptor();
+
+    return axios.put(api.edit, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
 export const _search = (data) => {
     addCeptor();
-    return axios.get(api.search, {
-        params: data
-    })
+    return axios.get(api.search + '/' + data.keyword)
         .then((response) => {
             return response.data;
         }).catch((error) => {

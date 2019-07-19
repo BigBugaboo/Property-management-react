@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const api = {
-    add: 'http://120.76.56.164:8080/administrator/park',
-    list: 'http://120.76.56.164:8080/administrator/park/list',
-    edit: 'http://120.76.56.164:8080/administrator/park',
-    delete: 'http://120.76.56.164:8080/administrator/park',
-    search: 'http://120.76.56.164:8080/administrator/park/list'
+    add: 'http://120.76.56.164:8080/administrator/cost',
+    list: 'http://120.76.56.164:8080/administrator/cost/list',
+    edit: 'http://120.76.56.164:8080/administrator/cost/status',
+    delete: 'http://120.76.56.164:8080/administrator/cost',
+    search: 'http://120.76.56.164:8080/administrator/cost/keyword'
 };
 
 const addCeptor = () => {
@@ -71,13 +71,13 @@ export const _list = () => {
         });
 };
 
-export const _delete = (data) => {
-    addCeptor();
+// export const _delete = (data) => {
+//     addCeptor();
 
-    return axios.delete(api.delete + '/' + data.id)
-        .then((response) => {
-            return response.data;
-        }).catch((error) => {
-            console.log(error);
-        });
-};
+//     return axios.delete(api.delete + '/' + data.id)
+//         .then((response) => {
+//             return response.data;
+//         }).catch((error) => {
+//             console.log(error);
+//         });
+// };

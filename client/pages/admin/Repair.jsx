@@ -1,52 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Button, Modal } from 'antd';
+import { Table, Icon, Button, Modal, message } from 'antd';
 
+import { _edit, _search, _list, _delete } from '@/api/admin/repair.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
-
-const data = [
-    {
-        key: '1',
-        residentKey: '2016030403104',
-        context: '123',
-        startDate: 'John Brown',
-        endDate: '业主',
-        address: 'New York No. 1 Lake Park',
-        name: '张三',
-        state: '未处理',
-    },
-    {
-        key: '2',
-        residentKey: '2016030403104',
-        context: '123',
-        startDate: 'Jim Green',
-        endDate: '业主',
-        address: 'London No. 1 Lake Park',
-        name: '张三',
-        state: '未处理',
-    },
-    {
-        key: '3',
-        residentKey: '2016030403104',
-        context: '123',
-        startDate: 'Joe Black',
-        endDate: '业主',
-        address: 'Sidney No. 1 Lake Park',
-        name: '张三',
-        state: '未处理',
-    },
-    {
-        key: '4',
-        residentKey: '2016030403104',
-        startDate: 'Joe Black',
-        context: '123',
-        endDate: '业主',
-        address: 'Sidney No. 1 Lake Park',
-        name: '张三',
-        state: '已处理',
-    },
-];
 
 /** 投诉管理 */
 export class Repair extends Component {
@@ -54,39 +12,87 @@ export class Repair extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: [],
+            isLoading: true,
             search: [
                 {
                     type: 'input',
                     title: '住户编号',
                     placeholder: '请输入住户编号',
-                    name: 'residentKey'
+                    name: 'id'
                 },
                 {
                     type: 'date',
                     title: '报修日期',
                     placeholder: '请输入报修日期',
-                    name: 'startDate'
+                    name: 'data'
                 },
                 {
                     type: 'input',
                     title: '状态',
                     placeholder: '请输入状态',
-                    name: 'state'
+                    name: 'status'
                 },
             ]
         };
     }
 
-    static propTypes = {
+    onhide = () => {
+        this.setState({
+            isLoading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isLoading: true
+        });
+    }
 
+    componentDidMount() {
+        this.onshow();
+        this.reloadList();
+    }
+
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data.list;
+        list = list.map((item, index) => {
+            return {
+                key: index,
+                ...item
+            };
+        });
+        if (list.length > 0) {
+            this.setState({
+                data: list
+            });
+        }
+        this.onhide();
+    }
+
+    deleteItem = async (id) => {
+        let data = {
+            id: id
+        };
+        let result = await _delete(data);
+        if (result.msg === 'success') {
+            message.success('删除成功');
+        }
+        else {
+            message.error('删除失败');
+        }
+        this.reloadList();
     }
 
     onSearch = (e) => {
-        console.log(e);
+        _search(e)
+            .then((result) => {
+                this.reloadList(result.data.list);
+            });
     }
 
     onDelete = (record, e) => {
-        console.log(record);
+        const that = this;
         Modal.confirm({
             title: '是否删除该条信息?',
             content: '删除后，无法恢复！',
@@ -94,7 +100,7 @@ export class Repair extends Component {
             okType: 'danger',
             cancelText: '取消',
             onOk() {
-                console.log('OK');
+                that.deleteItem(record.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -102,12 +108,20 @@ export class Repair extends Component {
         });
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = async (e, data) => {
+        let require = {
+            id: e.id,
+            summary: data.summary ? data.summary : e.summary,
+            serviceman: data.serviceman ? data.serviceman : e.serviceman,
+            address: data.address ? data.address : e.address,
+            status: data.status ? data.status : e.status,
+        };
+        await _edit(require);
+        this.reloadList();
     };
 
     render() {
-        const { search, form } = this.state;
+        const { search, data, isLoading } = this.state;
 
         return (
             <div id='account'>
@@ -116,15 +130,15 @@ export class Repair extends Component {
                 </div>
                 <div className='container'>
                     <h2>报修管理</h2>
-                    <Table dataSource={data} bordered={true} size='default'>
-                        <Table.Column title='报销编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='residentKey' key='residentKey' />
-                        <Table.Column title='报修日期' dataIndex='startDate' key='startDate' />
+                    <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
+                        <Table.Column title='编号' dataIndex='key' key='key' />
+                        <Table.Column title='住户编号' dataIndex='proprietorId' key='proprietorId' />
+                        <Table.Column title='报修日期' dataIndex='repairDate' key='repairDate' />
                         <Table.Column title='地址' dataIndex='address' key='address' />
-                        <Table.Column title='维修内容' dataIndex='context' key='context' />
-                        <Table.Column title='维修人员' dataIndex='name' key='name' />
-                        <Table.Column title='维修日期' dataIndex='endDate' key='endDate' />
-                        <Table.Column title='状态' dataIndex='state' key='state' />
+                        <Table.Column title='维修内容' dataIndex='summary' key='summary' />
+                        <Table.Column title='维修人员' dataIndex='serviceman' key='serviceman' />
+                        <Table.Column title='维修日期' dataIndex='serviceDate' key='serviceDate' />
+                        <Table.Column title='状态' dataIndex='status' key='status' />
                         <Table.Column
                             title='操作'
                             render={(text, record) => (
@@ -134,21 +148,21 @@ export class Repair extends Component {
                                             btnText='修改'
                                             btnIcon='edit'
                                             btnType='primary'
-                                            onSubmit={this.onChange}
+                                            onSubmit={this.onChange.bind(this, record)}
                                             form={[
                                                 {
                                                     type: 'textArea',
                                                     text: '内容',
-                                                    name: 'context',
+                                                    name: 'summary',
                                                     placeholder: '请输入内容',
-                                                    value: record.context,
+                                                    value: record.summary,
                                                 },
                                                 {
                                                     type: 'input',
                                                     text: '维修人员',
-                                                    name: 'name',
+                                                    name: 'serviceman',
                                                     placeholder: '请输入维修人员',
-                                                    value: record.name,
+                                                    value: record.serviceman,
                                                 },
                                                 {
                                                     type: 'input',
@@ -160,9 +174,9 @@ export class Repair extends Component {
                                                 {
                                                     type: 'select',
                                                     text: '状态',
-                                                    name: 'state',
+                                                    name: 'status',
                                                     placeholder: '请输入状态',
-                                                    value: record.state,
+                                                    value: record.status,
                                                     option: [
                                                         {
                                                             value: '已处理',

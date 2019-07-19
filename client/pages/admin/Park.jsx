@@ -1,48 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Table, Icon, Button, Modal } from 'antd';
+import { Table, Icon, Button, Modal, message } from 'antd';
 
+import { _add, _delete, _list, _search, _edit } from '@/api/admin/park.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
-
-const data = [
-    {
-        key: '1',
-        residentKey: '2016030403104',
-        startDate: '123',
-        license: 'John Brown',
-        endDate: '业主',
-        cost: 'New York No. 1 Lake Park',
-        state: '未处理',
-    },
-    {
-        key: '2',
-        residentKey: '2016030403104',
-        startDate: '123',
-        license: 'Jim Green',
-        endDate: '业主',
-        cost: 'London No. 1 Lake Park',
-        state: '未处理',
-    },
-    {
-        key: '3',
-        residentKey: '2016030403104',
-        startDate: '123',
-        license: 'Joe Black',
-        endDate: '业主',
-        cost: 'Sidney No. 1 Lake Park',
-        state: '未处理',
-    },
-    {
-        key: '4',
-        residentKey: '2016030403104',
-        license: 'Joe Black',
-        startDate: '123',
-        endDate: '业主',
-        cost: 'Sidney No. 1 Lake Park',
-        state: '未处理',
-    },
-];
 
 /** 投诉管理 */
 export class Park extends Component {
@@ -50,17 +11,19 @@ export class Park extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isloading: true,
+            data: [],
             form: [
                 {
                     type: 'input',
                     text: '住户编号',
-                    name: 'residentKey',
+                    name: 'proprietorId',
                     placeholder: '请输入住户编号',
                 },
                 {
                     type: 'input',
                     text: '车牌号',
-                    name: 'license',
+                    name: 'carNum',
                     placeholder: '请选择车牌号',
                 },
                 {
@@ -75,34 +38,84 @@ export class Park extends Component {
                     type: 'input',
                     title: '住户编号',
                     placeholder: '请输入住户编号',
-                    name: 'residentKey'
+                    name: 'id'
                 },
                 {
                     type: 'input',
                     title: '车牌号',
                     placeholder: '请输入车牌号',
-                    name: 'license'
+                    name: 'num'
                 },
                 {
                     type: 'input',
                     title: '状态',
                     placeholder: '请输入状态',
-                    name: 'state'
+                    name: 'status'
                 },
             ]
         };
     }
 
-    static propTypes = {
+    componentDidMount() {
+        this.reloadList();
+    }
 
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data.list;
+        list = list.map((item, index) => {
+            return {
+                key: index,
+                startDate: item.usePeriod[0],
+                endDate: item.usePeriod[1],
+                ...item
+            };
+        });
+        console.log(list);
+        if (list.length > 0) {
+            this.setState({
+                data: list
+            });
+            this.onhide();
+        }
+    }
+
+    deleteItem = async (id) => {
+        let data = {
+            id: id
+        };
+        let result = await _delete(data);
+        if (result.msg === 'success') {
+            message.success('删除成功');
+        }
+        else {
+            message.error('删除失败');
+        }
+        this.reloadList();
+    }
+
+
+    onhide = () => {
+        this.setState({
+            isloading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isloading: true
+        });
     }
 
     onSearch = (e) => {
         console.log(e);
+        _search(e)
+            .then((result) => {
+                this.reloadList(result.data.list);
+            });
     }
 
     onDelete = (record, e) => {
-        console.log(record);
+        const that = this;
         Modal.confirm({
             title: '是否删除该条信息?',
             content: '删除后，无法恢复！',
@@ -110,7 +123,7 @@ export class Park extends Component {
             okType: 'danger',
             cancelText: '取消',
             onOk() {
-                console.log('OK');
+                that.deleteItem(record.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -118,12 +131,39 @@ export class Park extends Component {
         });
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = (e, data) => {
+        let result = {
+            id: e.id,
+            status: data.status ? data.status : e.status
+        };
+        _edit(result)
+            .then((response) => {
+                console.log(response);
+            });
+        this.reloadList();
     };
 
+    onAdd = async (e) => {
+        console.log(e);
+        let result = await _add(e);
+        console.log(result);
+        if (result.code === -1) {
+            message.error(result.msg);
+        }
+        else if (result.code === 400) {
+            message.warn(result.msg);
+        }
+        else if (result.code === 403) {
+            message.warn(result.msg);
+        }
+        else if (result.code === 200) {
+            message.success(result.msg);
+            this.reloadList();
+        }
+    }
+
     render() {
-        const { search, form } = this.state;
+        const { search, form, data, isloading } = this.state;
 
         return (
             <div id='account'>
@@ -136,16 +176,17 @@ export class Park extends Component {
                         btnText='添加'
                         btnIcon='plus'
                         btnType='primary'
+                        onSubmit={this.onAdd}
                         form={form}
                     />
-                    <Table dataSource={data} bordered={true} size='default'>
-                        <Table.Column title='车位编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='residentKey' key='residentKey' />
-                        <Table.Column title='车牌号' dataIndex='license' key='license' />
+                    <Table dataSource={data} bordered={true} size='default' loading={isloading}>
+                        <Table.Column title='编号' dataIndex='key' key='key' />
+                        <Table.Column title='住户编号' dataIndex='proprietorId' key='proprietorId' />
+                        <Table.Column title='车牌号' dataIndex='carNum' key='carNum' />
                         <Table.Column title='使用时间' dataIndex='startDate' key='startDate' />
                         <Table.Column title='停用时间' dataIndex='endDate' key='endDate' />
-                        <Table.Column title='总额' dataIndex='cost' key='cost' />
-                        <Table.Column title='状态' dataIndex='state' key='state' />
+                        <Table.Column title='总额' dataIndex='amount' key='amount' />
+                        <Table.Column title='状态' dataIndex='status' key='status' />
                         <Table.Column
                             title='操作'
                             render={(text, record) => (
@@ -154,14 +195,14 @@ export class Park extends Component {
                                         btnText='修改'
                                         btnIcon='edit'
                                         btnType='primary'
-                                        onSubmit={this.onChange}
+                                        onSubmit={this.onChange.bind(this, record)}
                                         form={[
                                             {
                                                 type: 'select',
                                                 text: '状态',
-                                                name: 'state',
+                                                name: 'status',
                                                 placeholder: '请输入选择权限',
-                                                value: record.state,
+                                                value: record.status,
                                                 option: [
                                                     {
                                                         value: '停车中',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Icon, Button, Modal, message } from 'antd';
 
-import { _add, _delete, _list, _search } from '@/api/admin/account.js';
+import { _add, _delete, _list, _search, _edit } from '@/api/admin/account.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
 import '@/styles/pages/admin/account.less';
@@ -12,7 +12,7 @@ export class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isloading: true,
+            isLoading: true,
             data: [],
             form: [
                 {
@@ -60,12 +60,12 @@ export class Account extends Component {
 
     onhide = () => {
         this.setState({
-            isloading: false
+            isLoading: false
         });
     }
     onshow = () => {
         this.setState({
-            isloading: true
+            isLoading: true
         });
     }
 
@@ -92,6 +92,20 @@ export class Account extends Component {
         this.onhide();
     }
 
+    deleteItem = async (id) => {
+        let data = {
+            id: id
+        };
+        let result = await _delete(data);
+        if (result.msg === 'success') {
+            message.success('删除成功');
+        }
+        else {
+            message.error('删除失败');
+        }
+        this.reloadList();
+    }
+
     onSearch = (e) => {
         _search(e)
             .then((result) => {
@@ -116,19 +130,6 @@ export class Account extends Component {
         });
     }
 
-    deleteItem = async (id) => {
-        let data = {
-            id: id
-        };
-        let result = await _delete(data);
-        if (result.msg === 'success') {
-            message.success('删除成功');
-        }
-        else {
-            message.error('删除失败');
-        }
-        this.reloadList();
-    }
 
     onAdd = async (e) => {
         const data = {
@@ -154,12 +155,21 @@ export class Account extends Component {
         }
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = (e,data) => {
+        let require = {
+            id: e.id,
+            password: data.password,
+            role: data.role ? data.role : e.roles
+        };
+        console.log(require);
+        _edit(require)
+            .then((result) => {
+                console.log('result',result);
+            });
     };
 
     render() {
-        const { search, form, data, isloading } = this.state;
+        const { search, form, data, isLoading } = this.state;
 
         return (
             <div id='account'>
@@ -175,7 +185,7 @@ export class Account extends Component {
                         onSubmit={this.onAdd}
                         form={form}
                     />
-                    <Table dataSource={data} bordered={true} size='default' loading={isloading}>
+                    <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
                         <Table.Column title='编号' dataIndex='key' key='key' />
                         <Table.Column title='住户编号' dataIndex='id' key='id' />
                         <Table.Column title='账号' dataIndex='username' key='username' />
@@ -190,7 +200,7 @@ export class Account extends Component {
                                         btnText='修改'
                                         btnIcon='edit'
                                         btnType='primary'
-                                        onSubmit={this.onChange}
+                                        onSubmit={this.onChange.bind(this, record)}
                                         form={[
                                             {
                                                 type: 'input',
@@ -200,16 +210,9 @@ export class Account extends Component {
                                                 value: record.password,
                                             },
                                             {
-                                                type: 'input',
-                                                text: '住户姓名',
-                                                name: 'name',
-                                                placeholder: '请输入住户姓名',
-                                                value: record.name,
-                                            },
-                                            {
                                                 type: 'select',
                                                 text: '权限',
-                                                name: 'roles',
+                                                name: 'role',
                                                 placeholder: '请输入选择权限',
                                                 value: record.roles,
                                                 option: [

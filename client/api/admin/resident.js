@@ -1,28 +1,79 @@
 import axios from 'axios';
 
 const api = {
-    list: '',
-    add: '',
-    edit: '',
-    search: '',
+    add: 'http://120.76.56.164:8080/administrator/proprietor',
+    list: 'http://120.76.56.164:8080/administrator/proprietor/list',
+    edit: 'http://120.76.56.164:8080/administrator/proprietor',
+    delete: 'http://120.76.56.164:8080/administrator/proprietor',
+    search: 'http://120.76.56.164:8080/administrator/proprietor'
 };
 
-export const list = data => {
-    let result = axios.get(api.list, data);
-    return { result: true };
+const addCeptor = () => {
+    // 添加请求拦截器
+    axios.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        const store = window.sessionStorage.getItem('Token');
+        config.headers.common['Content-TypeContent-Type'] = 'application/json;charset=UTF-8';
+        if (store) {
+            config.headers.common['token'] = store;
+        }
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
 };
 
-export const add = data => {
-    let result = axios.post(api.add, data);
-    return { result: true };
+export const _add = (data) => {
+    addCeptor();
+
+    return axios.post(api.add, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
 };
 
-export const edit = data => {
-    let result = axios.put(api.edit, data);
-    return { result: true };
+export const _edit = (data) => {
+    addCeptor();
+
+    return axios.put(api.edit, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
 };
 
-export const search = data => {
-    let result = axios.post(api.search, data);
-    return { result: true };
+export const _search = (data) => {
+    addCeptor();
+    return axios.get(api.search + '/' + data.keyword)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _list = () => {
+    addCeptor();
+
+    return axios.get(api.list)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _delete = (data) => {
+    addCeptor();
+
+    return axios.delete(api.delete + '/' + data.id)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
 };

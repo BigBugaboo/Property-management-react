@@ -1,58 +1,29 @@
 import React, { Component } from 'react';
-import { Table, Icon, Button, Modal } from 'antd';
+import { Table, Icon, Button, Modal, message } from 'antd';
 
+import { _add, _delete, _list, _search, _edit } from '@/api/admin/resident.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
-
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        phone: '123',
-        address: 'New York No. 1 Lake Park',
-        number: '16-121',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        phone: '123',
-        address: 'London No. 1 Lake Park',
-        number: '16-121',
-        state: 'wait',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        phone: '123',
-        address: 'Sidney No. 1 Lake Park',
-        number: '16-121',
-    },
-    {
-        key: '4',
-        name: 'Joe Black',
-        phone: '123',
-        address: 'Sidney No. 1 Lake Park',
-        number: '16-121',
-    },
-];
 
 /** 住户管理 */
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: true,
+            data: [],
             form: [
                 {
                     type: 'input',
                     text: '账号',
-                    name: 'userName',
+                    name: 'account',
                     placeholder: '请输入对应的账号',
                     value: '',
                 },
                 {
                     type: 'input',
                     text: '住户姓名',
-                    name: 'name',
+                    name: 'realName',
                     placeholder: '请输入住户姓名',
                     value: '',
                 },
@@ -74,7 +45,7 @@ class Index extends Component {
                     type: 'input',
                     text: '房屋编号',
                     placeholder: '请输入房屋编号',
-                    name: 'number',
+                    name: 'houseNumber',
                     value: '',
                 },
             ],
@@ -83,22 +54,69 @@ class Index extends Component {
                     type: 'input',
                     title: '住户姓名',
                     placeholder: '请输入住户姓名',
-                    name: 'name'
+                    name: 'keyword'
                 }
             ]
         };
     }
 
-    static propTypes = {
+    onhide = () => {
+        this.setState({
+            isLoading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isLoading: true
+        });
+    }
 
+    componentDidMount() {
+        this.onshow();
+        this.reloadList();
+    }
+
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data;
+        list = list.map((item, index) => {
+            return {
+                key: index,
+                ...item
+            };
+        });
+        console.log(list);
+        if (list.length > 0) {
+            this.setState({
+                data: list
+            });
+        }
+        this.onhide();
+    }
+
+    deleteItem = async (id) => {
+        let data = {
+            id: id
+        };
+        let result = await _delete(data);
+        if (result.msg === 'success') {
+            message.success('删除成功');
+        }
+        else {
+            message.error('删除失败');
+        }
+        this.reloadList();
     }
 
     onSearch = (e) => {
-        console.log(e);
+        _search(e)
+            .then((reponse) => {
+                this.reloadList(reponse.data);
+            });
     }
 
     onDelete = (record, e) => {
-        console.log(record);
+        const that = this;
         Modal.confirm({
             title: '是否删除该条信息?',
             content: '删除后，无法恢复！',
@@ -106,7 +124,7 @@ class Index extends Component {
             okType: 'danger',
             cancelText: '取消',
             onOk() {
-                console.log('OK');
+                that.deleteItem(record.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -118,8 +136,34 @@ class Index extends Component {
         console.log(e);
     };
 
+    onAdd = async (e) => {
+        const data = {
+            account: e.account,
+            realName: e.realName,
+            phone: e.phone,
+            address: e.address,
+            houseNumber: e.houseNumber,
+        };
+
+        let result = await _add(data);
+        console.log(result);
+        if (result.code === -1) {
+            message.error(result.msg);
+        }
+        else if (result.code === 400) {
+            message.warn(result.msg);
+        }
+        else if (result.code === 403) {
+            message.warn(result.msg);
+        }
+        else if (result.code === 200) {
+            message.success(result.msg);
+            this.reloadList();
+        }
+    }
+
     render() {
-        const { search, form } = this.state;
+        const { search, form, data, isLoading } = this.state;
 
         return (
             <div id='account'>
@@ -132,14 +176,16 @@ class Index extends Component {
                         btnText='添加'
                         btnIcon='plus'
                         btnType='primary'
+                        onSubmit={this.onAdd}
                         form={form}
                     />
-                    <Table dataSource={data} bordered={true} size='default'>
-                        <Table.Column title='住户编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户姓名' dataIndex='name' key='name' />
+                    <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
+                        <Table.Column title='编号' dataIndex='key' key='key' />
+                        <Table.Column title='住户编号' dataIndex='id' key='id' />
+                        <Table.Column title='住户姓名' dataIndex='realName' key='realName' />
                         <Table.Column title='联系电话' dataIndex='phone' key='phone' />
                         <Table.Column title='联系地址' dataIndex='address' key='address' />
-                        <Table.Column title='房屋编号' dataIndex='number' key='number' />
+                        <Table.Column title='房屋编号' dataIndex='houseNumber' key='houseNumber' />
                         <Table.Column
                             title='操作'
                             render={(text, record) => (
@@ -148,7 +194,7 @@ class Index extends Component {
                                         btnText='修改'
                                         btnIcon='edit'
                                         btnType='primary'
-                                        onSubmit={this.onChange}
+                                        onSubmit={this.onChange.bind(this, record)}
                                         form={[
                                             {
                                                 type: 'input',

@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 const api = {
-    add: 'http://120.76.56.164:8080/administrator/park',
-    list: 'http://120.76.56.164:8080/administrator/park/list',
-    edit: 'http://120.76.56.164:8080/administrator/park',
-    delete: 'http://120.76.56.164:8080/administrator/park',
-    search: 'http://120.76.56.164:8080/administrator/park/list'
+    list: 'http://120.76.56.164:8080/administrator/repairs/list',
+    edit: 'http://120.76.56.164:8080/administrator/repairs',
+    delete: 'http://120.76.56.164:8080/administrator/repairs',
+    search: 'http://120.76.56.164:8080/administrator/repairs/list'
 };
 
 const addCeptor = () => {
@@ -39,6 +38,9 @@ export const _edit = (data) => {
     addCeptor();
 
     return axios.put(api.edit + '/' + data.id, {
+        summary: data.summary,
+        serviceman: data.serviceman,
+        address: data.address,
         status: data.status
     })
         .then((response) => {

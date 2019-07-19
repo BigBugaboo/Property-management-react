@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import PropType from 'prop-types';
-import { Table, Button, Icon, Modal } from 'antd';
+import { Table, Button, Icon, Modal, notification } from 'antd';
+import QRCode from 'qrcode.react';
 
-import { _list, _search } from '@/api/user/UserPayment.js';
+import { _list, _search, _pay, _queryPay } from '@/api/user/UserPayment.js';
 import '@/styles/pages/user/UserPayment.less';
 import Search from '@/components/common/Search';
-import DrawerForm from '@/components/common/DrawerForm';
 
-export class UserPayment extends Component{
+export class UserPayment extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            listen: 0,
+            qrCode: '',
             isLoading: true,
             data: [],
             search: [
@@ -40,6 +41,10 @@ export class UserPayment extends Component{
         this.reloadList();
     }
 
+    componentWillMount() {
+        clearInterval(this.state.listen);
+    }
+
     reloadList = async (data) => {
         let result = await _list();
         let list = data ? data : result.data;
@@ -60,27 +65,57 @@ export class UserPayment extends Component{
 
     onSearch = (e) => {
         console.log(e);
+        _search(e)
+            .then((response) => {
+                console.log(response);
+                this.reloadList(response.data);
+            });
     }
 
-    onPay = (record, e) => {
-        console.log(record);
-        Modal.confirm({
-            title: '是否确认缴费?',
-            content: '确认后，无法恢复！',
-            okText: '缴费',
-            okType: 'primary',
-            cancelText: '取消',
-            onOk() {
-                console.log('OK');
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
+    onPay = async (record, e) => {
+        const result = await _pay(record);
+        console.log(result.data);
+        this.setState({
+            qrCode: result.data.qrCode
+        }, () => {
+            const modal = Modal.success({
+                okText: '取消',
+                title: '请用支付宝扫码支付，点击右下角取消支付',
+                onOk: () => {
+                    clearInterval(this.state.listen);
+                },
+                content: <QRCode
+                    value={this.state.qrCode} //value参数为生成二维码的链接
+                    size={280} //二维码的宽高尺寸
+                    fgColor='#000000'  //二维码的颜色
+                />,
+            });
+            const int = setInterval(() => {
+                this.onListenPay(result.data, modal);
+            }, 2000);
+            this.setState({
+                listen: int
+            });
         });
     }
 
+    onListenPay = (data, modal) => {
+        _queryPay(data)
+            .then((response) => {
+                if (response.code === 200) {
+                    clearInterval(this.state.listen);
+                    modal.destroy();
+                    this.reloadList();
+                    notification['success']({
+                        message: '支付成功',
+                        description: '已完成缴费，如有疑问请联系物业管理员。',
+                    });
+                }
+            });
+    }
+
     render() {
-        const { search, data, isLoading } = this.state;
+        const { search, data, isLoading, qrCode } = this.state;
         return (
             <div id='Payment'>
                 <div className='search'>
@@ -100,10 +135,14 @@ export class UserPayment extends Component{
                             key='action'
                             render={(text, record) => (
                                 <Button.Group>
-                                    { record.status == '未缴费' &&
-                                    <Button type='primary' onClick={this.onPay.bind(this, record)}>
-                                        缴费
-                                    </Button>}
+                                    {record.status === '未缴费' &&
+                                        <div>
+                                            <Button type='primary' onClick={this.onPay.bind(this, record)}>
+                                                <Icon type='alipay' />
+                                                缴费
+                                            </Button>
+                                        </div>
+                                    }
                                 </Button.Group>
                             )}
                         />

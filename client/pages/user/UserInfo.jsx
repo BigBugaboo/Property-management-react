@@ -2,52 +2,60 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, Select } from 'antd';
 
+import { _list, _edit } from '@/api/user/UserInfo.js';
 import '@/styles/pages/user/UserInfo.less';
-
-const data = {
-    'userid': 'user',
-    'password': '123456',
-    'name': '小王',
-    'purview': '业主',
-    'nameid': 1,
-    'phone': 12345632165,
-    'house': '01',
-    'address': '  xx省xx市xx区x栋x单元x室',
-    'carid': '001',
-    'startTime': '2016-5-6',
-    'stopTime': '2020-5-6',
-    'status': '停车中',
-};
 
 export class UserInfo extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            data,
+            isLoading: true,
+            data: {
+                account: {
+                    permission: '',
+                    realName: '',
+                    username: ''
+                },
+                proprietor: {
+                    id: '',
+                    phone: '',
+                    realName: '',
+                    houseNumber: '',
+                    address: ''
+                },
+                carport: {
+                    id: '',
+                    stopDate: [
+                        '',
+                        ''
+                    ],
+                    status: ''
+                }
+            },
             form: [
                 {
                     text: '联系电话',
                     name: 'phone',
                     placeholder: '请填写联系电话',
-                    value: data.phone,
+                    value: '',
                 },
                 {
                     text: '住户姓名',
                     name: 'name',
                     placeholder: '请填写住户姓名',
-                    value: data.name,
+                    value: '',
                 },
                 {
                     text: '房屋编号',
                     name: 'house',
                     placeholder: '请填写房屋编号',
-                    value: data.house,
+                    value: '',
                 },
                 {
                     text: '联系地址',
                     name: 'address',
                     placeholder: '请填写联系地址',
-                    value: data.address,
+                    value: '',
                 },
             ]
         };
@@ -61,7 +69,7 @@ export class UserInfo extends Component{
         this.setState({
             data: user
         });
-        console.log(data);
+        console.log(user);
     };
     onChangeB = (name, key, e) => {
         let userForm = this.state.data;
@@ -69,7 +77,7 @@ export class UserInfo extends Component{
         this.setState({
             data: userForm
         });
-        console.log(data);
+        console.log(userForm);
     };
 
     show = () => {
@@ -94,9 +102,35 @@ export class UserInfo extends Component{
         console.log(this.state.data);
     }
 
-    render() {
-        const { form, data } = this.state;
+    onhide = () => {
+        this.setState({
+            isLoading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isLoading: true
+        });
+    }
 
+    componentDidMount() {
+        this.onshow();
+        this.reloadList();
+    }
+
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data;
+        console.log(list);
+        this.setState({
+            data: list
+        });
+        this.onhide();
+    }
+
+    render() {
+
+        const { form, data, isLoading } = this.state;
         return (
             <div id='base'>
                 <div className='top'>
@@ -120,16 +154,41 @@ export class UserInfo extends Component{
                                         placeholder={'请设置密码'}
                                         defaultValue={data.password}
                                         onChange={this.onChangeA}
+                                        form={ [
+                                            {
+                                                text: '联系电话',
+                                                name: 'phone',
+                                                placeholder: '请填写联系电话',
+                                                value: data.phone,
+                                            },
+                                            {
+                                                text: '住户姓名',
+                                                name: 'name',
+                                                placeholder: '请填写住户姓名',
+                                                value: data.name,
+                                            },
+                                            {
+                                                text: '房屋编号',
+                                                name: 'house',
+                                                placeholder: '请填写房屋编号',
+                                                value: data.house,
+                                            },
+                                            {
+                                                text: '联系地址',
+                                                name: 'address',
+                                                placeholder: '请填写联系地址',
+                                                value: data.address,
+                                            },
+                                        ]}
                                     />
                                 </Modal>
                             </div>
                         </div>
                         <div className='line'></div>
                         <div className='info'>
-                            <p>账号编号：{data.userid}</p>
-                            <p>账号密码：{data.password}</p>
-                            <p>住户姓名：{data.name}</p>
-                            <p>权限：{data.purview}</p>
+                            <p>账号编号：{data.account.username}</p>
+                            <p>住户姓名：{data.account.realName}</p>
+                            <p>权限：{data.account.permission}</p>
                         </div>
                     </div>
                     <div className='blo'>
@@ -182,12 +241,12 @@ export class UserInfo extends Component{
                         </div>
                         <div className='line'></div>
                         <div className='info'>
-                            <p>住户编号：{data.nameid}</p>
-                            <p>联系电话：{data.phone}</p>
-                            <p>住户姓名：{data.name}</p>
-                            <p>房屋编号：{data.house}</p>
+                            <p>住户编号：{data.proprietor.id}</p>
+                            <p>联系电话：{data.proprietor.phone}</p>
+                            <p>住户姓名：{data.proprietor.realName}</p>
+                            <p>房屋编号：{data.proprietor.houseNumber}</p>
                             <div>
-                                <p>联系地址：{data.address}</p>
+                                <p>联系地址：{data.proprietor.address}</p>
                             </div>
                         </div>
                     </div>
@@ -197,10 +256,10 @@ export class UserInfo extends Component{
                     <h2>车位信息</h2>
                     <div className='line'></div>
                     <div className='info'>
-                        <p>车位编号：{data.carid}</p>
-                        <p>使用时间：{data.startTime}</p>
-                        <p>停用时间：{data.stopTime}</p>
-                        <p>状态：{data.status}</p>
+                        <p>车位编号：{data.carport.id}</p>
+                        <p>使用时间：{data.carport.stopDate[0]}</p>
+                        <p>停用时间：{data.carport.stopDate[1]}</p>
+                        <p>状态：{data.carport.status}</p>
                     </div>
                 </div>
             </div>

@@ -2,53 +2,17 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Table, Button, Icon, Modal } from 'antd';
 
+import { _list, _search } from '@/api/user/UserPayment.js';
 import '@/styles/pages/user/UserPayment.less';
 import Search from '@/components/common/Search';
 import DrawerForm from '@/components/common/DrawerForm';
-
-
-const data = [
-    {
-        key: '1',
-        date: '2019-6-12',
-        name: '物业费',
-        money: '520元',
-        status: '未缴费'
-    },
-    {
-        key: '2',
-        date: '2019-6-12',
-        name: '物业费',
-        money: '520元',
-        status: '已缴费'
-    },
-    {
-        key: '3',
-        date: '2019-6-12',
-        name: '物业费',
-        money: '520元',
-        status: '已缴费'
-    },
-    {
-        key: '4',
-        date: '2019-6-12',
-        name: '物业费',
-        money: '520元',
-        status: '未缴费'
-    },
-    {
-        key: '5',
-        date: '2019-6-12',
-        name: '物业费',
-        money: '520元',
-        status: '已缴费'
-    },
-];
 
 export class UserPayment extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: true,
+            data: [],
             search: [
                 {
                     type: 'date',
@@ -58,6 +22,40 @@ export class UserPayment extends Component{
                 }
             ],
         };
+    }
+
+    onhide = () => {
+        this.setState({
+            isLoading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isLoading: true
+        });
+    }
+
+    componentDidMount() {
+        this.onshow();
+        this.reloadList();
+    }
+
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data;
+        list = list.map((item, index) => {
+            return {
+                key: index,
+                ...item
+            };
+        });
+        console.log(list);
+        if (list.length > 0) {
+            this.setState({
+                data: list
+            });
+        }
+        this.onhide();
     }
 
     onSearch = (e) => {
@@ -82,7 +80,7 @@ export class UserPayment extends Component{
     }
 
     render() {
-        const { search } = this.state;
+        const { search, data, isLoading } = this.state;
         return (
             <div id='Payment'>
                 <div className='search'>
@@ -91,10 +89,10 @@ export class UserPayment extends Component{
                 <div className='blo'>
                     <h2>缴费信息</h2>
                     <div className='line'></div>
-                    <Table dataSource={data} bordered={true} size='default'>
+                    <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
                         <Table.Column title='缴费编号' dataIndex='key' key='key' />
-                        <Table.Column title='缴费日期' dataIndex='date' key='date' />
-                        <Table.Column title='缴费项目' dataIndex='name' key='name' />
+                        <Table.Column title='缴费日期' dataIndex='costDate' key='costDate' />
+                        <Table.Column title='缴费项目' dataIndex='item' key='item' />
                         <Table.Column title='缴费总额' dataIndex='money' key='money' />
                         <Table.Column title='状态' dataIndex='status' key='status' />
                         <Table.Column

@@ -125,10 +125,10 @@ export class Repair extends Component {
 
         return (
             <div id='account'>
-                <div className='search'>
+                <div style={{ marginBottom: 16, backgroundColor: '#fff' }}>
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
-                <div className='container'>
+                <div style={{ padding: 16, backgroundColor: '#fff' }}>
                     <h2>报修管理</h2>
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
                         <Table.Column title='编号' dataIndex='key' key='key' />

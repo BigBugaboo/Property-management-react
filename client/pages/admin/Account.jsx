@@ -4,7 +4,7 @@ import { Table, Icon, Button, Modal, message } from 'antd';
 import { _add, _delete, _list, _search, _edit } from '@/api/admin/account.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
-import '@/styles/pages/admin/account.less';
+import { white } from 'ansi-colors';
 
 /** 账号管理 */
 export class Account extends Component {
@@ -170,10 +170,10 @@ export class Account extends Component {
 
         return (
             <div id='account'>
-                <div className='search'>
+                <div style={{ marginBottom: 16, backgroundColor: '#fff' }}>
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
-                <div className='container'>
+                <div style={{ padding: 16, backgroundColor: '#fff' }}>
                     <h2>基本设置</h2>
                     <DrawerForm
                         btnText='添加'

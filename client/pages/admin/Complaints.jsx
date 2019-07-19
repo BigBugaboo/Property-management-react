@@ -1,44 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Table, Icon, Button, Modal } from 'antd';
+import { Table, Icon, Button, Modal, message } from 'antd';
 
-import DrawerForm from '@/components/common/DrawerForm';
+import { _edit, _search, _list, _delete } from '@/api/admin/complaints.js';
 import Search from '@/components/common/Search';
-
-const data = [
-    {
-        key: '1',
-        residentKey: '2016030403104',
-        context: '123',
-        startDate: 'John Brown',
-        endDate: '业主',
-        state: '未处理',
-    },
-    {
-        key: '2',
-        residentKey: '2016030403104',
-        context: '123',
-        startDate: 'Jim Green',
-        endDate: '业主',
-        state: '未处理',
-    },
-    {
-        key: '3',
-        residentKey: '2016030403104',
-        context: '123',
-        startDate: 'Joe Black',
-        endDate: '业主',
-        state: '未处理',
-    },
-    {
-        key: '4',
-        residentKey: '2016030403104',
-        startDate: 'Joe Black',
-        context: '123',
-        endDate: '业主',
-        state: '已处理',
-    },
-];
 
 /** 投诉管理 */
 export class Complaints extends Component {
@@ -46,6 +10,8 @@ export class Complaints extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: [],
+            isLoading: true,
             search: [
                 {
                     type: 'input',
@@ -69,16 +35,62 @@ export class Complaints extends Component {
         };
     }
 
-    static propTypes = {
+    onhide = () => {
+        this.setState({
+            isLoading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isLoading: true
+        });
+    }
 
+    componentDidMount() {
+        this.onshow();
+        this.reloadList();
+    }
+
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data.list;
+        list = list.map((item, index) => {
+            return {
+                key: index,
+                ...item
+            };
+        });
+        if (list.length > 0) {
+            this.setState({
+                data: list
+            });
+        }
+        this.onhide();
+    }
+
+    deleteItem = async (id) => {
+        let data = {
+            id: id
+        };
+        let result = await _delete(data);
+        if (result.msg === 'success') {
+            message.success('删除成功');
+        }
+        else {
+            message.error('删除失败');
+        }
+        this.reloadList();
     }
 
     onSearch = (e) => {
-        console.log(e);
+        _search(e)
+            .then((result) => {
+                this.reloadList(result.data.list);
+            });
     }
 
     onDelete = (record, e) => {
-        console.log(record);
+        const that = this;
         Modal.confirm({
             title: '是否删除该条信息?',
             content: '删除后，无法恢复！',
@@ -86,7 +98,7 @@ export class Complaints extends Component {
             okType: 'danger',
             cancelText: '取消',
             onOk() {
-                console.log('OK');
+                that.deleteItem(record.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -95,6 +107,8 @@ export class Complaints extends Component {
     }
 
     onChange = (record, e) => {
+        const that = this;
+        console.log(record, e);
         Modal.confirm({
             title: '是否已经处理该投诉?',
             content: '确认后，无法修改！',
@@ -102,7 +116,10 @@ export class Complaints extends Component {
             okType: 'danger',
             cancelText: '取消',
             onOk() {
-                console.log('OK');
+                // _edit()
+                //     .then((response) => {
+                //         that.reloadList();
+                //     });
             },
             onCancel() {
                 console.log('Cancel');
@@ -115,16 +132,16 @@ export class Complaints extends Component {
     };
 
     render() {
-        const { search } = this.state;
+        const { search, isLoading, data } = this.state;
 
         return (
             <div id='account'>
-                <div className='search'>
+                <div style={{ marginBottom: 16, backgroundColor: '#fff' }}>
                     <Search data={search} onSearch={this.onSearch} />
                 </div>
-                <div className='container'>
+                <div style={{ padding: 16, backgroundColor: '#fff' }}>
                     <h2>投诉管理</h2>
-                    <Table dataSource={data} bordered={true} size='default'>
+                    <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
                         <Table.Column title='投诉编号' dataIndex='key' key='key' />
                         <Table.Column title='住户编号' dataIndex='residentKey' key='residentKey' />
                         <Table.Column title='投诉日期' dataIndex='startDate' key='startDate' />

@@ -5,33 +5,20 @@ import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, Select } from 'antd
 import { _list, _edit } from '@/api/user/UserInfo.js';
 import '@/styles/pages/user/UserInfo.less';
 
-export class UserInfo extends Component{
+export class UserInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true,
-            data: {
-                account: {
-                    permission: '',
-                    realName: '',
-                    username: ''
-                },
-                proprietor: {
-                    id: '',
-                    phone: '',
-                    realName: '',
-                    houseNumber: '',
-                    address: ''
-                },
-                carport: {
-                    id: '',
-                    stopDate: [
-                        '',
-                        ''
-                    ],
-                    status: ''
-                }
-            },
+            permission: '',
+            realName: '',
+            username: '',
+            phone: '',
+            houseNumber: '',
+            address: '',
+            infoId: '',
+            startDate: '',
+            endDate: '',
+            status: '',
             form: [
                 {
                     text: '联系电话',
@@ -59,19 +46,34 @@ export class UserInfo extends Component{
                 },
             ]
         };
-        this.onChangeA = this.onChangeA.bind(this);
-        this.onChangeB = this.onChangeB.bind(this);
     }
 
-    onChangeA = (e) => {
-        let user = this.state.data;
-        user.password = e.target.value;
+    onChangePassword = (e) => {
         this.setState({
-            data: user
+            password: e.target.value
         });
-        console.log(user);
     };
-    onChangeB = (name, key, e) => {
+
+    onChange = () => {
+        const state = this.state;
+
+        let data = {
+            permission: state.permission,
+            realName: state.realName,
+            username: state.username,
+            phone: state.phone,
+            houseNumber: state.houseNumber,
+            address: state.address,
+            infoId: state.infoId,
+            startDate: state.startDate,
+            endDate: state.endDate,
+            status: state.status,
+        };
+
+        console.log(data);
+    }
+
+    onChangeInfo = (name, key, e) => {
         let userForm = this.state.data;
         userForm[name] = e.target.value;
         this.setState({
@@ -82,55 +84,55 @@ export class UserInfo extends Component{
 
     show = () => {
         this.setState({
-            visibleA: true,
+            visibleAccount: true,
         });
     };
     showDrawer = () => {
         this.setState({
-            visibleB: true,
+            visibleInfo: true,
         });
     };
     hide = () => {
         this.setState({
-            visibleA: false,
-            visibleB: false,
+            visibleAccount: false,
+            visibleInfo: false,
         });
     };
 
     onSubmit = () => {
         this.hide();
-        console.log(this.state.data);
-    }
-
-    onhide = () => {
-        this.setState({
-            isLoading: false
-        });
-    }
-    onshow = () => {
-        this.setState({
-            isLoading: true
-        });
+        this.onChange();
     }
 
     componentDidMount() {
-        this.onshow();
         this.reloadList();
     }
 
     reloadList = async (data) => {
         let result = await _list();
-        let list = data ? data : result.data;
-        console.log(list);
+        let context = data ? data : result.data;
+        console.log(context);
         this.setState({
-            data: list
+            permission: context.account.permission,
+            realName: context.account.realName,
+            username: context.account.username,
+            phone: context.proprietor.phone,
+            houseNumber: context.proprietor.houseNumber,
+            address: context.proprietor.address,
+            infoId: context.proprietor.id,
+            startDate: context.carport.stopDate[0],
+            endDate: context.carport.stopDate[1],
+            status: context.carport.status,
         });
-        this.onhide();
     }
 
     render() {
 
-        const { form, data, isLoading } = this.state;
+        const {
+            form, visibleAccount,permission, realName,
+            username, phone, houseNumber, address, startDate,
+            infoId, stopDate, status, endDate,
+        } = this.state;
         return (
             <div id='base'>
                 <div className='top'>
@@ -143,7 +145,7 @@ export class UserInfo extends Component{
                                 </Button>
                                 <Modal
                                     title='修改账号信息'
-                                    visible={this.state.visibleA}
+                                    visible={visibleAccount}
                                     onOk={this.onSubmit}
                                     onCancel={this.hide}
                                     okText='确认'
@@ -152,32 +154,31 @@ export class UserInfo extends Component{
                                     <p>账号密码：</p>
                                     <Input
                                         placeholder={'请设置密码'}
-                                        defaultValue={data.password}
-                                        onChange={this.onChangeA}
-                                        form={ [
+                                        onChange={this.onChangePassword}
+                                        form={[
                                             {
                                                 text: '联系电话',
                                                 name: 'phone',
                                                 placeholder: '请填写联系电话',
-                                                value: data.phone,
+                                                value: phone,
                                             },
                                             {
                                                 text: '住户姓名',
                                                 name: 'name',
                                                 placeholder: '请填写住户姓名',
-                                                value: data.name,
+                                                value: realName,
                                             },
                                             {
                                                 text: '房屋编号',
                                                 name: 'house',
                                                 placeholder: '请填写房屋编号',
-                                                value: data.house,
+                                                value: houseNumber,
                                             },
                                             {
                                                 text: '联系地址',
                                                 name: 'address',
                                                 placeholder: '请填写联系地址',
-                                                value: data.address,
+                                                value: address,
                                             },
                                         ]}
                                     />
@@ -186,9 +187,9 @@ export class UserInfo extends Component{
                         </div>
                         <div className='line'></div>
                         <div className='info'>
-                            <p>账号编号：{data.account.username}</p>
-                            <p>住户姓名：{data.account.realName}</p>
-                            <p>权限：{data.account.permission}</p>
+                            <p>账号编号：{username}</p>
+                            <p>住户姓名：{realName}</p>
+                            <p>权限：{permission}</p>
                         </div>
                     </div>
                     <div className='blo'>
@@ -202,7 +203,7 @@ export class UserInfo extends Component{
                                     title='修改住户信息'
                                     width={400}
                                     onClose={this.hide}
-                                    visible={this.state.visibleB}>
+                                    visible={this.state.visibleInfo}>
                                     <div>
                                         <Row gutter={16}>
                                             <Col span={24}>
@@ -211,7 +212,7 @@ export class UserInfo extends Component{
                                                         <Input
                                                             placeholder={item.placeholder}
                                                             defaultValue={item.value}
-                                                            onChange={this.onChangeB.bind(this, item.name, index)}
+                                                            onChange={this.onChangeInfo.bind(this, item.name, index)}
                                                         />
                                                     </Form.Item>
                                                 ))}
@@ -241,12 +242,12 @@ export class UserInfo extends Component{
                         </div>
                         <div className='line'></div>
                         <div className='info'>
-                            <p>住户编号：{data.proprietor.id}</p>
-                            <p>联系电话：{data.proprietor.phone}</p>
-                            <p>住户姓名：{data.proprietor.realName}</p>
-                            <p>房屋编号：{data.proprietor.houseNumber}</p>
+                            <p>住户编号：{infoId}</p>
+                            <p>联系电话：{phone}</p>
+                            <p>住户姓名：{realName}</p>
+                            <p>房屋编号：{houseNumber}</p>
                             <div>
-                                <p>联系地址：{data.proprietor.address}</p>
+                                <p>联系地址：{address}</p>
                             </div>
                         </div>
                     </div>
@@ -256,10 +257,10 @@ export class UserInfo extends Component{
                     <h2>车位信息</h2>
                     <div className='line'></div>
                     <div className='info'>
-                        <p>车位编号：{data.carport.id}</p>
-                        <p>使用时间：{data.carport.stopDate[0]}</p>
-                        <p>停用时间：{data.carport.stopDate[1]}</p>
-                        <p>状态：{data.carport.status}</p>
+                        {/* <p>车位编号：{accountId}</p> */}
+                        <p>使用时间：{startDate}</p>
+                        <p>停用时间：{endDate}</p>
+                        <p>状态：{status}</p>
                     </div>
                 </div>
             </div>

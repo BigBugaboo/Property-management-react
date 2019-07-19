@@ -8,7 +8,6 @@ import * as actions from '../actions/index';
 import { login } from '@/api/common/log.js';
 import '@/styles/layouts/login.less';
 import LoginForm from '@/components/common/LoginForm';
-import { isEmpty } from '@/utils/index.js';
 
 import ad from '@/assets/bg-1.png';
 
@@ -35,6 +34,7 @@ class Login extends Component {
             password: password
         };
         const result = await login(data);
+        console.log(result);
         if (result.data === null) {
             message.error(result.msg);
             return false;
@@ -43,6 +43,7 @@ class Login extends Component {
         window.sessionStorage.setItem('Token', result.data.Token);
 
         let history = this.props.history;
+        this.props.actions.setName(result.data.username);
         if (status === '管理员') {
             this.props.actions.admin();
             history.push('/Main/Account');

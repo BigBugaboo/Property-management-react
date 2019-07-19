@@ -2,54 +2,18 @@ import React, { Component } from 'react';
 import PropType from 'prop-types';
 import { Table, Icon, Button } from 'antd';
 
+import { _add, _list, _search, _edit } from '@/api/user/UserComplaint.js';
 import '@/styles/pages/user/UserComplaint.less';
 import Search from '@/components/common/Search';
 import DrawerForm from '@/components/common/DrawerForm';
-
-
-const data = [
-    {
-        key: '1',
-        startdate: '2019-6-12',
-        content: 'xxxxxxx',
-        enddate: '',
-        status: '未处理'
-    },
-    {
-        key: '2',
-        startdate: '2019-6-12',
-        content: 'xxxxxxx',
-        enddate: '2019-6-12',
-        status: '已处理'
-    },
-    {
-        key: '3',
-        startdate: '2019-6-12',
-        content: 'xxxxxxx',
-        enddate: '2019-6-12',
-        status: '已处理'
-    },
-    {
-        key: '4',
-        startdate: '2019-6-12',
-        content: 'xxxxxxx',
-        enddate: '2019-6-12',
-        status: '已处理'
-    },
-    {
-        key: '5',
-        startdate: '2019-6-12',
-        content: 'xxxxxxx',
-        enddate: '2019-6-12',
-        status: '已处理'
-    },
-];
 
 
 export class UserComplaint extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: true,
+            data: [],
             form: [
                 {
                     type: 'textArea',
@@ -78,8 +42,42 @@ export class UserComplaint extends Component{
         console.log(e);
     };
 
+    onhide = () => {
+        this.setState({
+            isLoading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isLoading: true
+        });
+    }
+
+    componentDidMount() {
+        this.onshow();
+        this.reloadList();
+    }
+
+    reloadList = async (data) => {
+        let result = await _list();
+        let list = data ? data : result.data;
+        list = list.map((item, index) => {
+            return {
+                key: index,
+                ...item
+            };
+        });
+        console.log(list);
+        if (list.length > 0) {
+            this.setState({
+                data: list
+            });
+        }
+        this.onhide();
+    }
+
     render() {
-        const { search, form } = this.state;
+        const { search, form, data, isLoading } = this.state;
         return (
             <div id='complaint'>
                 <div className='search'>
@@ -94,18 +92,18 @@ export class UserComplaint extends Component{
                         btnType='primary'
                         form={form}
                     />
-                    <Table dataSource={data} bordered={true} size='default'>
+                    <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
                         <Table.Column title='投诉编号' dataIndex='key' key='key' />
-                        <Table.Column title='投诉日期' dataIndex='startdate' key='startdate' />
-                        <Table.Column title='投诉内容' dataIndex='content' key='content' />
-                        <Table.Column title='处理日期' dataIndex='enddate' key='enddate' />
+                        <Table.Column title='投诉日期' dataIndex='complaintDate' key='complaintDate' />
+                        <Table.Column title='投诉内容' dataIndex='summary' key='summary' />
+                        <Table.Column title='处理日期' dataIndex='dealDate' key='dealDate' />
                         <Table.Column title='状态' dataIndex='status' key='status' />
                         <Table.Column
                             title='操作'
                             key='action'
                             render={(text, record) => (
                                 <Button.Group>
-                                    { record.enddate == '' &&
+                                    { record.dealDate == null &&
                                     <DrawerForm
                                         btnText='修改'
                                         btnIcon='edit'

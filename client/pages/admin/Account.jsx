@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Icon, Button, Modal, message } from 'antd';
 
-import { _add, _delete, _list } from '@/api/admin/account.js';
+import { _add, _delete, _list, _search } from '@/api/admin/account.js';
 import DrawerForm from '@/components/common/DrawerForm';
 import Search from '@/components/common/Search';
 import '@/styles/pages/admin/account.less';
@@ -12,6 +12,7 @@ export class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isloading: true,
             data: [],
             form: [
                 {
@@ -51,39 +52,51 @@ export class Account extends Component {
                     type: 'input',
                     title: '住户姓名',
                     placeholder: '请输入住户姓名',
-                    name: 'name'
+                    name: 'keyword'
                 }
             ]
         };
-        this.reloadList = this.reloadList.bind(this);
-        this.onSearch = this.onSearch.bind(this);
-        this.onDelete = this.onDelete.bind(this);
-        this.deleteItem = this.deleteItem.bind(this);
-        this.onAdd = this.onAdd.bind(this);
-        this.onChange = this.onChange.bind(this);
+    }
+
+    onhide = () => {
+        this.setState({
+            isloading: false
+        });
+    }
+    onshow = () => {
+        this.setState({
+            isloading: true
+        });
     }
 
     componentDidMount() {
+        this.onshow();
         this.reloadList();
     }
 
-    reloadList = async () => {
+    reloadList = async (data) => {
         let result = await _list();
-        let data = result.data.map((item, index) => {
+        let list = data ? data : result.data;
+        list = list.map((item, index) => {
             return {
                 key: index,
                 ...item
             };
         });
-        if (result.data) {
+        console.log(list);
+        if (list.length > 0) {
             this.setState({
-                data: data
+                data: list
             });
         }
+        this.onhide();
     }
 
     onSearch = (e) => {
-        console.log(e);
+        _search(e)
+            .then((result) => {
+                this.reloadList(result.data);
+            });
     }
 
     onDelete = (record, e) => {
@@ -146,7 +159,7 @@ export class Account extends Component {
     };
 
     render() {
-        const { search, form, data } = this.state;
+        const { search, form, data, isloading } = this.state;
 
         return (
             <div id='account'>
@@ -162,7 +175,7 @@ export class Account extends Component {
                         onSubmit={this.onAdd}
                         form={form}
                     />
-                    <Table dataSource={data} bordered={true} size='default'>
+                    <Table dataSource={data} bordered={true} size='default' loading={isloading}>
                         <Table.Column title='编号' dataIndex='key' key='key' />
                         <Table.Column title='住户编号' dataIndex='id' key='id' />
                         <Table.Column title='账号' dataIndex='username' key='username' />

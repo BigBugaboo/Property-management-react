@@ -5,7 +5,7 @@ const api = {
     list: 'http://120.76.56.164:8080/administrator/account',
     edit: '',
     delete: 'http://120.76.56.164:8080/administrator/account',
-    search: ''
+    search: 'http://120.76.56.164:8080/administrator/account'
 };
 
 const addCeptor = () => {
@@ -13,6 +13,7 @@ const addCeptor = () => {
     axios.interceptors.request.use(function (config) {
         // 在发送请求之前做些什么
         const store = window.sessionStorage.getItem('Token');
+        config.headers.common['Content-TypeContent-Type'] = 'application/json;charset=UTF-8';
         if (store) {
             config.headers.common['token'] = store;
         }
@@ -27,6 +28,18 @@ export const _add = (data) => {
     addCeptor();
 
     return axios.post(api.add, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _search = (data) => {
+    addCeptor();
+    return axios.get(api.search, {
+        params: data
+    })
         .then((response) => {
             return response.data;
         }).catch((error) => {

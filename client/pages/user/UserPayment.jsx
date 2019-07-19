@@ -12,7 +12,6 @@ export class UserPayment extends Component {
         this.state = {
             listen: 0,
             qrCode: '',
-            visible: false,
             isLoading: true,
             data: [],
             search: [
@@ -66,6 +65,11 @@ export class UserPayment extends Component {
 
     onSearch = (e) => {
         console.log(e);
+        _search(e)
+            .then((response) => {
+                console.log(response);
+                this.reloadList(response.data);
+            });
     }
 
     onPay = async (record, e) => {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = {
     list: 'http://120.76.56.164:8080/proprietor/cost',
-    search: '',
+    search: 'http://120.76.56.164:8080/proprietor/cost/date',
     pay: 'http://120.76.56.164:8080/aliPay/preCreate',
     queryPay: 'http://120.76.56.164:8080/aliPay/query'
 };
@@ -37,6 +37,22 @@ export const _pay = (data) => {
     addCeptor();
 
     return axios.post(api.pay + '/' + data.id)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _search = (data) => {
+    addCeptor();
+
+    return axios.get(api.search, {
+        params: {
+            date: data.date
+        }
+    })
         .then((response) => {
             return response.data;
         })

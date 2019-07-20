@@ -1,16 +1,13 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Loadable from '@loadable/component';
 
-import Loading from '@/components/common/Loading';
 import history from './history';
 import SiderLayout from '@/layouts/SiderLayout';
 // import Login from '@/layouts/Login';
 const Login = Loadable(() => import('@/layouts/Login'));
-// const SiderLayout = Loadable(() => import('@/layouts/SiderLayout'), {
-//     fallback: Loading,
-// });
+const ErrorPage = Loadable(() => import('@/pages/ErrorPage'));
 
 const routes = require('./routes.js');
 
@@ -18,10 +15,11 @@ class RouterIndex extends Component {
     render() {
         return (
             <Router history={history}>
-                <div>
+                <Switch>
                     <Route exact path='/' component={Login} />
                     <Route path='/Main' component={Mod} />
-                </div>
+                    <Route component={ErrorPage}></Route>
+                </Switch>
             </Router>
         );
     }

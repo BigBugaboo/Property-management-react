@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Icon, Modal, notification } from 'antd';
+import { Table, Button, Icon, Modal, notification, message } from 'antd';
 import QRCode from 'qrcode.react';
 
 import { _list, _search, _pay, _queryPay } from '@/api/user/UserPayment.js';
@@ -47,6 +47,10 @@ export class UserPayment extends Component {
 
     reloadList = async (data) => {
         let result = await _list();
+        if (result.code === 403) {
+            this.props.history.push('/403');
+            message.error(result.msg);
+        }
         let list = data ? data : result.data;
         list = list.map((item, index) => {
             return {

@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import Loadable from '@loadable/component';
-import Loading from '@/components/common/Loading';
 
 // import Index from '@/pages/Index';
 // import Resident from '@/pages/admin/Resident';

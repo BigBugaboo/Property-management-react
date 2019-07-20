@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropType from 'prop-types';
-import { Table, Icon, Button, } from 'antd';
+import { Table, message, Button, } from 'antd';
 
 import { _add, _list, _search, _edit } from '@/api/user/UserRepair.js';
 import '@/styles/pages/user/UserRepair.less';
@@ -75,6 +74,10 @@ export class UserRepair extends Component {
 
     reloadList = async (data) => {
         let result = await _list();
+        if (result.code === 403) {
+            this.props.history.push('/403');
+            message.error(result.msg);
+        }
         let list = data ? data : result.data;
         list = list.map((item, index) => {
             return {

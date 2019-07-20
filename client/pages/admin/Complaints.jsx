@@ -53,6 +53,10 @@ export class Complaints extends Component {
 
     reloadList = async (data) => {
         let result = await _list();
+        if (result.code === 403) {
+            this.props.history.push('/403');
+            message.error(result.msg);
+        }
         let list = data ? data : result.data.list;
         list = list.map((item, index) => {
             return {

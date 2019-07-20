@@ -45,11 +45,11 @@ class Login extends Component {
         this.props.actions.setName(result.data.username);
         if (status === '管理员') {
             this.props.actions.admin();
-            history.push('/Main/Account');
+            history.replace('/Main/Account');
         }
         else {
             this.props.actions.user();
-            history.push('/Main/UserInfo');
+            history.replace('/Main/UserInfo');
         }
     };
 

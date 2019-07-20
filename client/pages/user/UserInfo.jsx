@@ -123,6 +123,7 @@ export class UserInfo extends Component {
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error(result.msg);
+            return null;
         }
         let context = data ? data : result.data;
 

@@ -82,6 +82,7 @@ export class Bills extends Component {
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error(result.msg);
+            return null;
         }
         let list = data ? data : result.data.list;
         list = list.map((item, index) => {

@@ -73,6 +73,9 @@ export class UserInfo extends Component {
                         description: '请重新登录',
                     });
                 }
+                else {
+                    message.error('修改失败');
+                }
             });
     }
 

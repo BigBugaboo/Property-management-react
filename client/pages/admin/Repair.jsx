@@ -49,29 +49,27 @@ export class Repair extends Component {
     }
 
     componentDidMount() {
-        this.onshow();
         this.reloadList();
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data.list;
+        let list = typeof data === 'object' ? data : result.data.list;
         list = list.map((item, index) => {
             return {
                 key: index,
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-        }
+        this.setState({
+            data: list
+        });
         this.onhide();
     }
 
@@ -92,6 +90,7 @@ export class Repair extends Component {
     onSearch = (e) => {
         _search(e)
             .then((result) => {
+                message.info(result.msg);
                 this.reloadList(result.data.list);
             });
     }
@@ -106,10 +105,7 @@ export class Repair extends Component {
             cancelText: '取消',
             onOk() {
                 that.deleteItem(record.id);
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
+            }
         });
     }
 
@@ -121,7 +117,8 @@ export class Repair extends Component {
             address: data.address ? data.address : e.address,
             status: data.status ? data.status : e.status,
         };
-        await _edit(require);
+        let result = await _edit(require);
+        message.info(result.msg);
         this.reloadList();
     };
 

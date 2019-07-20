@@ -63,7 +63,6 @@ export class UserInfo extends Component {
         };
         _passwordedit(data)
             .then((result) => {
-                console.log(result);
                 if (result.code === 200) {
                     message.success(result.msg);
                     this.props.history.push('/');
@@ -96,7 +95,7 @@ export class UserInfo extends Component {
         };
         _edit(data)
             .then((result) => {
-                console.log('result', result);
+                message.info(result.msg);
             });
     }
 
@@ -121,14 +120,14 @@ export class UserInfo extends Component {
         this.reloadList();
     }
 
-    reloadList = async (data) => {
+    reloadList = async () => {
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let context = data ? data : result.data;
+        let context = result.data;
 
         this.setState({
             permission: context.account.permission,

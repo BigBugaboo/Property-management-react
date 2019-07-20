@@ -72,29 +72,27 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        this.onshow();
         this.reloadList();
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data;
+        let list = typeof data === 'object' ? data : result.data;
         list = list.map((item, index) => {
             return {
                 key: index,
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-        }
+        this.setState({
+            data: list
+        });
         this.onhide();
     }
 
@@ -114,8 +112,9 @@ class Index extends Component {
 
     onSearch = (e) => {
         _search(e)
-            .then((reponse) => {
-                this.reloadList(reponse.data);
+            .then((result) => {
+                message.info(result.msg);
+                this.reloadList(result.data);
             });
     }
 
@@ -129,10 +128,7 @@ class Index extends Component {
             cancelText: '取消',
             onOk() {
                 that.deleteItem(record.id);
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
+            }
         });
     }
 
@@ -162,7 +158,6 @@ class Index extends Component {
         };
 
         let result = await _add(data);
-        console.log(result);
         if (result.code === -1) {
             message.error(result.msg);
         }

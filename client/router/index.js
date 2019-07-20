@@ -35,7 +35,7 @@ const Mod = ({ match }) => (
             {routes.map((item, index) => {
                 const path = match.url + item.path;
                 return (
-                    <Route exact key={index} path={path} component={item.component} />
+                    <Route history={history} exact key={index} path={path} component={item.component} />
                 );
             })}
         </SiderLayout>

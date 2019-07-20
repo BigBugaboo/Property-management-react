@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropType from 'prop-types';
-import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, message } from 'antd';
+import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, message, notification } from 'antd';
 
 import { _list, _passwordedit, _edit } from '@/api/user/UserInfo.js';
 import '@/styles/pages/user/UserInfo.less';
@@ -65,6 +64,15 @@ export class UserInfo extends Component {
         _passwordedit(data)
             .then((result) => {
                 console.log(result);
+                if (result.code === 200) {
+                    message.success(result.msg);
+                    this.props.history.push('/');
+                    window.sessionStorage.removeItem('Token');
+                    notification['warn']({
+                        message: '重置密码',
+                        description: '请重新登录',
+                    });
+                }
             });
     }
 
@@ -85,7 +93,7 @@ export class UserInfo extends Component {
         };
         _edit(data)
             .then((result) => {
-                console.log('result',result);
+                console.log('result', result);
             });
     }
 
@@ -159,7 +167,7 @@ export class UserInfo extends Component {
     render() {
 
         const {
-            form, visibleAccount,permission, realName, id,
+            form, visibleAccount, permission, realName, id,
             username, phone, houseNumber, address, startDate,
             infoId, status, endDate,
         } = this.state;

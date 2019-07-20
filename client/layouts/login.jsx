@@ -34,7 +34,6 @@ class Login extends Component {
             password: password
         };
         const result = await login(data);
-        console.log(result);
         if (result.data === null) {
             message.error(result.msg);
             return false;

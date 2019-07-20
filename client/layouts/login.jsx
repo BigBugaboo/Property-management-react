@@ -39,6 +39,7 @@ class Login extends Component {
             return false;
         }
         let status = result.data.role;
+        window.sessionStorage.removeItem('Token');
         window.sessionStorage.setItem('Token', result.data.Token);
 
         let history = this.props.history;

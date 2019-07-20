@@ -47,29 +47,27 @@ export class Complaints extends Component {
     }
 
     componentDidMount() {
-        this.onshow();
         this.reloadList();
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data.list;
+        let list = typeof data === 'object' ? data : result.data.list;
         list = list.map((item, index) => {
             return {
                 key: index,
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-        }
+        this.setState({
+            data: list
+        });
         this.onhide();
     }
 
@@ -88,9 +86,9 @@ export class Complaints extends Component {
     // }
 
     onSearch = (e) => {
-        console.log(e);
         _search(e)
             .then((result) => {
+                message.info(result.msg);
                 this.reloadList(result.data.list);
             });
     }
@@ -114,7 +112,6 @@ export class Complaints extends Component {
 
     onChange = (record, e) => {
         const that = this;
-        console.log(record, e);
         Modal.confirm({
             title: '是否已经处理该投诉?',
             content: '确认后，无法修改！',
@@ -123,13 +120,11 @@ export class Complaints extends Component {
             cancelText: '取消',
             onOk() {
                 _edit(record)
-                    .then((response) => {
+                    .then((result) => {
+                        message.info(result.msg);
                         that.reloadList();
                     });
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
+            }
         });
     };
 

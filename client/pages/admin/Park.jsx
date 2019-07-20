@@ -61,27 +61,24 @@ export class Park extends Component {
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data.list;
+        let list = typeof data === 'object' ? data : result.data.list;
         list = list.map((item, index) => {
             return {
                 key: index,
-                startDate: item.usePeriod[0],
-                endDate: item.usePeriod[1],
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-            this.onhide();
-        }
+        this.setState({
+            data: list
+        });
+        this.onhide();
     }
 
     deleteItem = async (id) => {
@@ -113,6 +110,7 @@ export class Park extends Component {
     onSearch = (e) => {
         _search(e)
             .then((result) => {
+                message.info(result.msg);
                 this.reloadList(result.data.list);
             });
     }
@@ -127,20 +125,17 @@ export class Park extends Component {
             cancelText: '取消',
             onOk() {
                 that.deleteItem(record.id);
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
+            }
         });
     }
 
     onChange = async (e, data) => {
-        let result = {
+        let require = {
             id: e.id,
             status: data.status ? data.status : e.status
         };
-        await _edit(result);
-
+        let result = await _edit(require);
+        message.info(result.msg);
         this.reloadList();
     };
 
@@ -157,8 +152,8 @@ export class Park extends Component {
         }
         else if (result.code === 200) {
             message.success(result.msg);
-            this.reloadList();
         }
+        this.reloadList();
     }
 
     render() {

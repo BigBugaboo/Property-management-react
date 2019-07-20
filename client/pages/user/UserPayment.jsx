@@ -37,7 +37,6 @@ export class UserPayment extends Component {
     }
 
     componentDidMount() {
-        this.onshow();
         this.reloadList();
     }
 
@@ -46,31 +45,31 @@ export class UserPayment extends Component {
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data;
+        let list = typeof data === 'object' ? data : result.data;
         list = list.map((item, index) => {
             return {
                 key: index,
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-        }
+        this.setState({
+            data: list
+        });
         this.onhide();
     }
 
     onSearch = (e) => {
         _search(e)
-            .then((response) => {
-                this.reloadList(response.data);
+            .then((result) => {
+                message.info(result.msg);
+                this.reloadList(result.data);
             });
     }
 
@@ -116,7 +115,7 @@ export class UserPayment extends Component {
     }
 
     render() {
-        const { search, data, isLoading, qrCode } = this.state;
+        const { search, data, isLoading } = this.state;
         return (
             <div id='Payment'>
                 <div className='search'>

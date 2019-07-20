@@ -78,26 +78,24 @@ export class Bills extends Component {
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data.list;
+        let list = typeof data === 'object' ? data : result.data.list;
         list = list.map((item, index) => {
             return {
                 key: index,
-                costDate: item.costDate,
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-            this.onhide();
-        }
+        this.setState({
+            data: list
+        });
+        this.onhide();
     }
 
     // deleteItem = async (id) => {
@@ -129,6 +127,7 @@ export class Bills extends Component {
     onSearch = (e) => {
         _search(e)
             .then((result) => {
+                message.info(result.msg);
                 this.reloadList(result.data.list);
             });
     }
@@ -163,8 +162,8 @@ export class Bills extends Component {
         }
         else if (result.code === 200) {
             message.success(result.msg);
-            this.reloadList();
         }
+        this.reloadList();
     }
 
     onChange = (record, e) => {
@@ -177,7 +176,8 @@ export class Bills extends Component {
             cancelText: '取消',
             onOk() {
                 _edit(record)
-                    .then((response) => {
+                    .then((result) => {
+                        message.info(result.msg);
                         that.reloadList();
                     });
             }

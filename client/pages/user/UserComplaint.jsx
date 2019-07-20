@@ -37,6 +37,7 @@ export class UserComplaint extends Component {
     onSearch = (e) => {
         _search(e)
             .then((response) => {
+                message.info(result.msg);
                 this.reloadList(response.data);
             });
     }
@@ -46,9 +47,8 @@ export class UserComplaint extends Component {
             id: record.id,
             ...e
         };
-        console.log(data);
-        await _edit(data);
-
+        let result = await _edit(data);
+        message.info(result.msg);
         this.reloadList();
     };
 
@@ -64,34 +64,33 @@ export class UserComplaint extends Component {
     }
 
     componentDidMount() {
-        this.onshow();
         this.reloadList();
     }
 
     onAdd = async  (e) => {
-        await _add(e);
+        let result = await _add(e);
+        message.info(result.msg);
         this.reloadList();
     }
 
     reloadList = async (data) => {
+        this.onshow();
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
             message.error('缺少权限');
             return null;
         }
-        let list = data ? data : result.data;
+        let list = typeof data === 'object' ? data : result.data;
         list = list.map((item, index) => {
             return {
                 key: index,
                 ...item
             };
         });
-        if (list.length > 0) {
-            this.setState({
-                data: list
-            });
-        }
+        this.setState({
+            data: list
+        });
         this.onhide();
     }
 

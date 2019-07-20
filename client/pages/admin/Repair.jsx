@@ -57,7 +57,7 @@ export class Repair extends Component {
         let result = await _list();
         if (result.code === 403) {
             this.props.history.push('/403');
-            message.error(result.msg);
+            message.error('缺少权限');
             return null;
         }
         let list = data ? data : result.data.list;

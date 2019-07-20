@@ -53,19 +53,6 @@ class Login extends Component {
         }
     };
 
-    onClick = (status) => {
-        let history = this.props.history;
-        this.props.actions.setName('测试');
-        if (status === 0) {
-            this.props.actions.admin();
-            history.push('/Main/Account');
-        }
-        else {
-            this.props.actions.user();
-            history.push('/Main/UserInfo');
-        }
-    }
-
     render() {
         return (
             <div id='login'>
@@ -82,13 +69,11 @@ class Login extends Component {
                         <div className='input-list'>
                             <h2 className='form-title'>物业管理系统 | 登录</h2>
                             <LoginForm onSubmit={this.onSubmit} />
-                            <button onClick={this.onClick.bind(this, 0)}>管理员</button>
-                            <button onClick={this.onClick.bind(this, 1)}>住户</button>
                         </div>
                     </div>
                 </div>
                 <div className='footer'>
-                    <p>电子科技大学中山学院·最帅软件团队-吴彦组</p>
+                    <p>吴彦组</p>
                 </div>
             </div>
         );

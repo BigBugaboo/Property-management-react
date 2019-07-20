@@ -134,7 +134,7 @@ class SiderLayout extends Component {
                     <Content style={{ margin: '16px 16px' }}>
                         {this.props.children}
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>电科大16级-计算机-软件/吴彦组制作</Footer>
+                    <Footer style={{ textAlign: 'center' }}>吴彦组制作</Footer>
                 </Layout>
             </Layout>
         );

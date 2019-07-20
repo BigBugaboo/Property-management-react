@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const api = {
-    list: 'http://120.76.56.164:8080/administrator/repairs/list',
-    edit: 'http://120.76.56.164:8080/administrator/repairs',
-    delete: 'http://120.76.56.164:8080/administrator/repairs',
-    search: 'http://120.76.56.164:8080/administrator/repairs/list'
+    list: 'http://120.76.56.164:8080/administrator/complaint/list',
+    edit: 'http://120.76.56.164:8080/administrator/complaint/status',
+    search: 'http://120.76.56.164:8080/administrator/complaint/keyword'
 };
 
 const addCeptor = () => {
@@ -36,12 +35,9 @@ export const _add = (data) => {
 
 export const _edit = (data) => {
     addCeptor();
-
-    return axios.put(api.edit + '/' + data.id, {
-        summary: data.summary,
-        serviceman: data.serviceman,
-        address: data.address,
-        status: data.status
+    console.log(data);
+    return axios.put(api.edit, {
+        id: data.id
     })
         .then((response) => {
             return response.data;

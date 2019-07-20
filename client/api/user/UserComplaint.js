@@ -2,8 +2,9 @@ import axios from 'axios';
 
 const api = {
     list: 'http://120.76.56.164:8080/proprietor/complaint',
-    search: '',
-    edit: ''
+    search: 'http://120.76.56.164:8080/proprietor/complaint/date',
+    add: 'http://120.76.56.164:8080/proprietor/complaint',
+    edit: 'http://120.76.56.164:8080/proprietor/complaint'
 };
 
 const addCeptor = () => {
@@ -25,6 +26,45 @@ export const _list = () => {
     addCeptor();
 
     return axios.get(api.list)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _search = (data) => {
+    addCeptor();
+
+    return axios.get(api.search, {
+        params: {
+            date: data.date
+        }
+    })
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _add = (data) => {
+    addCeptor();
+
+    return axios.post(api.add, data)
+        .then((response) => {
+            return response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+export const _edit = (data) => {
+    addCeptor();
+
+    return axios.put(api.edit + '/' + data.id, {
+        summary: data.summary
+    })
         .then((response) => {
             return response.data;
         }).catch((error) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropType from 'prop-types';
-import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, Select } from 'antd';
+import { Drawer, Form, Button, Col, Row, Icon, Modal, Input, message } from 'antd';
 
 import { _list, _passwordedit, _edit } from '@/api/user/UserInfo.js';
 import '@/styles/pages/user/UserInfo.less';
@@ -64,18 +64,13 @@ export class UserInfo extends Component {
         };
         _passwordedit(data)
             .then((result) => {
-                console.log('result',result);
+                console.log(result);
             });
-
-        console.log('123' + data.password);
     }
 
     onChangeInfo = (name, e) => {
         let user = this.state;
         user[name] = e.target.value;
-
-
-        console.log(e.target);
     };
 
     onSubmit = () => {
@@ -92,8 +87,6 @@ export class UserInfo extends Component {
             .then((result) => {
                 console.log('result',result);
             });
-
-        console.log(data);
     }
 
     show = () => {
@@ -120,7 +113,7 @@ export class UserInfo extends Component {
     reloadList = async (data) => {
         let result = await _list();
         let context = data ? data : result.data;
-        console.log(context);
+
         this.setState({
             permission: context.account.permission,
             realName: context.account.realName,

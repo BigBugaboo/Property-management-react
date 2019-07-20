@@ -3,8 +3,8 @@ import axios from 'axios';
 const api = {
     list: 'http://120.76.56.164:8080/proprietor/repairs',
     add: 'http://120.76.56.164:8080/proprietor/repairs',
-    search: '',
-    edit: '',
+    search: 'http://120.76.56.164:8080/proprietor/repairs/keyword',
+    edit: 'http://120.76.56.164:8080/proprietor/repairs',
 };
 
 const addCeptor = () => {
@@ -37,6 +37,30 @@ export const _add = (data) => {
     addCeptor();
 
     return axios.post(api.add, data)
+        .then((Response) => {
+            return Response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+export const _search = (data) => {
+    addCeptor();
+
+    return axios.get(api.search, {
+        params: {
+            keyword: data.summary
+        }
+    })
+        .then((Response) => {
+            return Response.data;
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+export const _edit = (data) => {
+    addCeptor();
+
+    return axios.put(api.edit, data)
         .then((Response) => {
             return Response.data;
         }).catch((error) => {

@@ -8,7 +8,7 @@ import Search from '@/components/common/Search';
 import DrawerForm from '@/components/common/DrawerForm';
 
 
-export class UserComplaint extends Component{
+export class UserComplaint extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +18,7 @@ export class UserComplaint extends Component{
                 {
                     type: 'textArea',
                     text: '投诉内容',
-                    name: 'content',
+                    name: 'summary',
                     placeholder: '请输入你想要投诉的信息',
                     value: '',
                 },
@@ -28,18 +28,28 @@ export class UserComplaint extends Component{
                     type: 'date',
                     title: '投诉日期',
                     placeholder: '请输入投诉日期',
-                    name: 'startdate'
+                    name: 'date'
                 }
             ],
         };
     }
 
     onSearch = (e) => {
-        console.log(e);
+        _search(e)
+            .then((response) => {
+                this.reloadList(response.data);
+            });
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = async (record, e) => {
+        let data = {
+            id: record.id,
+            ...e
+        };
+        console.log(data);
+        await _edit(data);
+
+        this.reloadList();
     };
 
     onhide = () => {
@@ -58,6 +68,11 @@ export class UserComplaint extends Component{
         this.reloadList();
     }
 
+    onAdd = async  (e) => {
+        await _add(e);
+        this.reloadList();
+    }
+
     reloadList = async (data) => {
         let result = await _list();
         let list = data ? data : result.data;
@@ -67,7 +82,6 @@ export class UserComplaint extends Component{
                 ...item
             };
         });
-        console.log(list);
         if (list.length > 0) {
             this.setState({
                 data: list
@@ -90,6 +104,7 @@ export class UserComplaint extends Component{
                         btnText='添加'
                         btnIcon='plus'
                         btnType='primary'
+                        onSubmit={this.onAdd}
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
@@ -103,22 +118,22 @@ export class UserComplaint extends Component{
                             key='action'
                             render={(text, record) => (
                                 <Button.Group>
-                                    { record.dealDate == null &&
-                                    <DrawerForm
-                                        btnText='修改'
-                                        btnIcon='edit'
-                                        btnType='primary'
-                                        onSubmit={this.onChange}
-                                        form={[
-                                            {
-                                                type: 'textArea',
-                                                text: '投诉内容',
-                                                name: 'content',
-                                                placeholder: '请输入你想要投诉的信息',
-                                                value: record.content,
-                                            },
-                                        ]}
-                                    />}
+                                    {record.dealDate === null &&
+                                        <DrawerForm
+                                            btnText='修改'
+                                            btnIcon='edit'
+                                            btnType='primary'
+                                            onSubmit={this.onChange.bind(this, record)}
+                                            form={[
+                                                {
+                                                    type: 'textArea',
+                                                    text: '投诉内容',
+                                                    name: 'summary',
+                                                    placeholder: '请输入你想要投诉的信息',
+                                                    value: record.summary,
+                                                },
+                                            ]}
+                                        />}
 
                                 </Button.Group>
                             )}

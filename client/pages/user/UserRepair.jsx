@@ -8,7 +8,7 @@ import Search from '@/components/common/Search';
 import DrawerForm from '@/components/common/DrawerForm';
 
 
-export class UserRepair extends Component{
+export class UserRepair extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +18,7 @@ export class UserRepair extends Component{
                 {
                     type: 'textArea',
                     text: '报修内容',
-                    name: 'content',
+                    name: 'summary',
                     placeholder: '请输入你想要报修的信息',
                     value: '',
                 },
@@ -28,18 +28,26 @@ export class UserRepair extends Component{
                     type: 'input',
                     title: '报修内容',
                     placeholder: '请输入报修内容',
-                    name: 'startdate'
+                    name: 'summary'
                 }
             ],
         };
     }
 
     onSearch = (e) => {
-        console.log(e);
+        _search(e)
+            .then((response) => {
+                this.reloadList(response.data);
+            });
     }
 
-    onChange = (e) => {
-        console.log(e);
+    onChange = async (record, e) => {
+        let data = {
+            id: record.id,
+            summary: e.summary
+        };
+        await _edit(data);
+        this.reloadList();
     };
 
     onhide = () => {
@@ -55,6 +63,13 @@ export class UserRepair extends Component{
 
     componentDidMount() {
         this.onshow();
+        this.reloadList();
+    }
+
+    onAdd = async (e) => {
+        console.log(e);
+        await _add(e);
+
         this.reloadList();
     }
 
@@ -90,6 +105,7 @@ export class UserRepair extends Component{
                         btnText='添加'
                         btnIcon='plus'
                         btnType='primary'
+                        onSubmit={this.onAdd}
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
@@ -103,22 +119,22 @@ export class UserRepair extends Component{
                             key='action'
                             render={(text, record) => (
                                 <Button.Group>
-                                    { record.serviceman == '' &&
-                                    <DrawerForm
-                                        btnText='修改'
-                                        btnIcon='edit'
-                                        btnType='primary'
-                                        onSubmit={this.onChange}
-                                        form={[
-                                            {
-                                                type: 'textArea',
-                                                text: '报修内容',
-                                                name: 'content',
-                                                placeholder: '请输入你想要报修的信息',
-                                                value: record.content,
-                                            },
-                                        ]}
-                                    />}
+                                    {record.serviceman === '' &&
+                                        <DrawerForm
+                                            btnText='修改'
+                                            btnIcon='edit'
+                                            btnType='primary'
+                                            onSubmit={this.onChange.bind(this, record)}
+                                            form={[
+                                                {
+                                                    type: 'textArea',
+                                                    text: '报修内容',
+                                                    name: 'summary',
+                                                    placeholder: '请输入你想要报修的信息',
+                                                    value: record.summary,
+                                                },
+                                            ]}
+                                        />}
 
                                 </Button.Group>
                             )}

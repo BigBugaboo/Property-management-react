@@ -38,8 +38,8 @@ export const _add = (data) => {
 export const _edit = (data) => {
     addCeptor();
 
-    return axios.put(api.edit + '/' + data.id, {
-        status: data.status
+    return axios.put(api.edit, {
+        id: data.id
     })
         .then((response) => {
             return response.data;

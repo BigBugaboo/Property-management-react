@@ -123,9 +123,6 @@ export class Account extends Component {
             onOk() {
                 that.deleteItem(record.id);
             },
-            onCancel() {
-                console.log('Cancel');
-            },
         });
     }
 

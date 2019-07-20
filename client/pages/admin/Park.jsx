@@ -17,7 +17,7 @@ export class Park extends Component {
                 {
                     type: 'input',
                     text: '住户编号',
-                    name: 'proprietorId',
+                    name: 'id',
                     placeholder: '请输入住户编号',
                 },
                 {

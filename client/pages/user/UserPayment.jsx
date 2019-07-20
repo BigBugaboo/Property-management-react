@@ -54,7 +54,6 @@ export class UserPayment extends Component {
                 ...item
             };
         });
-        console.log(list);
         if (list.length > 0) {
             this.setState({
                 data: list
@@ -64,17 +63,14 @@ export class UserPayment extends Component {
     }
 
     onSearch = (e) => {
-        console.log(e);
         _search(e)
             .then((response) => {
-                console.log(response);
                 this.reloadList(response.data);
             });
     }
 
     onPay = async (record, e) => {
         const result = await _pay(record);
-        console.log(result.data);
         this.setState({
             qrCode: result.data.qrCode
         }, () => {

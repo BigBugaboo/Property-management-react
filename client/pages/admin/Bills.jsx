@@ -17,7 +17,7 @@ export class Bills extends Component {
                 {
                     type: 'input',
                     text: '住户编号',
-                    name: 'residentKey',
+                    name: 'proprietorId',
                     placeholder: '请输入住户编号',
                     value: '',
                 },
@@ -36,12 +36,12 @@ export class Bills extends Component {
                     value: '',
                     option: [
                         {
-                            value: '水电费',
-                            text: '水电费',
+                            value: '水费',
+                            text: '水费',
                         },
                         {
-                            value: '停车费',
-                            text: '停车费',
+                            value: '电费',
+                            text: '电费',
                         },
                         {
                             value: '物业费',
@@ -67,14 +67,10 @@ export class Bills extends Component {
                     type: 'input',
                     title: '状态',
                     placeholder: '请输入状态',
-                    name: 'state'
+                    name: 'status'
                 },
             ]
         };
-    }
-
-    static propTypes = {
-
     }
 
     componentDidMount() {
@@ -91,7 +87,6 @@ export class Bills extends Component {
                 ...item
             };
         });
-        console.log(list);
         if (list.length > 0) {
             this.setState({
                 data: list
@@ -151,9 +146,7 @@ export class Bills extends Component {
     // }
 
     onAdd = async (e) => {
-        console.log(e);
         let result = await _add(e);
-        console.log(result);
         if (result.code === -1) {
             message.error(result.msg);
         }
@@ -170,6 +163,7 @@ export class Bills extends Component {
     }
 
     onChange = (record, e) => {
+        let that = this;
         Modal.confirm({
             title: '是否确认通过该缴费?',
             content: '确认后，无法修改！',
@@ -179,13 +173,9 @@ export class Bills extends Component {
             onOk() {
                 _edit(record)
                     .then((response) => {
-                        console.log(response);
+                        that.reloadList();
                     });
-                this.reloadList();
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
+            }
         });
     };
 
@@ -217,7 +207,7 @@ export class Bills extends Component {
                             title='操作'
                             render={(text, record) => (
                                 <Button.Group>
-                                    {record.state !== '已缴费' &&
+                                    {record.status !== '已缴费' &&
                                         <Button
                                             type='primary'
                                             onClick={this.onChange.bind(this, record)}>

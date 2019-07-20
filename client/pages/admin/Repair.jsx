@@ -17,8 +17,8 @@ export class Repair extends Component {
             search: [
                 {
                     type: 'input',
-                    title: '住户编号',
-                    placeholder: '请输入住户编号',
+                    title: '账号编号',
+                    placeholder: '请输入账号编号',
                     name: 'id'
                 },
                 {
@@ -136,8 +136,8 @@ export class Repair extends Component {
                 <div style={{ padding: 16, backgroundColor: '#fff' }}>
                     <h2>报修管理</h2>
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
-                        <Table.Column title='编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='proprietorId' key='proprietorId' />
+                        <Table.Column title='编号' dataIndex='id' key='id' />
+                        <Table.Column title='账号编号' dataIndex='proprietorId' key='proprietorId' />
                         <Table.Column title='报修日期' dataIndex='repairDate' key='repairDate' />
                         <Table.Column title='地址' dataIndex='address' key='address' />
                         <Table.Column title='维修内容' dataIndex='summary' key='summary' />

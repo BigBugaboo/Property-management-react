@@ -15,8 +15,8 @@ export class Complaints extends Component {
             search: [
                 {
                     type: 'input',
-                    title: '住户编号',
-                    placeholder: '请输入住户编号',
+                    title: '账号编号',
+                    placeholder: '请输入账号编号',
                     name: 'proprietorId'
                 },
                 {
@@ -144,8 +144,8 @@ export class Complaints extends Component {
                 <div style={{ padding: 16, backgroundColor: '#fff' }}>
                     <h2>投诉管理</h2>
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
-                        <Table.Column title='编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='proprietorId' key='proprietorId' />
+                        <Table.Column title='编号' dataIndex='id' key='id' />
+                        <Table.Column title='账号编号' dataIndex='proprietorId' key='proprietorId' />
                         <Table.Column title='投诉日期' dataIndex='complaintDate' key='complaintDate' />
                         <Table.Column title='投诉内容' dataIndex='summary' key='summary' />
                         <Table.Column title='处理日期' dataIndex='dealDate' key='dealDate' />

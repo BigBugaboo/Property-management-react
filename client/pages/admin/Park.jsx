@@ -16,7 +16,7 @@ export class Park extends Component {
             form: [
                 {
                     type: 'input',
-                    text: '住户编号',
+                    text: '账号编号',
                     name: 'id',
                     placeholder: '请输入住户编号',
                 },
@@ -36,7 +36,7 @@ export class Park extends Component {
             search: [
                 {
                     type: 'input',
-                    title: '住户编号',
+                    title: '账号编号',
                     placeholder: '请输入住户编号',
                     name: 'id'
                 },
@@ -179,8 +179,8 @@ export class Park extends Component {
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default' loading={isloading}>
-                        <Table.Column title='编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='proprietorId' key='proprietorId' />
+                        <Table.Column title='编号' dataIndex='id' key='id' />
+                        <Table.Column title='账号编号' dataIndex='proprietorId' key='proprietorId' />
                         <Table.Column title='车牌号' dataIndex='carNum' key='carNum' />
                         <Table.Column title='使用时间' dataIndex='startDate' key='startDate' />
                         <Table.Column title='停用时间' dataIndex='endDate' key='endDate' />

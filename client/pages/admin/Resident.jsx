@@ -137,6 +137,7 @@ class Index extends Component {
     }
 
     onChange = async (record, e) => {
+        this.onshow();
         let require = {
             id: record.id,
             realName: e.realName ? e.realName : record.realName,
@@ -145,12 +146,13 @@ class Index extends Component {
             houseNumber: e.houseNumber ? e.houseNumber : record.houseNumber,
         };
 
-        await _edit(require);
-
+        let result = await _edit(require);
+        message.info(result.msg);
         this.reloadList();
     };
 
     onAdd = async (e) => {
+        this.onshow();
         const data = {
             account: e.account,
             realName: e.realName,
@@ -172,8 +174,8 @@ class Index extends Component {
         }
         else if (result.code === 200) {
             message.success(result.msg);
-            this.reloadList();
         }
+        this.reloadList();
     }
 
     render() {
@@ -194,8 +196,7 @@ class Index extends Component {
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
-                        <Table.Column title='编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='id' key='id' />
+                        <Table.Column title='编号' dataIndex='id' key='id' />
                         <Table.Column title='住户姓名' dataIndex='realName' key='realName' />
                         <Table.Column title='联系电话' dataIndex='phone' key='phone' />
                         <Table.Column title='联系地址' dataIndex='address' key='address' />

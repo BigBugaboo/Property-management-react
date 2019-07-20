@@ -16,7 +16,7 @@ export class Bills extends Component {
             form: [
                 {
                     type: 'input',
-                    text: '住户编号',
+                    text: '账号编号',
                     name: 'proprietorId',
                     placeholder: '请输入住户编号',
                     value: '',
@@ -53,8 +53,8 @@ export class Bills extends Component {
             search: [
                 {
                     type: 'input',
-                    title: '住户编号',
-                    placeholder: '请输入住户编号',
+                    title: '账号编号',
+                    placeholder: '请输入账号编号',
                     name: 'proprietorId'
                 },
                 {
@@ -202,8 +202,8 @@ export class Bills extends Component {
                         form={form}
                     />
                     <Table dataSource={data} bordered={true} size='default' loading={isLoading}>
-                        <Table.Column title='编号' dataIndex='key' key='key' />
-                        <Table.Column title='住户编号' dataIndex='proprietorId' key='proprietorId' />
+                        <Table.Column title='编号' dataIndex='id' key='id' />
+                        <Table.Column title='账号编号' dataIndex='proprietorId' key='proprietorId' />
                         <Table.Column title='缴费日期' dataIndex='costDate' key='costDate' />
                         <Table.Column title='缴费项目' dataIndex='item' key='item' />
                         <Table.Column title='缴费总额' dataIndex='money' key='money' />

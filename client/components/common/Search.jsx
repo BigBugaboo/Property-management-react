@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Button, Input, DatePicker } from 'antd';
-import PropTypes from 'prop-types';
+import { Collapse, Button, Input, DatePicker, Radio } from 'antd';
 
 import '@/styles/components/common/search.less';
 
@@ -14,13 +13,15 @@ export class Search extends Component {
         this.onSearch = this.onSearch.bind(this);
     }
 
-    static propTypes = {
-
-    }
-
     onChange = (name, e, str) => {
         let arr = this.state.data;
-        let value = e.target === undefined ? str : e.target.value;
+        let value;
+        if (!e) {
+            value = '';
+        }
+        else {
+            value = e.target === undefined ? str : e.target.value;
+        }
         arr[name] = value.toString();
         this.setState({
             data: arr
@@ -40,7 +41,7 @@ export class Search extends Component {
                     return (
                         <DatePicker
                             key={key}
-                            className='item'
+                            className='item-input'
                             placeholder={item.placeholder}
                             onChange={this.onChange.bind(this, item.name)}
                         />
@@ -50,11 +51,26 @@ export class Search extends Component {
                     return (
                         <Input
                             key={key}
-                            className='item'
+                            className='item-input'
                             addonBefore={item.title}
                             placeholder={item.placeholder}
                             onChange={this.onChange.bind(this, item.name)}
                         />
+                    );
+                },
+                radio: () => {
+                    return (
+                        <Radio.Group
+                            className='item'
+                            key={key}
+                            buttonStyle='solid'
+                            defaultValue=''
+                            onChange={this.onChange.bind(this, item.name)}>
+                            <Radio.Button value=''>全部</Radio.Button>
+                            {item.list.map((text, index) => (
+                                <Radio.Button value={text} key={index}>{text}</Radio.Button>
+                            ))}
+                        </Radio.Group>
                     );
                 }
             };

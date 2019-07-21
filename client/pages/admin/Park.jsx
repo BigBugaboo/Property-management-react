@@ -47,7 +47,11 @@ export class Park extends Component {
                     name: 'num'
                 },
                 {
-                    type: 'input',
+                    type: 'radio',
+                    list: [
+                        '空闲',
+                        '停车中',
+                    ],
                     title: '状态',
                     placeholder: '请输入状态',
                     name: 'status'
@@ -72,6 +76,8 @@ export class Park extends Component {
         list = list.map((item, index) => {
             return {
                 key: index,
+                startDate: item && item.usePeriod[0],
+                endDate: item && item.usePeriod[1],
                 ...item
             };
         });

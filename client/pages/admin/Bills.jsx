@@ -58,14 +58,24 @@ export class Bills extends Component {
                     name: 'proprietorId'
                 },
                 {
-                    type: 'input',
+                    type: 'radio',
                     title: '收费项目',
+                    list: [
+                        '水费',
+                        '电费',
+                        '物业费',
+                        '停车费',
+                    ],
                     placeholder: '请输入收费项目',
                     name: 'item'
                 },
                 {
-                    type: 'input',
+                    type: 'radio',
                     title: '状态',
+                    list: [
+                        '已缴费',
+                        '未交费',
+                    ],
                     placeholder: '请输入状态',
                     name: 'status'
                 },

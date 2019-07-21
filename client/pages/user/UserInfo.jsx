@@ -128,43 +128,45 @@ export class UserInfo extends Component {
             return null;
         }
         let context = result.data;
-
+        const startDate = context.carport.stopDate ? context.carport.stopDate[0] : '无';
+        const endDate = context.carport.stopDate ? context.carport.stopDate[1] : '无';
+        const permission = context.account.permission === 2 ? '业主' : '管理员';
         this.setState({
-            permission: context.account.permission,
-            realName: context.account.realName,
-            username: context.account.username,
-            phone: context.proprietor.phone,
-            houseNumber: context.proprietor.houseNumber,
-            address: context.proprietor.address,
-            infoId: context.proprietor.id,
-            id: context.carport.id,
-            startDate: context.carport.stopDate[0],
-            endDate: context.carport.stopDate[1],
-            status: context.carport.status,
+            permission: permission,
+            realName: context.account.realName || '无',
+            username: context.account.username || '无',
+            phone: context.proprietor.phone || '无',
+            houseNumber: context.proprietor.houseNumber || '无',
+            address: context.proprietor.address || '无',
+            infoId: context.proprietor.id || '无',
+            id: context.carport.id || '无',
+            startDate: startDate,
+            endDate: endDate,
+            status: context.carport.status || '无',
             form: [
                 {
                     text: '联系电话',
                     name: 'phone',
                     placeholder: '请填写联系电话',
-                    value: context.proprietor.phone,
+                    value: context.proprietor.phone || '无',
                 },
                 {
                     text: '住户姓名',
                     name: 'realName',
                     placeholder: '请填写住户姓名',
-                    value: context.account.realName,
+                    value: context.account.realName || '无',
                 },
                 {
                     text: '房屋编号',
                     name: 'houseNumber',
                     placeholder: '请填写房屋编号',
-                    value: context.proprietor.houseNumber,
+                    value: context.proprietor.houseNumber || '无',
                 },
                 {
                     text: '联系地址',
                     name: 'address',
                     placeholder: '请填写联系地址',
-                    value: context.proprietor.address,
+                    value: context.proprietor.address || '无',
                 },
             ]
 

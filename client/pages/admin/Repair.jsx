@@ -25,11 +25,15 @@ export class Repair extends Component {
                     type: 'date',
                     title: '报修日期',
                     placeholder: '请输入报修日期',
-                    name: 'data'
+                    name: 'date'
                 },
                 {
-                    type: 'input',
+                    type: 'radio',
                     title: '状态',
+                    list: [
+                        '已处理',
+                        '未处理',
+                    ],
                     placeholder: '请输入状态',
                     name: 'status'
                 },
@@ -88,9 +92,11 @@ export class Repair extends Component {
     }
 
     onSearch = (e) => {
+        console.log(e);
         _search(e)
             .then((result) => {
                 message.info(result.msg);
+                console.log(result);
                 this.reloadList(result.data.list);
             });
     }

@@ -36,9 +36,9 @@ export class UserComplaint extends Component {
 
     onSearch = (e) => {
         _search(e)
-            .then((response) => {
+            .then((result) => {
                 message.info(result.msg);
-                this.reloadList(response.data);
+                this.reloadList(result.data);
             });
     }
 

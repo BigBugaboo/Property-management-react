@@ -7,7 +7,8 @@ import history from './history';
 import SiderLayout from '@/layouts/SiderLayout';
 // import Login from '@/layouts/Login';
 const Login = Loadable(() => import('@/layouts/Login'));
-const ErrorPage = Loadable(() => import('@/pages/ErrorPage'));
+const limit = Loadable(() => import('@/pages/403'));
+const lose = Loadable(() => import('@/pages/404'));
 
 const routes = require('./routes.js');
 
@@ -17,8 +18,10 @@ class RouterIndex extends Component {
             <Router history={history}>
                 <Switch>
                     <Route exact path='/' component={Login} />
+                    <Route exact path='/Login' component={Login} />
                     <Route path='/Main' component={Mod} />
-                    <Route component={ErrorPage}></Route>
+                    <Route path='/403' component={limit}></Route>
+                    <Route component={lose}></Route>
                 </Switch>
             </Router>
         );

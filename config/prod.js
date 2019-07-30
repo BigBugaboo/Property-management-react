@@ -18,13 +18,40 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
-            chunks: 'all',
+            chunks: 'async',
             cacheGroups: { // 单独提取JS文件引入html
                 "antd-vendor": {
                     chunks: 'initial',
                     test: (module) => (/antd/.test(module.context)),
                     name: 'antd',
-                    priority: 2,
+                    reuseExistingChunk: false,
+                    enforce: true
+                },
+                "@ant-design": {
+                    chunks: 'initial',
+                    test: (module) => (/@ant-design/.test(module.context)),
+                    name: '@ant-design',
+                    reuseExistingChunk: false,
+                    enforce: true
+                },
+                "react-dom": {
+                    chunks: 'initial',
+                    test: (module) => (/react-dom/.test(module.context)),
+                    name: 'react-dom',
+                    reuseExistingChunk: false,
+                    enforce: true
+                },
+                "draft": {
+                    chunks: 'initial',
+                    test: (module) => (/draft-js/.test(module.context)),
+                    name: 'draft',
+                    reuseExistingChunk: false,
+                    enforce: true
+                },
+                "moment": {
+                    chunks: 'initial',
+                    test: (module) => (/moment/.test(module.context)),
+                    name: 'moment',
                     reuseExistingChunk: false,
                     enforce: true
                 },

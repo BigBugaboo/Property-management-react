@@ -60,14 +60,6 @@ module.exports = {
                 },
             ],
         },
-        // {
-        //     test: /\.scss$/,
-        //     use: [
-        //         "style-loader",
-        //         "css-loader",
-        //         "sass-loader?localIdentName=[local]_[hash:base64:5]",
-        //     ]
-        // },
         {
             test: /\.css$/,
             loader: 'style-loader!css-loader'
